@@ -1,0 +1,281 @@
+﻿<!-- SignIn START -->
+
+
+
+<div class="donate global__py pt-5">
+    <div class="container p-sm-0">
+    
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <!-- Form -->
+                <div class="">
+                    <form action="#" method="POST" class="form mt-0 border-0">
+
+
+                        <div class="row" id="first">
+                            <h4 class="sign__form-heading">Sign Up</h4>
+                            <div class="col-md-6">
+                                <div class="sign__form-mb">
+                                    <label class="sign__form-label" for="emailInp" id="email">
+                                        First Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="emailInp" type="email"
+                                           placeholder="Enter your first name">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="sign__form-mb">
+                                    <label class="sign__form-label" for="emailInp" id="email">
+                                        Last Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="emailInp" type="email"
+                                           placeholder="Enter your last name">
+
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="sign__form-mb">
+                                    <label class="sign__form-label" for="emailInp" id="email">
+                                        Email <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="emailInp" type="email"
+                                           placeholder="Enter your email">
+                                    <span class="sign__text sign__text-email text-danger d-none">Email must be valid</span>
+                                    <span class="sign__text sign__text-email--required text-danger d-none">
+                                        Email is
+                                        required
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <label class="sign__form-label" for="passwordInp">
+                                        Password <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="passwordInp"
+                                           type="password" placeholder="Create a Password">
+                                    <div class="">
+                                        <span class="sign__text sign__text-pass text-danger d-none">
+                                            Password must be 3 to 5
+                                            characters long
+                                        </span>
+                                        <span class="sign__text sign__text-pass--required text-danger d-none">
+                                            Password is
+                                            required
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
+                                    <label class="sign__form-rem">
+                                        <input type="checkbox" id="checkbox" name="checkbox">
+                                        <span class="sign__form-rem--checkmark sign__text"></span>
+                                        By continuing, you agree to the My Business Shower <a href="@Url.Action("legal","Home")">
+                                            terms
+                                        </a>and acknowledge receipt of
+                                        our <a href="@Url.Action("privacy","Home")"> privacy notice</a>.
+                                    </label>
+
+                                </div>
+
+
+                            </div>
+                            <div class="col-10 col-sm-12 m-auto">
+                                <div class="">
+                                    <input class="sign__btn sign__btn-in form-control" type="button"
+                                           value="Next" onclick="nextpart(1)">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row" id="second" style="display:none">
+                            <div class="col-md-6">
+                                <div class="sign__form-mb">
+                                    <label class="sign__form-label" for="emailInp" id="email">
+                                        Where is your business located? <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="emailInp" type="email">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="sign__form-mb">
+                                    <label class="sign__form-label" for="emailInp" id="email">
+                                        Post code<span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="emailInp" type="email"
+                                           placeholder="post code">
+
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="sign__form-mb">
+                                    <label class="sign__form-label" for="emailInp" id="email">
+                                        Are you fundraising for your actual business or you are
+                                        starting now? <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="emailInp" type="email">
+
+                                </div>
+                           
+                                <div class="mt-2">
+                                    <label class="sign__form-label" for="passwordInp">
+                                        What' s your telephone number? (keep your account safe)
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="passwordInp"
+                                           type="text">
+
+                                </div>
+                                <div class="mt-2">
+                                    <label class="sign__form-label" for="passwordInp">
+                                        Send verification code
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <ul class="form__ul">
+                                        <li class="bg-transparent py-0 ps-0">
+                                            <label class="form__ul-label form__ul-label--pointer">
+                                                <span class="form__ul-div d-block px-0">
+                                                    <input type="radio" id="testFive" name="check">
+                                                    <span class="form__ul-label--checkmark" style="left: 0;"></span>
+                                                    Text message
+                                                </span>
+                                            </label>
+                                        </li>
+                                        <li class="bg-transparent py-0 ps-0">
+                                            <label class="form__ul-label form__ul-label--pointer">
+                                                <span class="form__ul-div d-block px-0">
+                                                    <input type="radio" id="testSix" name="check">
+                                                    <span class="form__ul-label--checkmark" style="left: 0;"></span>
+                                                    Voice call
+                                                </span>
+                                            </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form__ul-label form__ul-label--lg ps-0" for="comment">
+                                        Describe your business/start up?
+                                    </label>
+                                    <textarea class="form-control form__input" id="comment" cols="30" rows="5"></textarea>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form__ul-label form__ul-label--lg ps-0" for="comment">
+                                        Upload photo/video?
+                                    </label>
+                                    <input class="form-control sign__form-input" type="file">
+                                </div>
+                                <div class="mt-2">
+                                    <label class="sign__form-label" for="passwordInp">
+                                        Name your Business Shower
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="passwordInp"
+                                           type="text">
+
+                                </div>
+                                <div class="mt-2">
+                                    <label class="sign__form-label" for="passwordInp">
+                                        What is your story? How does that business aligns with
+                                        you? What is the mission and vision behind it? (up to
+                                        1500 words)
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea class="form-control form__input" id="comment" cols="30" rows="5"></textarea>
+
+                                </div>
+                                <div class="mt-2">
+                                    <label class="sign__form-label" for="passwordInp">
+                                        What is your Business Shower goal? How much would you
+                                        need to raise?
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input class="form-control sign__form-input" id="passwordInp"
+                                           type="text">
+
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-6 m-auto">
+                                <div class="">
+                                   <a href="@Url.Action("preview","Home")"> <input class="sign__btn sign__btn-in form-control" type="button"
+                                           value="Preview"></a>
+                                </div>
+
+                            </div>
+                            <div class="col-6 col-sm-6 m-auto">
+                                <div class="">
+                                    <input class="sign__btn sign__btn-in form-control" type="button"
+                                           value="Create bussiness ">
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Right Sider_Bar   -->
+            <div class="col-12 col-sm-8 col-lg-4 d-none d-lg-block">
+                
+                <div class="volunteer__requirement">
+                    <h3 class="volunteer__text">Our Requirements</h3>
+                    <p class="volunteer__desc">
+                        consectetur adipiscing elit. Etiam eu turpis molestie, dictum est
+                        a,
+                        mattis tellus. Sed dignissim, metus nec fringilla
+                        accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget
+                        condimentum velit, sit amet
+                        feugiat lectus.
+                    </p>
+                    <p class="volunteer__desc mt-2">
+                        consectetur adipiscing elit. Etiam eu turpis molestie,
+                        dictum
+                        est a, mattis tellus. Sed dignissim, metus nec fringilla
+                        accumsan,
+                    </p>
+                    <div class="">
+                        <ul class="volunteer__list">
+                            <li>
+                                <img class="img-fluid" src="~/assets/assets/img/check.svg" alt="image">
+                                Volunteers need to be able to a strong work ethic.
+                            </li>
+                            <li class="mb-0">
+                                <img class="img-fluid" src="~/assets/assets/img/check.svg" alt="image">
+                                Volunteers need to be able to a strong work ethic.
+                            </li>
+                        </ul>
+                        <ul class="volunteer__list mb-0">
+                            <li>
+                                <div class="">
+                                    <i class="fa fa-phone volunteer__list-i"></i>
+                                </div>
+                                <div class="">
+                                    <span class="volunteer__list-sub">Call Anytime</span>
+                                    <h5 class="volunteer__list-content">+91 (000) 4569</h5>
+                                </div>
+                            </li>
+                            <li class="mb-0">
+                                <div class="">
+                                    <i class="fa fa-envelope-open volunteer__list-i"></i>
+                                </div>
+                                <div class="">
+                                    <span class="volunteer__list-sub">Email Us</span>
+                                    <h5 class="volunteer__list-content">info@gmail.com</h5>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function nextpart(id) {
+        if (id == 1) {
+            $("#first").fadeOut();
+            $("#second").fadeIn();
+        }
+        
+    }
+    </script>

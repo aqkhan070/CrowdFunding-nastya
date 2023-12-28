@@ -1,0 +1,487 @@
+﻿<!doctype html>
+<html lang="en" data-layout="vertical" data-layout-style="detached" data-sidebar="dark" data-topbar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+<head>
+
+    <meta charset="utf-8" />
+    <title>Dashboard | My Business Shower</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/assets/img/Logo.png">
+
+    <!-- Layout config Js -->
+    <script src="~/assets/admin/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="~/assets/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/assets/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/assets/admin/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="~/assets/admin/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/libs/dropzone/dropzone.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <header id="page-topbar">
+            <div class="layout-width">
+                <div class="navbar-header">
+                    <div class="d-flex">
+                        <!-- LOGO -->
+                        <div class="navbar-brand-box horizontal-logo">
+                            @*<a href="@Url.Action("Index","Home")" class="logo logo-dark">
+                                <span class="logo-sm" style="color:white;font-size:15px">
+                                    <img src="~/assets/assets/img/Logo.png" alt="" height="22">  My Business Shower 
+                                </span>
+                                <span class="logo-lg">
+                                    My Business Shower   <img src="~/assets/assets/img/Logo.png" alt="" height="60">
+                                </span>
+                            </a>*@
+
+                            <a href="@Url.Action("Index","Home")" class="logo logo-light">
+                                <span class="logo-sm" style="color:white;font-size:23px">
+                                    @*<img src="~/assets/assets/img/Logo.png" alt="" height="22">*@  My Business Shower
+                                </span>
+                                <span class="logo-lg" style="color:white;font-size:23px">
+                                    @*<img src="~/assets/assets/img/Logo.png" alt="" height="60">*@  My Business Shower
+                                </span>
+                            </a>
+                        </div>
+
+                        <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                            <span class="hamburger-icon">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </button>
+
+                    </div>
+
+                    <div class="d-flex align-items-center">
+
+
+
+
+                        <div class="ms-1 header-item d-none d-sm-flex">
+                            <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                                <i class='bx bx-fullscreen fs-22'></i>
+                            </button>
+                        </div>
+
+                        <div class="ms-1 header-item d-none d-sm-flex">
+                            <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                                <i class='bx bx-moon fs-22'></i>
+                            </button>
+                        </div>
+
+                        <div class="dropdown topbar-head-dropdown ms-1 header-item" id="notificationDropdown">
+                            <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                                <i class='bx bx-bell fs-22'></i>
+                                <span class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">3<span class="visually-hidden">unread messages</span></span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+
+                                <div class="dropdown-head bg-primary bg-pattern rounded-top">
+                                    <div class="p-3">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <h6 class="m-0 fs-16 fw-semibold text-white"> Notifications </h6>
+                                            </div>
+                                            <div class="col-auto dropdown-tabs">
+                                                <span class="badge bg-light-subtle text-body fs-13"> 4 New</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="tab-content position-relative" id="notificationItemsTabContent">
+                                    <div class="tab-pane fade show active py-2 ps-2" id="all-noti-tab" role="tabpanel">
+                                        <div data-simplebar style="max-height: 300px;" class="pe-2">
+                                            <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                                <div class="d-flex">
+                                                    <div class="avatar-xs me-3 flex-shrink-0">
+                                                        <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
+                                                            <i class="bx bx-badge-check"></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!" class="stretched-link">
+                                                            <h6 class="mt-0 mb-2 lh-base">
+                                                                Your <b>Elite</b> author Graphic
+                                                                Optimization <span class="text-secondary">reward</span> is
+                                                                ready!
+                                                            </h6>
+                                                        </a>
+                                                        <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                            <span><i class="mdi mdi-clock-outline"></i> Just 30 sec ago</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="px-2 fs-15">
+                                                        <div class="form-check notification-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="all-notification-check01">
+                                                            <label class="form-check-label" for="all-notification-check01"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                                <div class="d-flex">
+                                                    <img src="~/assets/admin/images/users/avatar-2.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!" class="stretched-link">
+                                                            <h6 class="mt-0 mb-1 fs-13 fw-semibold">Angela Bernier</h6>
+                                                        </a>
+                                                        <div class="fs-13 text-muted">
+                                                            <p class="mb-1">
+                                                                Answered to your comment on the cash flow forecast's
+                                                                graph 🔔.
+                                                            </p>
+                                                        </div>
+                                                        <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                            <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="px-2 fs-15">
+                                                        <div class="form-check notification-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="all-notification-check02">
+                                                            <label class="form-check-label" for="all-notification-check02"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                                <div class="d-flex">
+                                                    <div class="avatar-xs me-3">
+                                                        <span class="avatar-title bg-danger-subtle text-danger rounded-circle fs-16">
+                                                            <i class='bx bx-message-square-dots'></i>
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!" class="stretched-link">
+                                                            <h6 class="mt-0 mb-2 fs-13 lh-base">
+                                                                You have received <b class="text-success">20</b> new messages in the conversation
+                                                            </h6>
+                                                        </a>
+                                                        <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                            <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="px-2 fs-15">
+                                                        <div class="form-check notification-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="all-notification-check03">
+                                                            <label class="form-check-label" for="all-notification-check03"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-reset notification-item d-block dropdown-item position-relative">
+                                                <div class="d-flex">
+                                                    <img src="~/assets/admin/images/users/avatar-8.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
+                                                    <div class="flex-grow-1">
+                                                        <a href="#!" class="stretched-link">
+                                                            <h6 class="mt-0 mb-1 fs-13 fw-semibold">Maureen Gibson</h6>
+                                                        </a>
+                                                        <div class="fs-13 text-muted">
+                                                            <p class="mb-1">We talked about a project on linkedin.</p>
+                                                        </div>
+                                                        <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
+                                                            <span><i class="mdi mdi-clock-outline"></i> 4 hrs ago</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="px-2 fs-15">
+                                                        <div class="form-check notification-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="all-notification-check04">
+                                                            <label class="form-check-label" for="all-notification-check04"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="my-3 text-center view-all">
+                                                <button type="button" class="btn btn-soft-success waves-effect waves-light">
+                                                    View
+                                                    All Notifications <i class="ri-arrow-right-line align-middle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="notification-actions" id="notification-actions">
+                                    <div class="d-flex text-muted justify-content-center">
+                                        Select <div id="select-content" class="text-body fw-semibold px-1">1</div> Result <button type="button" class="btn btn-link link-danger p-0 ms-3" data-bs-toggle="modal" data-bs-target="#removeNotificationModal">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown ms-sm-3 header-item topbar-user">
+                            <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-flex align-items-center">
+                                    <img class="rounded-circle header-profile-user" src="~/assets/admin/images/users/avatar-1.jpg" alt="Header Avatar">
+                                    <span class="text-start ms-xl-2">
+                                        <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">Anna Adame</span>
+                                        <span class="d-none d-xl-block ms-1 fs-13 user-name-sub-text">Founder</span>
+                                    </span>
+                                </span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <!-- item-->
+                                <h6 class="dropdown-header">Welcome Anna!</h6>
+                                <a class="dropdown-item" href="@Url.Action("add","User")"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="@Url.Action("changepassword","Account")"><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Change Password</span></a>
+                                <a class="dropdown-item" href="@Url.Action("admin","Account")"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- removeNotificationModal -->
+        <div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-2 text-center">
+                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                            <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                <h4>Are you sure ?</h4>
+                                <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                            <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete It!</button>
+                        </div>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- ========== App Menu ========== -->
+        <div class="app-menu navbar-menu">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <!-- Dark Logo-->
+                <a href="@Url.Action("Index","Home")" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="~/assets/assets/img/Logo.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="~/assets/assets/img/Logo.png" alt="" height="17">
+                    </span>
+                </a>
+                <!-- Light Logo-->
+                <a href="@Url.Action("Index","Home")" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="~/assets/assets/img/Logo.png" alt="" height="22">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="~/assets/assets/img/Logo.png" alt="" height="17">
+                    </span>
+                </a>
+                <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                    <i class="ri-record-circle-line"></i>
+                </button>
+            </div>
+
+            <div id="scrollbar">
+                <div class="container-fluid">
+
+                    <div id="two-column-menu">
+                    </div>
+                    <ul class="ul navbar-nav" id="navbar-nav">
+
+                        <li class="nav-item ">
+                            <a class="nav-link menu-link " href="@Url.Action("Index","Admin")" aria-expanded="false" id="Dashboard">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboards</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed " id="usermanagement" href="#sidebaruser" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebaruser">
+                                <i class="ri-user-2-line"></i> User Management
+                            </a>
+                            <div class="collapse  menu-dropdown" id="sidebaruser">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item ">
+                                        <a href="@Url.Action("Index","User")" class="nav-link " data-key="t-analytics" id="users"> Users </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("lenders","User")" class="nav-link" data-key="t-crm" id="lender"> Lenders </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("borrowers","User")" class="nav-link" data-key="t-ecommerce" id="borrower"> Borrowers </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("add","User")" class="nav-link" data-key="t-crypto" id="adduser"> Add User </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li> <!-- end Dashboard Menu -->
+
+                        <li class="nav-item">
+                            <a href="#sidebarproject" class="nav-link" id="projects" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarproject">
+                                <i class="bx bx-server"></i> Projects
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarproject">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Project")" class="nav-link" data-key="t-main-calender" id="project"> List </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("add","Project")" class="nav-link" data-key="t-month-grid" id="addproject"> Add Project </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#sidebarblog" class="nav-link" data-bs-toggle="collapse" id="blogs" role="button" aria-expanded="false" aria-controls="sidebarblog">
+                                <i class="ri-layout-3-line"></i> Blogs
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarblog">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index","Blog")" class="nav-link" data-key="t-main-calender" id="blog"> List </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("add","Blog")" class="nav-link" data-key="t-month-grid" id="addblog"> Add Blog </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#sidebarcompany" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarcompany">
+                                <i class="bx bx-card"></i> Company
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarcompany">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("index","Company")" class="nav-link" data-key="t-main-calender"> List </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("add","Company")" class="nav-link" data-key="t-month-grid"> Add Company </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link menu-link " href="@Url.Action("changepassword","Account")" aria-expanded="false" id="changepassword">
+                                <i class="mdi mdi-lock-alert "></i> <span data-key="t-dashboards">Change Password</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link menu-link " href="@Url.Action("settings","Admin")" aria-expanded="false" id="settings">
+                                <i class="mdi mdi-cog-outline 1"></i> <span data-key="t-dashboards">Settings</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+
+            <div class="sidebar-background"></div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- Vertical Overlay-->
+        <div class="vertical-overlay"></div>
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    @RenderBody()
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © my business shower.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Design & Develop by eazisols
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+    <!--start back-to-top-->
+    <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- JAVASCRIPT -->
+    <script src="~/assets/admin/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/admin/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets/admin/libs/node-waves/waves.min.js"></script>
+    <script src="~/assets/admin/libs/feather-icons/feather.min.js"></script>
+    <script src="~/assets/admin/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="~/assets/admin/js/plugins.js"></script>
+    <!-- prismjs plugin -->
+
+    <script src="~/assets/admin/libs/%40ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+    <script src="~/assets/admin/libs/dropzone/dropzone-min.js"></script>
+    <!-- project-create init -->
+    <script src="~/assets/admin/js/pages/project-create.init.js"></script>
+    <script src="~/assets/admin/libs/prismjs/prism.js"></script>
+    <script src="~/assets/admin/libs/rater-js/index.js"></script>
+    <script src="~/assets/admin/js/pages/rating.init.js"></script>
+    <script src="~/assets/admin/libs/list.js/list.min.js"></script>
+    <script src="~/assets/admin/libs/list.pagination.js/list.pagination.min.js"></script>
+
+    <!-- listjs init -->
+    <script src="~/assets/admin/js/pages/listjs.init.js"></script>
+    <script src="~/assets/admin/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/assets/admin/js/app.js"></script>
+
+
+</body>
+
+</html>
