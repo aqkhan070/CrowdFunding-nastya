@@ -1,17 +1,19 @@
-﻿@model IEnumerable<CrowdFunding_nastya.Models.tblBlog>
+﻿@model IEnumerable<CrowdFunding_nastya.Models.tblCareer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "careerList";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
+
+
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">blogs</h4>
+            <h4 class="mb-sm-0">Careers</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">blogs</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Career</a></li>
                     <li class="breadcrumb-item active">List</li>
                 </ol>
             </div>
@@ -22,81 +24,14 @@
 <!-- end page title -->
 
 <div class="row">
-
-
-    <div class="col-xl-3 col-md-6">
-        <!-- card -->
-        <div class="card card-animate">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p class="fw-semibold text-muted mb-0">Total blog</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="10">0</span></h2>
-                    </div>
-                    <div>
-                        <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-primary-subtle text-primary rounded-circle fs-4">
-                                <i class="bx bx-server text-primary"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <!-- card -->
-        <div class="card card-animate">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p class="fw-semibold text-muted mb-0">Active blog</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="5">0</span></h2>
-                    </div>
-                    <div>
-                        <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-success-subtle text-success rounded-circle fs-4">
-                                <i class="bx bx-server text-success"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <!-- card -->
-        <div class="card card-animate">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p class="fw-semibold text-muted mb-0">In-Active blog</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="5">0</span></h2>
-                    </div>
-                    <div>
-                        <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-danger-subtle text-danger rounded-circle fs-4">
-                                <i class="bx bx-server text-danger"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
     <div class="col-lg-12">
         <div class="card" id="tasksList">
             <div class="card-header border-0">
                 <div class="d-flex align-items-center">
-                    <h5 class="card-title mb-0 flex-grow-1">blog</h5>
+                    <h5 class="card-title mb-0 flex-grow-1">Careers</h5>
                     <div class="flex-shrink-0">
                         <div class="d-flex flex-wrap gap-2">
-                            <a href="@Url.Action("add","blog")" class="btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Create New</a>
+                            <a href="@Url.Action("career", "Home")" class="btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Create New</a>
                             <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                         </div>
                     </div>
@@ -160,13 +95,13 @@
                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                             </div>
                                         </th>
-                                        <td class="id"><a href="apps-tasks-details.html" class="fw-medium link-primary">@item.BlogId</a></td>
+                                        <td class="id"><a href="apps-tasks-details.html" class="fw-medium link-primary">@item.CareerId</a></td>
                                         <td>
-                                            <img src="@item.ThumbnailImage" alt="" class="avatar-xs rounded-circle me-2">
-                                            <a href="#javascript: void(0);" class="text-body fw-medium">@item.BlogTitle</a>
+                                            <img src="@item.CareerThumbnailImage" alt="" class="avatar-xs rounded-circle me-2">
+                                            <a href="#javascript: void(0);" class="text-body fw-medium">@item.CareerTitle</a>
                                         </td>
 
-                                        <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@Html.DisplayFor(modelItem => item.tblBlogPriority.Priority)</span></td>
+                                        <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@Html.DisplayFor(modelItem => item.tblCareerPriority.PriorityName)</span></td>
 
 
                                         <td class="priority">
@@ -185,15 +120,15 @@
                                         <td>
                                             <div class="flex-shrink-0 ms-4">
                                                 <ul class="list-inline tasks-list-menu mb-0">
-                                                    <li class="list-inline-item"><a href="@Url.Action("Index","blog", new {id = item.BlogId})"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
-                                                    <li class="list-inline-item"><a class="edit-item-btn" href="@Url.Action("add","blog" , new { id = item.BlogId})"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
-                                                    <li class="list-inline-item"><a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder" onclick="getBlogId(@item.BlogId)"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></a></li>
+                                                    <li class="list-inline-item"><a href="@Url.Action("careerList", "Home", new { id = item.CareerId })"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
+                                                    <li class="list-inline-item"><a class="edit-item-btn" href="@Url.Action("career", "Home", new { id = item.CareerId })"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
+                                                    <li class="list-inline-item"><a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder" onclick="getBlogId(@item.CareerId)"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
+                                                }
                                 }
-                            }
                         </tbody>
                     </table>
                     <!--end table-->
@@ -245,6 +180,7 @@
         </div>
     </div>
 </div>
+
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -255,11 +191,11 @@
         $('#blog').addClass('active');
     });
 
-    var blogId; 
+    var careerId;
 
     function getBlogId(id) {
         console.log(id);
-        blogId = id;
+        careerId = id;
         return id;
 
     }
@@ -268,18 +204,18 @@
     // Assuming you have a way to get the BlogId, for example from a data attribute
        // var blogId = blogId
 
-       alert(blogId);
+        alert(careerId);
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("Delete", "Blog")',
+        url: '@Url.Action("careerDelete", "Home")',
         data: {
-            Id: blogId,
+            CareerId: careerId,
         },
         success: function(data) {
             if (data.success) {
                 alert("data deleted")
-                window.location.href = '@Url.Action("Index", "Blog")';
+                window.location.href = '@Url.Action("careerList", "Home")';
             } else {
                 alert("Blog Data Not Deleted");
                 //$('#datanotupdatecheckbox').show();

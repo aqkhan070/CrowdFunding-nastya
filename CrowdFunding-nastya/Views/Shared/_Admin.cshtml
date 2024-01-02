@@ -370,6 +370,22 @@
                             </div>
                         </li>
                         <li class="nav-item">
+                            <a href="#sidebarcareer" class="nav-link" data-bs-toggle="collapse" id="career" role="button" aria-expanded="false" aria-controls="sidebarcareer">
+                                <i class="ri-layout-3-line"></i> Career
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarcareer">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("careerList","Home")" class="nav-link" data-key="t-main-calender" id="career-list">List</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("career","Home")" class="nav-link" data-key="t-month-grid" id="add-career">Add Career</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="#sidebarcompany" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarcompany">
                                 <i class="bx bx-card"></i> Company
                             </a>

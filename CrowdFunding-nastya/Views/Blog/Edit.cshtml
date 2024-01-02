@@ -1,13 +1,13 @@
 ﻿@model CrowdFunding_nastya.Models.tblBlog
 
 @{
-    ViewBag.Title = "add";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
 
 @{
-    ViewBag.Title = "add";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
@@ -15,12 +15,12 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Create Blog</h4>
+            <h4 class="mb-sm-0">Update Blog</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
-                    <li class="breadcrumb-item active">Create Blog</li>
+                    <li class="breadcrumb-item active">Update Blog</li>
                 </ol>
             </div>
 
@@ -29,7 +29,7 @@
 </div>
 <!-- end page title -->
 
-@using (Html.BeginForm("add", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" , id = "blogForm" }))
+@using (Html.BeginForm("Edit", "Blog", FormMethod.Post, new { enctype = "multipart/form-data", id = "blogForm" }))
 {
     @Html.ValidationSummary(true)
 
@@ -46,7 +46,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="project-thumbnail-img">Thumbnail Image</label>
                         <input class="form-control" name="BlogThumbnailImage" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg">
-                        <img src="@Model.ThumbnailImage" width="50" height="50" class="mt-1" style="border-radius: 50%;" />
+                        <img src="@Model.ThumbnailImage" width="50" height="50" class="mt-2" style="border-radius: 50%;"/>
                     </div>
 
                     <div class="mb-3">
@@ -59,8 +59,8 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="mb-3 mb-lg-0">
-                                <label for="PriorityId" class="form-label">Priority</label>
-                                @*@Html.EditorFor(model => model.PriorityId, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter project title" } })*@
+                                <label for="choices-priority-input" class="form-label">Priority</label>
+                                @*@Html.EditorFor(model => model.tblBlogPriority.Priority)*@
                                 <select id="PriorityId" class="form-control" name="PriorityId" required>
                                     <option value="" @(Model == null || Model.PriorityId == null ? "selected" : "")>---Select Priority---</option>
                                     @foreach (var list in ViewBag.PriorityList as SelectList)
@@ -68,6 +68,8 @@
                                         <option value="@list.Value" @(Model != null && list.Value == Model.PriorityId.ToString() ? "selected" : "")>@list.Text</option>
                                     }
                                 </select>
+
+
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -78,13 +80,13 @@
                                     new SelectListItem { Text = "---Select Status---", Value = "", Selected = true },
                                     new SelectListItem { Text = "Active", Value = "true"},
                                     new SelectListItem { Text = "In-Active", Value = "false"}
-                                }, new { @class = "form-select", id = "choices-status-input", required = "required" })
+                                }, new { @class = "form-select", id = "choices-status-input" })
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div>
                                 <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
-                                @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr" } })
+                                @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime", @id = "datepicker-deadline-input", @disabled = "disabled" } })
                             </div>
                         </div>
                     </div>
@@ -140,7 +142,7 @@
                         </ul>
                         @foreach (var attachment in Model.tblBlogAttachedFiles)
                         {
-                            <img src="@attachment.AttachedFiles" height="50" width="50" class="my-2" loading="lazy" style="border-radius: 50%;" />
+                            <img src="@attachment.AttachedFiles" height="50" width="50" class="my-2" loading="lazy" style="border-radius: 50%;"/>
                         }
                         <!-- end dropzon-preview -->
                     </div>
@@ -150,7 +152,7 @@
             <div class="text-end mb-4">
                 <button type="submit" class="btn btn-danger w-sm">Delete</button>
                 <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
-                <button type="submit" class="btn btn-success w-sm" onclick="GetData()" >Create</button>
+                <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Update</button>
             </div>
         </div>
         <!-- end col -->
@@ -161,15 +163,15 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label for="CategoryId" class="form-label">Categories</label>
-                        @*@Html.EditorFor(model => model.CategoryId)*@
-                    <select id="CategoryId" class="form-control" name="CategoryId" required>
-                        <option value="" @(Model == null || Model.CategoryId == null ? "selected" : "")>---Select Category---</option>
-                        @foreach (var list in ViewBag.CategoryList as SelectList)
-                        {
-                            <option value="@list.Value" @(Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>@list.Text</option>
-                        }
-                    </select>
+                        <label for="choices-categories-input" class="form-label">Categories</label>
+                        @*@Html.EditorFor(model => model.tblBlogCategory.CategoryName, new { @class = "form-select", data_choices = "", data_choices_search_false = "", id = "choices-categories-input" })*@
+                        <select id="CategoryId" class="form-control" name="CategoryId" required>
+                            <option value="" @(Model == null || Model.CategoryId == null ? "selected" : "")>---Select Category---</option>
+                            @foreach (var list in ViewBag.CategoryList as SelectList)
+                            {
+                                <option value="@list.Value" @(Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>@list.Text</option>
+                            }
+                        </select>
                     </div>
 
 
@@ -183,14 +185,14 @@
                 <div class="card-body">
                     <div>
                         <label for="choices-privacy-status-input" class="form-label">Blog Type</label>
-                        @*@Html.EditorFor(model => model.BlogTypeId)*@
-                    <select id="CategoryId" class="form-control" name="CategoryId" required>
-                        <option value="" @(Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Category---</option>
-                        @foreach (var list in ViewBag.BlogTypeList as SelectList)
-                        {
-                            <option value="@list.Value" @(Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>@list.Text</option>
-                        }
-                    </select>
+                        @*@Html.EditorFor(model => model.tblBlogType.BlogTypeName, new { @class = "form-select", data_choices = "", data_choices_search_false = "", id = "choices-privacy-status-input" })*@
+                        <select id="CategoryId" class="form-control" name="CategoryId" required>
+                            <option value="" @(Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Category---</option>
+                            @foreach (var list in ViewBag.BlogTypeList as SelectList)
+                            {
+                                <option value="@list.Value" @(Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>@list.Text</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <!-- end card body -->
@@ -211,8 +213,8 @@
 
     function GetData() {
         let html = $(".ck-editor__editable").html();
-        
-        $("#BlogDescription").text(html);    
+
+        $("#BlogDescription").html(html);
     }
 
     $(document).ready(function () {
