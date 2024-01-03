@@ -1,0 +1,143 @@
+﻿@using CrowdFunding_nastya.Models;
+@model CrowdFunding_nastya.Models.tblEditPage
+@{
+    ViewBag.Title = "add";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Contact</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Content Managment</a></li>
+                    <li class="breadcrumb-item active">Contact</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xxl-9">
+        <div class="card ">
+            @if (ViewBag.message != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="LinkCopy">
+                    @ViewBag.message
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+                </div>
+            }
+            <div class="card-header">
+                <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#personalDetails" role="tab" aria-selected="false" tabindex="-1">
+                            <i class="fas fa-home"></i>  Contact
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="card-body p-4">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="personalDetails" role="tabpanel">
+                        <form action="@Url.Action("Contact", "Setting")" method="post">
+                            <div class="row">
+                                <input type="text" class="form-control" id="ID" name="ID" value="@Model.ID" hidden>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="firstnameInput" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="Address" name="Address" placeholder="Enter Address" value="@Model.Address" required>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="lastnameInput" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Enter Phone" value="@Model.Phone" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="lastnameInput" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="Email" name="Email" placeholder="Enter Email" value="@Model.Email" required>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-4">
+                                        <div class="flex-grow-1">
+                                            <h5 class="card-title mb-0">Social Media</h5>
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                            <span class="avatar-title rounded-circle fs-16 bg-primary text-light">
+                                                <i class="ri-facebook-fill"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="Facebook" name="Facebook" placeholder="Facebook" value="@Model.Facebook" required>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                            <span class="avatar-title rounded-circle fs-16 bg-danger">
+                                                <i class="ri-instagram-fill"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="Instagram" name="Instagram" placeholder="Instagram" value="@Model.Instagram" required>
+                                    </div>
+                                    <div class="mb-3 d-flex">
+                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                            <span class="avatar-title rounded-circle fs-16 bg-primary">
+                                                <i class="ri-linkedin-fill"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="Linkdin" name="Linkdin" placeholder="Linkdin" value="@Model.Linkdin" required>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                            <span class="avatar-title rounded-circle fs-16 bg-dark">
+                                                <i class="ri-twitter-fill"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" id="Twitter" name="Twitter" placeholder="Twitter" value="@Model.Twitter" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="hstack gap-2 justify-content-end">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="button" class="btn btn-soft-info" onclick="goBack()">Cancel</button>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    $(document).ready(function () {
+
+        $(".ul li a").removeClass("active");
+        $('#COntent').addClass('active');
+        $('#sidebarContent').addClass('show');
+        $('#ContentContact').addClass('active');
+
+
+    });
+</script>

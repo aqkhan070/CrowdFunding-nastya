@@ -370,20 +370,35 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a href="#sidebarcompany" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarcompany">
-                                <i class="bx bx-card"></i> Company
+                            <a href="#sidebarcareer" class="nav-link" data-bs-toggle="collapse" id="career" role="button" aria-expanded="false" aria-controls="sidebarcareer">
+                                <i class="bx bx-card"></i> Career
                             </a>
-                            <div class="collapse menu-dropdown" id="sidebarcompany">
+                            <div class="collapse menu-dropdown" id="sidebarcareer">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="@Url.Action("index","Company")" class="nav-link" data-key="t-main-calender"> List </a>
+                                        <a href="@Url.Action("Index","Career")" class="nav-link" data-key="t-main-calender" id="career"> List </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="@Url.Action("add","Company")" class="nav-link" data-key="t-month-grid"> Add Company </a>
+                                        <a href="@Url.Action("career","Career")" class="nav-link" data-key="t-month-grid" id="addcareer"> Add Career </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+                        @*<li class="nav-item">
+            <a href="#sidebarcompany" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarcompany">
+                <i class="bx bx-card"></i> Company
+            </a>
+            <div class="collapse menu-dropdown" id="sidebarcompany">
+                <ul class="nav nav-sm flex-column">
+                    <li class="nav-item">
+                        <a href="@Url.Action("index","Company")" class="nav-link" data-key="t-main-calender"> List </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("add","Company")" class="nav-link" data-key="t-month-grid"> Add Company </a>
+                    </li>
+                </ul>
+            </div>
+        </li>*@
                         <li class="nav-item ">
                             <a class="nav-link menu-link " href="@Url.Action("changepassword","Account")" aria-expanded="false" id="changepassword">
                                 <i class="mdi mdi-lock-alert "></i> <span data-key="t-dashboards">Change Password</span>
@@ -411,11 +426,20 @@
                             </div>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link menu-link " href="@Url.Action("settings","Admin")" aria-expanded="false" id="settings">
+                            <a class="nav-link menu-link " href="@Url.Action("index","Setting")" aria-expanded="false" id="settings">
                                 <i class="mdi mdi-cog-outline 1"></i> <span data-key="t-dashboards">Settings</span>
                             </a>
                         </li>
-
+                        <li class="nav-item ">
+                            <a class="nav-link menu-link " href="@Url.Action("Contact","Admin")" aria-expanded="false" id="Contact">
+                                <i class="bx bx-bell"></i> <span data-key="t-dashboards">Contact</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link menu-link " href="@Url.Action("Subscriber","Admin")" aria-expanded="false" id="Subscriber">
+                                <i class="bx bx-badge-check"></i> <span data-key="t-dashboards">Subscriber</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->

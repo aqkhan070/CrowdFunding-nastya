@@ -24,6 +24,23 @@
             list-style-type: circle;
         }
     </style>
+
+    @{ 
+        string twitter = "";
+        string facebook="";
+        string insta = "";
+        string linkdin = "";
+        HttpCookie cookieObj1 = Request.Cookies["Footer"];
+        if (cookieObj1 != null)
+        {
+            twitter = @cookieObj1["Twitter"];
+            facebook = @cookieObj1["Facebook"];
+            insta = @cookieObj1["Instagram"];
+            linkdin = @cookieObj1["Linkdin"];
+
+
+        }
+    }
 </head>
 
 <body>
@@ -193,23 +210,23 @@
                     <div class="footer__social">
                         <ul class="footer__social-ul">
                             <li>
-                                <a class="footer__social-link" href="https://www.facebook.com/">
+                                <a class="footer__social-link" href="@facebook">
                                     <i class="fa fa-facebook"></i>
                                 </a>
                             </li>
                             <li>
-                                <a class="footer__social-link" href="https://linkedin.com/">
+                                <a class="footer__social-link" href="@linkdin">
                                     <i class="fa fa-linkedin"></i>
                                 </a>
                             </li>
                             <li>
-                                <a class="footer__social-link" href="https://www.instagram.com/">
+                                <a class="footer__social-link" href="@insta">
                                     <i class="fa fa-instagram"></i>
                                 </a>
                             </li>
                             <li>
-                                <a class="footer__social-link" href="https://twitter.com/">
-                                    <i class="fa-brands fa-x-twitter"></i>
+                                <a class="footer__social-link" href="@twitter">
+                                    <i class="fa fa-twitter"></i>
                                 </a>
                             </li>
                         </ul>

@@ -12,20 +12,15 @@ namespace CrowdFunding_nastya.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblEditPage
+    public partial class tblVerificationCode
     {
-        public int ID { get; set; }
-        public string About { get; set; }
-        public string TermsCondition { get; set; }
-        public string Contact { get; set; }
-        public string Privacy { get; set; }
+        public int VerificationCodeId { get; set; }
+        public string Code { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string Facebook { get; set; }
-        public string Instagram { get; set; }
-        public string Google { get; set; }
-        public string Linkdin { get; set; }
-        public string Twitter { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<bool> isActive { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
     }
 }

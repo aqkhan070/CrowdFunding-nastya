@@ -1,36 +1,54 @@
-﻿<!-- SignIn START -->
+﻿﻿<!-- SignIn START -->
 
+@using CrowdFunding_nastya.Models;
+@{
+    List<tblRole> Roles = (List<tblRole>)ViewBag.Roles;
+}
 
 
 <div class="donate global__py pt-5">
     <div class="container p-sm-0">
-    
+
         <div class="row">
             <div class="col-12 col-lg-8">
                 <!-- Form -->
                 <div class="">
+                    @using (Html.BeginForm("sign_up", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {@Html.AntiForgeryToken()
                     <form action="#" method="POST" class="form mt-0 border-0">
-
-
                         <div class="row" id="first">
                             <h4 class="sign__form-heading">Sign Up</h4>
                             <div class="col-md-6">
                                 <div class="sign__form-mb">
-                                    <label class="sign__form-label" for="emailInp" id="email">
+                                    <label class="sign__form-label" for="firstnameInp" id="email">
                                         First Name <span class="text-danger">*</span>
                                     </label>
-                                    <input class="form-control sign__form-input" id="emailInp" type="email"
-                                           placeholder="Enter your first name">
+                                    <input class="form-control sign__form-input" id="firstnameInp" name="FirstName" type="text"
+                                           placeholder="Enter your first name" required>
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="sign__form-mb">
-                                    <label class="sign__form-label" for="emailInp" id="email">
+                                    <label class="sign__form-label" for="lastnameInp">
                                         Last Name <span class="text-danger">*</span>
                                     </label>
-                                    <input class="form-control sign__form-input" id="emailInp" type="email"
-                                           placeholder="Enter your last name">
+                                    <input class="form-control sign__form-input" id="lastnameInp" name="LastName" type="text"
+                                           placeholder="Enter your last name" required>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="sign__form-mb">
+                                    <label class="sign__form-label" for="RoleId">
+                                        Sign up as <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-control sign__form-input" id="RoleId" name="RoleId" onchange="ChangeRole()" required>
+                                        @foreach (var item in Roles)
+                                        {
+                                            <option value="@item.RoleId">@item.Role</option>
+                                        }
+                                    </select>
 
                                 </div>
                             </div>
@@ -39,7 +57,7 @@
                                     <label class="sign__form-label" for="emailInp" id="email">
                                         Email <span class="text-danger">*</span>
                                     </label>
-                                    <input class="form-control sign__form-input" id="emailInp" type="email"
+                                    <input class="form-control sign__form-input" id="emailInp" name="Email" type="email"
                                            placeholder="Enter your email">
                                     <span class="sign__text sign__text-email text-danger d-none">Email must be valid</span>
                                     <span class="sign__text sign__text-email--required text-danger d-none">
@@ -51,7 +69,7 @@
                                     <label class="sign__form-label" for="passwordInp">
                                         Password <span class="text-danger">*</span>
                                     </label>
-                                    <input class="form-control sign__form-input" id="passwordInp"
+                                    <input class="form-control sign__form-input" id="passwordInp" name="Password"
                                            type="password" placeholder="Create a Password">
                                     <div class="">
                                         <span class="sign__text sign__text-pass text-danger d-none">
@@ -66,22 +84,28 @@
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mt-3 mb-4">
                                     <label class="sign__form-rem">
-                                        <input type="checkbox" id="checkbox" name="checkbox">
+                                        <input type="checkbox" id="checkbox" name="checkbox" required>
                                         <span class="sign__form-rem--checkmark sign__text"></span>
-                                        By continuing, you agree to the My Business Shower <a href="@Url.Action("legal","Home")">
+                                        By continuing, you agree to the My Business Shower <a href="@Url.Action("legal", "Home")">
                                             terms
                                         </a>and acknowledge receipt of
-                                        our <a href="@Url.Action("privacy","Home")"> privacy notice</a>.
+                                        our <a href="@Url.Action("privacy", "Home")"> privacy notice</a>.
                                     </label>
 
                                 </div>
 
 
                             </div>
-                            <div class="col-10 col-sm-12 m-auto">
+                            <div class="col-10 col-sm-12 m-auto" id="NextButton">
                                 <div class="">
                                     <input class="sign__btn sign__btn-in form-control" type="button"
                                            value="Next" onclick="nextpart(1)">
+                                </div>
+
+                            </div>
+                            <div class="col-10 col-sm-12 m-auto" id="SubmitButton" style="display:none;">
+                                <div class="">
+                                    <input class="sign__btn sign__btn-in form-control" type="submit">
                                 </div>
 
                             </div>
@@ -116,7 +140,7 @@
                                     <input class="form-control sign__form-input" id="emailInp" type="email">
 
                                 </div>
-                           
+
                                 <div class="mt-2">
                                     <label class="sign__form-label" for="passwordInp">
                                         What' s your telephone number? (keep your account safe)
@@ -197,8 +221,10 @@
                             </div>
                             <div class="col-6 col-sm-6 m-auto">
                                 <div class="">
-                                   <a href="@Url.Action("preview","Home")"> <input class="sign__btn sign__btn-in form-control" type="button"
-                                           value="Preview"></a>
+                                    <a href="@Url.Action("preview", "Home")">
+                                        <input class="sign__btn sign__btn-in form-control" type="button"
+                                               value="Preview">
+                                    </a>
                                 </div>
 
                             </div>
@@ -211,11 +237,12 @@
                             </div>
                         </div>
                     </form>
+                }
                 </div>
             </div>
             <!-- Right Sider_Bar   -->
             <div class="col-12 col-sm-8 col-lg-4 d-none d-lg-block">
-                
+
                 <div class="volunteer__requirement">
                     <h3 class="volunteer__text">Our Requirements</h3>
                     <p class="volunteer__desc">
@@ -271,11 +298,23 @@
 </div>
 
 <script>
+    function ChangeRole() {
+        let RoleId = $("#RoleId").val();
+        if (RoleId == 2) {
+            $("#NextButton").show();
+            $("#SubmitButton").hide();
+        }
+        else {
+            $("#SubmitButton").show();
+            $("#NextButton").hide();
+        }
+
+    }
     function nextpart(id) {
         if (id == 1) {
             $("#first").fadeOut();
             $("#second").fadeIn();
         }
-        
+
     }
-    </script>
+</script>

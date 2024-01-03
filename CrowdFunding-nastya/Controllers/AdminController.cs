@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrowdFunding_nastya.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,7 @@ namespace CrowdFunding_nastya.Controllers
 {
     public class AdminController : Controller
     {
-        // GET: Admin
+        CrowdfundingnastyaEntities _dbContext = new CrowdfundingnastyaEntities();
         public ActionResult Index()
         {
             return View();
@@ -16,6 +17,16 @@ namespace CrowdFunding_nastya.Controllers
         public ActionResult settings()
         {
             return View();
+        }
+        public ActionResult Contact()
+        {
+            var Contact = _dbContext.tblContacts.ToList().OrderByDescending(x=>x.Contact_ID);
+            return View(Contact);
+        }
+        public ActionResult Subscriber()
+        {
+            var Subscribe = _dbContext.tblSubscribers.ToList().OrderByDescending(x => x.SubscriberID);
+            return View(Subscribe);
         }
     }
 }

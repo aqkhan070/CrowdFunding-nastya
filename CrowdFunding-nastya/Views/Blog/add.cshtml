@@ -1,8 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "add";
-    Layout = "~/Views/Shared/_Admin.cshtml";
-}
+﻿﻿@model CrowdFunding_nastya.Models.tblBlog
+
 
 
 @{
@@ -11,193 +8,285 @@
 }
 
 <!-- start page title -->
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Create Blog</h4>
+@{
+    if (Model.BlogId == 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Create Blog</h4>
 
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
-                    <li class="breadcrumb-item active">Create Blog</li>
-                </ol>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
+                            <li class="breadcrumb-item active">Create Blog</li>
+                        </ol>
+                    </div>
+
+                </div>
             </div>
-
         </div>
-    </div>
-</div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Update Blog</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
+                            <li class="breadcrumb-item active">Update Blog</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
 <!-- end page title -->
 
-<div class="row">
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-body">
-                <div class="mb-3">
-                    <label class="form-label" for="project-title-input">Blog Title</label>
-                    <input type="text" class="form-control" id="project-title-input" placeholder="Enter project title">
-                </div>
+@using (Html.BeginForm("add", "Blog", FormMethod.Post, new { enctype = "multipart/form-data", id = "blogForm" }))
+{
+    @Html.ValidationSummary(true)
 
-                <div class="mb-3">
-                    <label class="form-label" for="project-thumbnail-img">Thumbnail Image</label>
-                    <input class="form-control" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Blog Description</label>
-                    <div id="ckeditor-classic">
-                        <p>It will be as simple as occidental in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
-                        <ul>
-                            <li>Product Design, Figma (Software), Prototype</li>
-                            <li>Four Dashboards : Ecommerce, Analytics, Project etc.</li>
-                            <li>Create calendar, chat and email app pages.</li>
-                            <li>Add authentication pages</li>
-                        </ul>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    @Html.HiddenFor(model => model.BlogId)
+                    <div class="profile-user position-relative d-inline-block mb-4">
+                        <img src="@Model.ThumbnailImage" class="avatar-xl img-thumbnail user-profile-image" alt="user-profile-image" id="user_img">
+                        <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                            <input id="profile-img-file-input" name="ThumbnailImage" type="file" class="profile-img-file-input" onchange="show1(this)" accept="image/png, image/gif, image/jpeg">
+                            <label for="profile-img-file-input" class="profile-photo-edit avatar-xs" style="left:0 !important">
+                                <span class="avatar-title rounded-circle bg-light text-body">
+                                    <i class="ri-camera-fill"></i>
+                                </span>
+                            </label>
+                        </div>
+                        <input type="text" class="form-control" id="ThumbnailImage" name="ThumbnailImage" value="@Model.ThumbnailImage" hidden />
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="mb-3 mb-lg-0">
-                            <label for="choices-priority-input" class="form-label">Priority</label>
-                            <select class="form-select" data-choices data-choices-search-false id="choices-priority-input">
-                                <option value="High" selected>High</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
-                            </select>
+                    <div class="mb-3">
+                        <label class="form-label" for="project-title-input">Blog Title</label>
+                        @Html.EditorFor(model => model.BlogTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter blog title" } })
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Blog Description</label>
+                        <div id="ckeditor-classic">
+                            @Html.Raw(@Model.BlogDescription)
+                        </div>
+                        <div class="mb-3" hidden>
+                            <textarea id="BlogDescription" name="BlogDescription" class="form-control summernote">@Model.BlogDescription</textarea>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="mb-3 mb-lg-0">
-                            <label for="choices-status-input" class="form-label">Status</label>
-                            <select class="form-select" data-choices data-choices-search-false id="choices-status-input">
-                                <option value="Inprogress" selected>Active</option>
-                                <option value="Completed">In-Active</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div>
-                            <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
-                            <input type="date" class="form-control" id="datepicker-deadline-input" placeholder="Enter due date" data-provider="flatpickr">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end card body -->
-        </div>
-        <!-- end card -->
 
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Attached files</h5>
-            </div>
-            <div class="card-body">
-                <div>
-                    <p class="text-muted">Add Attached files here.</p>
-
-                    <div class="dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple="multiple">
-                        </div>
-                        <div class="dz-message needsclick">
-                            <div class="mb-3">
-                                <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="mb-3 mb-lg-0">
+                                <label for="PriorityId" class="form-label">Priority</label>
+                                @*@Html.EditorFor(model => model.PriorityId, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter project title" } })*@
+                                <select id="PriorityId" class="form-control" name="PriorityId" required>
+                                  
+                                    @foreach (var list in ViewBag.PriorityList as SelectList)
+                                    {
+                                        <option value="@list.Value" @(Model != null && list.Value == Model.PriorityId.ToString() ? "selected" : "")>@list.Text</option>
+                                    }
+                                </select>
                             </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mb-3 mb-lg-0">
+                                <label for="choices-status-input" class="form-label">Status</label>
+                                @Html.DropDownListFor(model => model.IsActive, new List<SelectListItem>
+                                {
+                                      new SelectListItem { Text = "In-Active", Value = "false"},
+                                    new SelectListItem { Text = "Active", Value = "true"}
+                                  
+                                }, new { @class = "form-select", id = "choices-status-input", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div>
+                                @{
+                                    if (Model.BlogId == 0)
+                                    {
+                                        <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr" } })
+                                    }
+                                    else
+                                    {
+                                        <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime", @id = "datepicker-deadline-input", @data_provider = "flatpickr", @readonly = "readonly" } })
+                                    }
+                                }
 
-                            <h5>Drop files here or click to upload.</h5>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
 
-                    <ul class="list-unstyled mb-0" id="dropzone-preview">
-                        <li class="mt-2" id="dropzone-preview-list">
-                            <!-- This is used as the file preview template -->
-                            <div class="border rounded">
-                                <div class="d-flex p-2">
-                                    <div class="flex-shrink-0 me-3">
-                                        <div class="avatar-sm bg-light rounded">
-                                            <img src="#" alt="Project-Image" data-dz-thumbnail class="img-fluid rounded d-block" />
+            <!--<div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Attached files</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <p class="text-muted">Add Attached files here.</p>
+
+                        <input name="BlogAttachedFiles" type="file" multiple="multiple">
+                        <div class="dropzone">
+                            <div class="fallback">
+                            </div>
+                            <div class="dz-message needsclick">
+                                <div class="mb-3">
+                                    <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
+                                </div>
+
+                                <h5>Drop files here or click to upload.</h5>
+                            </div>
+                        </div>
+
+                        <ul class="list-unstyled mb-0" id="dropzone-preview">
+                            <li class="mt-2" id="dropzone-preview-list">-->
+                                <!-- This is used as the file preview template -->
+                                <!--<div class="border rounded">
+                                    <div class="d-flex p-2">
+                                        <div class="flex-shrink-0 me-3">
+                                            <div class="avatar-sm bg-light rounded">
+                                                <img src="#" alt="Project-Image" data-dz-thumbnail class="img-fluid rounded d-block" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="pt-1">
-                                            <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
-                                            <p class="fs-13 text-muted mb-0" data-dz-size></p>
-                                            <strong class="error text-danger" data-dz-errormessage></strong>
+                                        <div class="flex-grow-1">
+                                            <div class="pt-1">
+                                                <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
+                                                <p class="fs-13 text-muted mb-0" data-dz-size></p>
+                                                <strong class="error text-danger" data-dz-errormessage></strong>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="flex-shrink-0 ms-3">
-                                        <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
+                                        <div class="flex-shrink-0 ms-3">
+                                            <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- end dropzon-preview -->
+                            </li>
+                        </ul>
+                        @foreach (var attachment in Model.tblBlogAttachedFiles)
+                        {
+                            <img src="@attachment.AttachedFiles" height="50" width="50" class="my-2" loading="lazy" style="border-radius: 50%;" />
+                        }-->
+                        <!-- end dropzon-preview -->
+                    <!--</div>
                 </div>
-            </div>
-        </div>
-        <!-- end card -->
-        <div class="text-end mb-4">
-            <button type="submit" class="btn btn-danger w-sm">Delete</button>
-            <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
-            <button type="submit" class="btn btn-success w-sm">Create</button>
-        </div>
-    </div>
-    <!-- end col -->
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Category</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="choices-categories-input" class="form-label">Categories</label>
-                    <select class="form-select" data-choices data-choices-search-false id="choices-categories-input">
-                        <option value="Designing" selected>Designing</option>
-                        <option value="Development">Development</option>
-                    </select>
-                </div>
-
+            </div>-->
+            <!-- end card -->
+            <div class="text-end mb-4">
+                @{
+                    if (Model.BlogId == 0)
+                    {
+                      
+                        <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
+                        <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Create</button>
+                    }
+                    else
+                    {
+                       
+                        <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
+                        <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Update</button>
+                    }
+                }
 
             </div>
-            <!-- end card body -->
         </div>
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Type</h5>
-            </div>
-            <div class="card-body">
-                <div>
-                    <label for="choices-privacy-status-input" class="form-label">Blog Type</label>
-                    <select class="form-select" data-choices data-choices-search-false id="choices-privacy-status-input">
-                        <option value="Private" selected>Private</option>
-                        <option value="Team">Team</option>
-                        <option value="Public">Public</option>
-                    </select>
+        <!-- end col -->
+        <!--<div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Category</h5>
                 </div>
-            </div>
-            <!-- end card body -->
-        </div>
-        <!-- end card -->
-        <!-- end card -->
-        <!-- end card -->
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="CategoryId" class="form-label">Categories</label>-->
+                        @*@Html.EditorFor(model => model.CategoryId)
+                        <!--<select id="CategoryId" class="form-control" name="CategoryId" required>
+                            <option value="" @(Model == null || Model.CategoryId == null ? "selected" : "")>---Select Category---</option>
+                            foreach (var list in ViewBag.CategoryList as SelectList)
+                            {
+                                <option value="@list.Value" @(Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>@list.Text</option>
+                            }
+                        </select>
+                    </div>
+
+
+                </div>
+                <!-- end card body -->
+            <!--</div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Type</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <label for="BlogTypeId" class="form-label">Blog Type</label>-->
+                        @Html.EditorFor(model => model.BlogTypeId)
+                        <select id="BlogTypeId" class="form-control" name="BlogTypeId" required>
+                            <option value="" @(Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Category---</option>
+                            @foreach (var list in ViewBag.BlogTypeList as SelectList)
+                            {
+                                <option value="@list.Value" @(Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>@list.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>-->
+                <!-- end card body -->
+            <!--</div>-->
+            <!-- end card -->
+            <!-- end card -->
+            <!-- end card -->
+        <!--</div>-->
+        <!-- end col -->*@
     </div>
-    <!-- end col -->
-</div>
+}
 <!-- end row -->
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
+    function show1(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+
+
+    }
     function goBack() {
         window.history.back();
     }
+
+    function GetData() {
+        let html = $(".ck-editor__editable").html();
+
+        $("#BlogDescription").text(html);
+    }
+
     $(document).ready(function () {
 
         $(".ul li a").removeClass("active");
         $('#blogs').addClass('active');
         $('#sidebarblog').addClass('show');
         $('#addblog').addClass('active');
-
-
-
     });
+
 </script>

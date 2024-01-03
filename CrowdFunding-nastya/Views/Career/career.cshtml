@@ -1,0 +1,240 @@
+﻿﻿@model CrowdFunding_nastya.Models.tblCareer
+
+@{
+    ViewBag.Title = "career";
+}
+@{
+    ViewBag.Title = "add";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<!-- start page title -->
+@{
+    if (Model.CareerId == 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Create Career</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Career</a></li>
+                            <li class="breadcrumb-item active">Create Career</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Update Career</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Career</a></li>
+                            <li class="breadcrumb-item active">Update Career</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<!-- end page title -->
+
+@using (Html.BeginForm("career", "Career", FormMethod.Post, new { enctype = "multipart/form-data", id = "CareerForm" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    @Html.HiddenFor(model => model.CareerId)
+                    <div>
+
+                        <div class="profile-user position-relative d-inline-block mb-4">
+                            <img src="@Model.CareerThumbnailImage" class="avatar-xl img-thumbnail user-profile-image" alt="user-profile-image" id="user_img">
+                            <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                                <input id="profile-img-file-input" name="ThumbnailImage" type="file" class="profile-img-file-input" onchange="show1(this)" accept="image/png, image/gif, image/jpeg">
+                                <label for="profile-img-file-input" class="profile-photo-edit avatar-xs" style="left:0 !important">
+                                    <span class="avatar-title rounded-circle bg-light text-body">
+                                        <i class="ri-camera-fill"></i>
+                                    </span>
+                                </label>
+                            </div>
+                            <input type="text" class="form-control" id="CareerThumbnailImage" name="CareerThumbnailImage" value="@Model.CareerThumbnailImage" hidden />
+                        </div>
+
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="project-title-input">Career Title</label>
+                        @Html.EditorFor(model => model.CareerTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Career title" } })
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Career Description</label>
+                        <div id="ckeditor-classic">
+                            @Html.Raw(@Model.CareerDescription)
+                        </div>
+                        <div class="mb-3" hidden>
+                            <textarea id="CareerDescription" name="CareerDescription" class="form-control summernote">@Model.CareerDescription</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="mb-3 mb-lg-0">
+                                <label for="PriorityId" class="form-label">Priority</label>
+                                @*@Html.EditorFor(model => model.PriorityId, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter project title" } })*@
+                                <select id="PriorityId" class="form-control" name="PriorityId" required>
+
+                                    @foreach (var list in ViewBag.PriorityList as SelectList)
+                                    {
+                                        <option value="@list.Value" @(Model != null && list.Value == Model.PriorityId.ToString() ? "selected" : "")>@list.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mb-3 mb-lg-0">
+                                <label for="choices-status-input" class="form-label">Status</label>
+                                @Html.DropDownListFor(model => model.IsActive, new List<SelectListItem>
+                                {
+                                 new SelectListItem { Text = "In-Active", Value = "false"},
+                                    new SelectListItem { Text = "Active", Value = "true"}
+                                  
+                                }, new { @class = "form-select", id = "choices-status-input", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div>
+                                @{
+                                    if (Model.CareerId == 0)
+                                    {
+                                        <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr", @required="true" } })
+                                    }
+                                    else
+                                    {
+                                        <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime", @id = "datepicker-deadline-input", @data_provider = "flatpickr", @readonly = "readonly" } })
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+
+            <div class="text-end mb-4">
+                @{
+                    if (Model.CareerId == 0)
+                    {
+                        <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
+                        <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Create</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
+                        <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Update</button>
+                    }
+                }
+            </div>
+        </div>
+        <!-- end col -->
+        <!--<div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Category</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="CategoryId" class="form-label">Categories</label>
+                        Html.EditorFor(model => model.CategoryId)
+                        <!--<select id="CategoryId" class="form-control" name="CategoryId" required>
+                            <option value="" (Model == null || Model.CategoryId == null ? "selected" : "")>---Select Category---</option>
+                            foreach (var list in ViewBag.CategoryList as SelectList)
+                            {
+                                <option value="list.Value" (Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>list.Text</option>
+                            }
+                        </select>
+                    </div>
+
+
+                </div>
+                <!-- end card body -->
+            <!--</div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Type</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <label for="BlogTypeId" class="form-label">Career Type</label>
+                        Html.EditorFor(model => model.BlogTypeId)
+                        <select id="BlogTypeId" class="form-control" name="BlogTypeId" required>
+                            <option value="" (Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Type---</option>
+                            foreach (var list in ViewBag.BlogTypeList as SelectList)
+                            {
+                                <option value="list.Value" (Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>list.Text</option>
+                            }
+                        </select>
+                    </div>
+                </div>-->
+                <!-- end card body -->
+            <!--</div>-->
+            <!-- end card -->
+            <!-- end card -->
+            <!-- end card -->
+        <!--</div>-->
+        <!-- end col -->
+    </div>
+}
+<!-- end row -->
+<script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
+<script>
+    function show1(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+
+
+    }
+    function goBack() {
+        window.history.back();
+    }
+
+    function GetData() {
+        let html = $(".ck-editor__editable").html();
+
+        $("#CareerDescription").text(html);
+    }
+
+    $(document).ready(function () {
+
+        $(".ul li a").removeClass("active");
+        $('#career').addClass('active');
+        $('#sidebarcareer').addClass('show');
+        $('#addcareer').addClass('active');
+    });
+
+</script>

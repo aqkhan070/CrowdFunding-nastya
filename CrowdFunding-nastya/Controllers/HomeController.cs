@@ -14,6 +14,15 @@ namespace CrowdFunding_nastya.Controllers
         CrowdfundingnastyaEntities dbEntities = new CrowdfundingnastyaEntities();
         public ActionResult Index()
         {
+            HttpCookie cookie = HttpContext.Request.Cookies["Footer"];
+            cookie = new HttpCookie("Footer");
+            tblEditPage editPage = dbEntities.tblEditPages.Find(1);
+            cookie["Facebook"] = editPage.Facebook.Replace('\r', ' ').Replace('\n', ' '); ;
+            cookie["Instagram"] = editPage.Instagram.Replace('\r', ' ').Replace('\n', ' '); ;
+            cookie["Linkdin"] = editPage.Linkdin.Replace('\r', ' ').Replace('\n', ' '); ;
+            cookie["Twitter"] = editPage.Twitter.Replace('\r', ' ').Replace('\n', ' '); ;
+            cookie.Expires = DateTime.Now.AddMonths(1);
+            HttpContext.Response.Cookies.Add(cookie);
             return View();
         }
         public ActionResult works()
@@ -35,18 +44,39 @@ namespace CrowdFunding_nastya.Controllers
             tblEditPage sa = dbEntities.tblEditPages.Find(1);
             return View(sa);
         }
+  
+        [HttpGet]
         public ActionResult career()
         {
-            return View();
+            var allCareer = dbEntities.tblCareers.ToList();
+            return View(allCareer);
         }
+        [HttpGet]
+        public ActionResult careerDetail(int id)
+        {
+            var careerPre = dbEntities.tblCareers.SingleOrDefault(model => model.CareerId == id);
+            if (careerPre != null)
+            {
+                return View(careerPre);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult blogs()
         {
-            return View();
+            var blogs = dbEntities.tblBlogs.ToList();
+            return View(blogs);
         }
-        public ActionResult blog_detail()
+        public ActionResult blog_detail(int id)
         {
-            return View();
+            var blogsPre = dbEntities.tblBlogs.SingleOrDefault(model => model.BlogId == id);
+            if (blogsPre != null)
+            {
+                return View(blogsPre);
+            }
+            return RedirectToAction("Index", "Home");
         }
+     
         public ActionResult cases()
         {
             return View();
@@ -81,7 +111,7 @@ namespace CrowdFunding_nastya.Controllers
                 contact.Name = name;
                 contact.Message = message;
                 contact.Subject = subject;
-                contact.Subject = phone;
+                contact.Sent_Date = DateTime.Now;
                 dbEntities.tblContacts.Add(contact);
                 dbEntities.SaveChanges();
                 return Json(new { status = 1 });

@@ -29,5 +29,17 @@ namespace CrowdFunding_nastya.Models
         public virtual DbSet<tblEditPage> tblEditPages { get; set; }
         public virtual DbSet<tblSetting> tblSettings { get; set; }
         public virtual DbSet<tblSubscriber> tblSubscribers { get; set; }
+        public virtual DbSet<tblBlog> tblBlogs { get; set; }
+        public virtual DbSet<tblBlogAttachedFile> tblBlogAttachedFiles { get; set; }
+        public virtual DbSet<tblCareer> tblCareers { get; set; }
+        public virtual DbSet<tblCategory> tblCategories { get; set; }
+        public virtual DbSet<tblPriority> tblPriorities { get; set; }
+        public virtual DbSet<tblType> tblTypes { get; set; }
+        public virtual DbSet<tblAccessLevel> tblAccessLevels { get; set; }
+        public virtual DbSet<tblLog> tblLogs { get; set; }
+        public virtual DbSet<tblMenu> tblMenus { get; set; }
+        public virtual DbSet<tblRole> tblRoles { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblVerificationCode> tblVerificationCodes { get; set; }
     }
 }

@@ -131,6 +131,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\CareerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
@@ -153,16 +154,52 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Crowdfunding.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblAccessLevel.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblBlog.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblBlogAttachedFile.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCareer.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCategory.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblContact.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblEditPage.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblLog.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblMenu.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPriority.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblRole.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblSetting.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblSubscriber.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblType.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblUser.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblVerificationCode.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1240,6 +1277,13 @@
     <Content Include="Views\Setting\About.cshtml" />
     <Content Include="Views\Setting\Privacy.cshtml" />
     <Content Include="Views\Setting\Legal.cshtml" />
+    <Content Include="Views\Career\careerList.cshtml" />
+    <Content Include="Views\Career\Index.cshtml" />
+    <Content Include="Views\Career\career.cshtml" />
+    <Content Include="Views\Home\careerDetail.cshtml" />
+    <Content Include="Views\Setting\Contact.cshtml" />
+    <Content Include="Views\Admin\Contact.cshtml" />
+    <Content Include="Views\Admin\Subscriber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

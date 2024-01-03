@@ -1,4 +1,5 @@
-﻿
+﻿@using CrowdFunding_nastya.Models;
+@model CrowdFunding_nastya.Models.tblSetting
 @{
     ViewBag.Title = "add";
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -22,6 +23,14 @@
 <div class="row">
     <div class="col-xxl-9">
         <div class="card ">
+            @if (ViewBag.message != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="LinkCopy">
+                    @ViewBag.message
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+                </div>
+            }
             <div class="card-header">
                 <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -38,22 +47,23 @@
                 </ul>
             </div>
             <div class="card-body p-4">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="personalDetails" role="tabpanel">
-                        <form action="javascript:void(0);">
-                            <div class="row">
+                <form action="@Url.Action("Index", "Setting")" method="post">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="personalDetails" role="tabpanel">
 
+                            <div class="row">
+                                <input type="text" class="form-control" id="SettingId" name="SettingId" value="@Model.SettingId" hidden>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="firstnameInput" class="form-label">Client ID</label>
-                                        <input type="text" class="form-control" id="firstnameInput" placeholder="Enter your client ID" value="">
+                                        <input type="text" class="form-control" id="clientId" name="clientId" placeholder="Enter your client ID" value="@Model.clientId">
                                     </div>
                                 </div>
                                 <!--end col-->
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="lastnameInput" class="form-label">Secret Key</label>
-                                        <input type="text" class="form-control" id="lastnameInput" placeholder="Enter your secret key" value="">
+                                        <input type="text" class="form-control" id="clientSecret" name="clientSecret" placeholder="Enter your secret key" value="@Model.clientSecret">
                                     </div>
                                 </div>
 
@@ -62,9 +72,17 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="choices-status-input" class="form-label">Account Type</label>
-                                        <select class="form-select" data-choices data-choices-search-false id="choices-status-input">
-                                            <option value="Inprogress" selected>Sandbox</option>
-                                            <option value="Completed">Live</option>
+                                        <select class="form-select" data-choices data-choices-search-false id="choices-status-input" name="Mode">
+                                            @if (Model.Mode == "Sandbox")
+                                            {
+                                                <option value="Sandbox" selected>Sandbox</option>
+                                                <option value="Live">Live</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="Sandbox">Sandbox</option>
+                                                <option value="Live" selected>Live</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -79,49 +97,50 @@
                                 <!--end col-->
                             </div>
                             <!--end row-->
-                        </form>
-                    </div>
-                    <!--end tab-pane-->
-                    <div class="tab-pane" id="changePassword" role="tabpanel">
-                        <form action="javascript:void(0);">
+
+                        </div>
+                        <!--end tab-pane-->
+                        <div class="tab-pane" id="changePassword" role="tabpanel">
+
                             <div class="row g-2">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-lg-6 mb-2">
-                                            <div>
-                                                <label for="oldpasswordInput" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="oldpasswordInput" placeholder="Enter Name">
-                                            </div>
-                                        </div>
+
                                         <!--end col-->
-                                        <div class="col-lg-6 mb-2">
+                                        <div class="col-lg-4 mb-2">
                                             <div>
                                                 <label for="newpasswordInput" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="newpasswordInput" placeholder="Enter Email">
+                                                <input type="email" class="form-control" id="Email" name="Email" placeholder="Enter Email" value="@Model.Email">
                                             </div>
                                         </div>
                                         <!--end col-->
-                                        <div class="col-lg-6 mb-2">
+                                        <div class="col-lg-3 mb-2">
                                             <div>
                                                 <label for="confirmpasswordInput" class="form-label">Port</label>
-                                                <input type="text" class="form-control" id="confirmpasswordInput" placeholder="Port">
+                                                <input type="text" class="form-control" id="Port" name="Port" placeholder="Port" value="@Model.Port">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 mb-2">
+                                        <div class="col-lg-3 mb-2">
                                             <div>
                                                 <label for="confirmpasswordInput" class="form-label">Smtp</label>
-                                                <input type="text" class="form-control" id="confirmpasswordInput" placeholder="smtp">
+                                                <input type="text" class="form-control" id="SMTP" name="SMTP" placeholder="smtp" value="@Model.SMTP">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 mb-2">
+                                        <div class="col-lg-2 mb-2">
                                             <div>
                                                 <label for="confirmpasswordInput" class="form-label">Enable ssl</label>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="formCheck2" checked="">
-                                                    <label class="form-check-label" for="formCheck2">
+                                                    <input class="form-check-input" type="checkbox" id="isActive" name="isActive" value="true" checked="@Model.isActive">
+                                                    <label class="form-check-label" for="isActive">
                                                         Active
                                                     </label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 mb-2">
+                                            <div>
+                                                <label for="confirmpasswordInput" class="form-label">Admin Email</label>
+                                                <input type="text" class="form-control" id="AdminEmail" name="AdminEmail" placeholder="Admin Email" value="@Model.AdminEmail">
                                             </div>
                                         </div>
                                         <!--end col-->
@@ -137,12 +156,13 @@
                                 <!--end col-->
                             </div>
                             <!--end row-->
-                        </form>
+
+
+                        </div>
+                        <!--end tab-pane-->
 
                     </div>
-                    <!--end tab-pane-->
-
-                </div>
+                </form>
             </div>
         </div>
     </div>

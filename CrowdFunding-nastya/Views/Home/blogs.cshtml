@@ -1,5 +1,7 @@
-﻿  <!--  Banner START -->
+﻿﻿@model List<CrowdFunding_nastya.Models.tblBlog>
 
+
+<!--  Banner START -->
 <div class="banner">
     <div class="banner__overlay">
         <div class="container">
@@ -13,7 +15,7 @@
                             </a>
                         </li>
                         <li class="banner__ul-list">
-                            blog
+                            Blog
                         </li>
                     </ul>
                 </div>
@@ -34,375 +36,34 @@
 <div class="blog global__py pt-0">
     <div class="container p-sm-0">
         <div class="blog__grid">
-            <div class="card blog__card text-start m-0" data-aos="fade-down" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-4.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
+            @foreach (var item in Model)
+            {
+                <div class="card blog__card text-start m-0" data-aos="fade-down" data-aos-duration="1000">
+                    <a href="@Url.Action("blog_detail","Home" , new {id = item.BlogId})">
+                        <img class="img-fluid w-100" src="@item.ThumbnailImage" alt="image">
+                    </a>
+                    <div class="card-body px-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="">
+                                <span class="blog__card-span">@item.BlogTitle</span>
+                            </div>
+                            <hr class="blog__card-line">
+                            <div class="">
+                                <span class="blog__card-span">@item.PublishDate.ToString("yyyy-MM-dd")</span>
+                            </div>
                         </div>
-                        <hr class="blog__card-line">
                         <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
+                            <a href="@Url.Action("blog_detail","Home")" class="blog__title">
+                                @item.BlogTitle
+                            </a>
+                            <p class="global__desc blog__desc">
+                                @item.BlogDescription
+                            </p>
                         </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            4 Steps to Take on Your Next
-                            Giving
-                            Tuesday
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-down" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-5.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            5 Creative Giving Tuesday
-                            Nonprofit
-                            Storytelling
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-down" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-6.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            Tips for Retaining Donors
-                            After Your
-                            Giving
-                            Campaign
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-left" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-13.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            5 Creative Giving Tuesday
-                            Nonprofit
-                            Storytelling
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-left" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-14.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            Charity Fundraising Sites: The Top 3 for
-                            Nonprofits
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-left" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-15.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            Tips for Retaining Donors After Your Giving
-                            Campaign
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-right" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-16.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">How to Help a Neighbor in 10 Thoughtful Ways</a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-right" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-17.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            Charity Fundraising Sites: The Top 3 for
-                            Nonprofits
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-right" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-18.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            Tips for Retaining Donors After Your Giving
-                            Campaign
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-up" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-6.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">
-                            4 Steps to Take on Your Next
-                            Giving
-                            Tuesday
-                        </a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-up" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-13.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">5 Creative Giving Tuesday Nonprofit Storytelling</a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card blog__card text-start m-0" data-aos="fade-up" data-aos-duration="1000">
-                <a href="@Url.Action("blog_detail","Home")">
-                    <img class="img-fluid w-100" src="~/assets/assets/img/img-19.png" alt="image">
-                </a>
-                <div class="card-body px-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="">
-                            <span class="blog__card-span">Donation</span>
-                        </div>
-                        <hr class="blog__card-line">
-                        <div class="">
-                            <span class="blog__card-span">October 25, 2023</span>
-                        </div>
-                    </div>
-                    <div class="">
-                        <a href="@Url.Action("blog_detail","Home")" class="blog__title">Medical Tourism and The Best Way to Fund It</a>
-                        <p class="global__desc blog__desc">
-                            consectetur adipisicing elit,
-                            sed
-                            do
-                            eiusmod tempor
-                            incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim
-                            veniam.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            }
+
         </div>
         <div class="col-12 text-center">
             <button class="blog__btn">see more</button>
