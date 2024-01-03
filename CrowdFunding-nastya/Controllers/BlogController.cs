@@ -51,7 +51,7 @@ namespace CrowdFunding_nastya.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult add(tblBlog tblBlog, HttpPostedFileBase BlogThumbnailImage, List<HttpPostedFileBase> BlogAttachedFiles)
+        public ActionResult add(tblBlog tblBlog, HttpPostedFileBase ThumbnailImage, List<HttpPostedFileBase> BlogAttachedFiles)
         {
             if (tblBlog.BlogId > 0)
             {
@@ -60,14 +60,14 @@ namespace CrowdFunding_nastya.Controllers
                 if (existingBlog != null)
                 {
                     // Update existing blog properties here
-                    if (BlogThumbnailImage != null)
+                    if (ThumbnailImage != null)
                     {
-                        string fileName = Path.GetFileNameWithoutExtension(BlogThumbnailImage.FileName);
-                        string extension = Path.GetExtension(BlogThumbnailImage.FileName);
+                        string fileName = Path.GetFileNameWithoutExtension(ThumbnailImage.FileName);
+                        string extension = Path.GetExtension(ThumbnailImage.FileName);
                         fileName = fileName + extension;
-                        tblBlog.ThumbnailImage = "/assets/assets/img/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
-                        BlogThumbnailImage.SaveAs(fileName);
+                        tblBlog.ThumbnailImage = "/Uploading/Blog/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("/Uploading/Blog/"), fileName);
+                        ThumbnailImage.SaveAs(fileName);
                     }
 
                     if (BlogAttachedFiles != null && BlogAttachedFiles.Count > 0)
@@ -80,8 +80,8 @@ namespace CrowdFunding_nastya.Controllers
                                 string extension = Path.GetExtension(file.FileName);
                                 fileName = fileName + extension;
 
-                                string filePath = "/assets/assets/img/" + fileName;
-                                fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
+                                string filePath = "/Uploading/Blog/" + fileName;
+                                fileName = Path.Combine(Server.MapPath("/Uploading/Blog/"), fileName);
                                 file.SaveAs(fileName);
 
                                 // Assuming _dbContextContext is your Entity Framework _dbContextContext
@@ -118,14 +118,14 @@ namespace CrowdFunding_nastya.Controllers
             else
             {
                 // Add operation
-                if (BlogThumbnailImage != null)
+                if (ThumbnailImage != null)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(BlogThumbnailImage.FileName);
-                    string extension = Path.GetExtension(BlogThumbnailImage.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(ThumbnailImage.FileName);
+                    string extension = Path.GetExtension(ThumbnailImage.FileName);
                     fileName = fileName + extension;
-                    tblBlog.ThumbnailImage = "/assets/assets/img/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
-                    BlogThumbnailImage.SaveAs(fileName);
+                    tblBlog.ThumbnailImage = "/Uploading/Blog/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("/Uploading/Blog/"), fileName);
+                    ThumbnailImage.SaveAs(fileName);
                 }
 
                 if (BlogAttachedFiles != null && BlogAttachedFiles.Count > 0)
@@ -138,8 +138,8 @@ namespace CrowdFunding_nastya.Controllers
                             string extension = Path.GetExtension(file.FileName);
                             fileName = fileName + extension;
 
-                            string filePath = "/assets/assets/img/" + fileName;
-                            fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
+                            string filePath = "/Uploading/Blog/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("/Uploading/Blog/"), fileName);
                             file.SaveAs(fileName);
 
                             // Assuming _dbContextContext is your Entity Framework _dbContextContext

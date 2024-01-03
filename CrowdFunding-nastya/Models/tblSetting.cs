@@ -19,12 +19,14 @@ namespace CrowdFunding_nastya.Models
         public string Password { get; set; }
         public Nullable<int> Port { get; set; }
         public string SMTP { get; set; }
-        public string Mode { get; set; }
         public Nullable<bool> IsAdminReceived { get; set; }
         public string AdminEmail { get; set; }
         public string clientId { get; set; }
         public string clientSecret { get; set; }
         public string AccountType { get; set; }
+        public Nullable<double> AdditionalCost { get; set; }
+        public string Feetype { get; set; }
+        public Nullable<double> FeeAmount { get; set; }
         public Nullable<int> Editby { get; set; }
         public Nullable<System.DateTime> EditDate { get; set; }
         public Nullable<bool> isActive { get; set; }

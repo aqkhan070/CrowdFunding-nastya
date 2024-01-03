@@ -7,7 +7,6 @@
       <Diagram DiagramId="27ba8b5d1c814386b6b9dc51011d189e" Name="Diagram1">
         <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblContact" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblEditPage" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblSetting" Width="1.5" PointX="5.375" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblSubscriber" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblBlog" Width="1.5" PointX="8.625" PointY="8.875" />
         <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblBlogAttachedFile" Width="1.5" PointX="10.875" PointY="9.75" />
@@ -32,6 +31,7 @@
         <AssociationConnector Association="CrowdfundingnastyaModel.FK_AccessManu" />
         <AssociationConnector Association="CrowdfundingnastyaModel.FK_AccessRole" />
         <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblUser_tblRole" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblSetting" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

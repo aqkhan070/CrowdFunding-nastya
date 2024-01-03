@@ -27,7 +27,6 @@ namespace CrowdFunding_nastya.Models
     
         public virtual DbSet<tblContact> tblContacts { get; set; }
         public virtual DbSet<tblEditPage> tblEditPages { get; set; }
-        public virtual DbSet<tblSetting> tblSettings { get; set; }
         public virtual DbSet<tblSubscriber> tblSubscribers { get; set; }
         public virtual DbSet<tblBlog> tblBlogs { get; set; }
         public virtual DbSet<tblBlogAttachedFile> tblBlogAttachedFiles { get; set; }
@@ -41,5 +40,6 @@ namespace CrowdFunding_nastya.Models
         public virtual DbSet<tblRole> tblRoles { get; set; }
         public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblVerificationCode> tblVerificationCodes { get; set; }
+        public virtual DbSet<tblSetting> tblSettings { get; set; }
     }
 }

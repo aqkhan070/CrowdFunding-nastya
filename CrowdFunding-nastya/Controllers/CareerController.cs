@@ -64,8 +64,8 @@ namespace CrowdFunding_nastya.Controllers
                         string fileName = Path.GetFileNameWithoutExtension(ThumbnailImage.FileName);
                         string extension = Path.GetExtension(ThumbnailImage.FileName);
                         fileName = fileName + extension;
-                        tblCareer.CareerThumbnailImage = "/assets/assets/img/" + fileName;
-                        fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
+                        tblCareer.CareerThumbnailImage = "/Uploading/Career/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("/Uploading/Career/"), fileName);
                         ThumbnailImage.SaveAs(fileName);
                     }
 
@@ -92,8 +92,8 @@ namespace CrowdFunding_nastya.Controllers
                     string fileName = Path.GetFileNameWithoutExtension(ThumbnailImage.FileName);
                     string extension = Path.GetExtension(ThumbnailImage.FileName);
                     fileName = fileName + extension;
-                    tblCareer.CareerThumbnailImage = "/assets/assets/img/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
+                    tblCareer.CareerThumbnailImage = "/Uploading/Career/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("/Uploading/Career/"), fileName);
                     ThumbnailImage.SaveAs(fileName);
                 }
 

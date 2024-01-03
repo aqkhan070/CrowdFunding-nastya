@@ -179,12 +179,14 @@
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="Port" Type="int" />
           <Property Name="SMTP" Type="nvarchar(max)" />
-          <Property Name="Mode" Type="nvarchar(max)" />
           <Property Name="IsAdminReceived" Type="bit" />
           <Property Name="AdminEmail" Type="nvarchar" MaxLength="500" />
           <Property Name="clientId" Type="nvarchar(max)" />
           <Property Name="clientSecret" Type="nvarchar(max)" />
           <Property Name="AccountType" Type="varchar" MaxLength="100" />
+          <Property Name="AdditionalCost" Type="float" />
+          <Property Name="Feetype" Type="nvarchar" MaxLength="50" />
+          <Property Name="FeeAmount" Type="float" />
           <Property Name="Editby" Type="int" />
           <Property Name="EditDate" Type="datetime" />
           <Property Name="isActive" Type="bit" />
@@ -474,25 +476,6 @@
           <Property Name="Linkdin" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Twitter" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tblSetting">
-          <Key>
-            <PropertyRef Name="SettingId" />
-          </Key>
-          <Property Name="SettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Port" Type="Int32" />
-          <Property Name="SMTP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Mode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsAdminReceived" Type="Boolean" />
-          <Property Name="AdminEmail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="clientId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="clientSecret" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AccountType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Editby" Type="Int32" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
-          <Property Name="isActive" Type="Boolean" />
-        </EntityType>
         <EntityType Name="tblSubscriber">
           <Key>
             <PropertyRef Name="SubscriberID" />
@@ -505,7 +488,6 @@
         <EntityContainer Name="CrowdfundingnastyaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblContacts" EntityType="Self.tblContact" />
           <EntitySet Name="tblEditPages" EntityType="Self.tblEditPage" />
-          <EntitySet Name="tblSettings" EntityType="Self.tblSetting" />
           <EntitySet Name="tblSubscribers" EntityType="Self.tblSubscriber" />
           <EntitySet Name="tblBlogs" EntityType="CrowdfundingnastyaModel.tblBlog" />
           <EntitySet Name="tblBlogAttachedFiles" EntityType="CrowdfundingnastyaModel.tblBlogAttachedFile" />
@@ -563,6 +545,7 @@
             <End Role="tblRole" EntitySet="tblRoles" />
             <End Role="tblUser" EntitySet="tblUsers" />
           </AssociationSet>
+          <EntitySet Name="tblSettings" EntityType="CrowdfundingnastyaModel.tblSetting" />
         </EntityContainer>
         <EntityType Name="tblBlog">
           <Key>
@@ -901,6 +884,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblSetting">
+          <Key>
+            <PropertyRef Name="SettingId" />
+          </Key>
+          <Property Name="SettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Port" Type="Int32" />
+          <Property Name="SMTP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdminReceived" Type="Boolean" />
+          <Property Name="AdminEmail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="clientId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="clientSecret" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AdditionalCost" Type="Double" />
+          <Property Name="Feetype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FeeAmount" Type="Double" />
+          <Property Name="Editby" Type="Int32" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -936,26 +940,6 @@
                 <ScalarProperty Name="Google" ColumnName="Google" />
                 <ScalarProperty Name="Linkdin" ColumnName="Linkdin" />
                 <ScalarProperty Name="Twitter" ColumnName="Twitter" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblSettings">
-            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblSetting">
-              <MappingFragment StoreEntitySet="tblSetting">
-                <ScalarProperty Name="SettingId" ColumnName="SettingId" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Port" ColumnName="Port" />
-                <ScalarProperty Name="SMTP" ColumnName="SMTP" />
-                <ScalarProperty Name="Mode" ColumnName="Mode" />
-                <ScalarProperty Name="IsAdminReceived" ColumnName="IsAdminReceived" />
-                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
-                <ScalarProperty Name="clientId" ColumnName="clientId" />
-                <ScalarProperty Name="clientSecret" ColumnName="clientSecret" />
-                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
-                <ScalarProperty Name="Editby" ColumnName="Editby" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1161,6 +1145,28 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="VerificationCodeId" ColumnName="VerificationCodeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSettings">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblSetting">
+              <MappingFragment StoreEntitySet="tblSetting">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="Editby" ColumnName="Editby" />
+                <ScalarProperty Name="FeeAmount" ColumnName="FeeAmount" />
+                <ScalarProperty Name="Feetype" ColumnName="Feetype" />
+                <ScalarProperty Name="AdditionalCost" ColumnName="AdditionalCost" />
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="clientSecret" ColumnName="clientSecret" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="AdminEmail" ColumnName="AdminEmail" />
+                <ScalarProperty Name="IsAdminReceived" ColumnName="IsAdminReceived" />
+                <ScalarProperty Name="SMTP" ColumnName="SMTP" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SettingId" ColumnName="SettingId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
