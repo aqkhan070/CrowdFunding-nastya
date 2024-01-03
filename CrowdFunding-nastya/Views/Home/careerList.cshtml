@@ -5,6 +5,77 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
+<div class="row">
+    @{
+        int totalCareer = Model.Count();
+        int activeCareer = Model.Count(model => model.IsActive == true);
+        int inActiveCareer = Model.Count(model => model.IsActive == false);
+
+    }
+    <div class="col-xl-3 col-md-6">
+        <!-- card -->
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-semibold text-muted mb-0">Total Career</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@totalCareer">0</span></h2>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-primary-subtle text-primary rounded-circle fs-4">
+                                <i class="bx bx-server text-primary"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <!-- card -->
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-semibold text-muted mb-0">Active Career</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@activeCareer">0</span></h2>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-success-subtle text-success rounded-circle fs-4">
+                                <i class="bx bx-server text-success"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <!-- card -->
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p class="fw-semibold text-muted mb-0">In-Active Career</p>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@inActiveCareer">0</span></h2>
+                    </div>
+                    <div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-danger-subtle text-danger rounded-circle fs-4">
+                                <i class="bx bx-server text-danger"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-12">
@@ -101,7 +172,7 @@
                                             <a href="#javascript: void(0);" class="text-body fw-medium">@item.CareerTitle</a>
                                         </td>
 
-                                        <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@Html.DisplayFor(modelItem => item.tblCareerPriority.PriorityName)</span></td>
+                                        <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@Html.DisplayFor(modelItem => item.tblBlogPriority.Priority)</span></td>
 
 
                                         <td class="priority">

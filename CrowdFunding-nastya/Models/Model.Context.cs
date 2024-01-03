@@ -32,8 +32,5 @@ namespace CrowdFunding_nastya.Models
         public virtual DbSet<tblBlogPriority> tblBlogPriorities { get; set; }
         public virtual DbSet<tblBlogType> tblBlogTypes { get; set; }
         public virtual DbSet<tblCareer> tblCareers { get; set; }
-        public virtual DbSet<tblCareerBlogType> tblCareerBlogTypes { get; set; }
-        public virtual DbSet<tblCareerCategory> tblCareerCategories { get; set; }
-        public virtual DbSet<tblCareerPriority> tblCareerPriorities { get; set; }
     }
 }

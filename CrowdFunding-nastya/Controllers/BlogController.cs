@@ -35,6 +35,7 @@ namespace CrowdFunding_nastya.Controllers
                 // Edit operation
 
                 var blogToEdit = _dbContext.tblBlogs.FirstOrDefault(model => model.BlogId == id);
+                
                 return View(blogToEdit);
             }
             else
@@ -46,7 +47,7 @@ namespace CrowdFunding_nastya.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult add(tblBlog tblBlog)
+        public ActionResult add(tblBlog tblBlog , HttpPostedFileBase BlogThumbnailImage , List<HttpPostedFileBase> BlogAttachedFiles)
         {
             if (tblBlog.BlogId > 0)
             {
@@ -55,19 +56,19 @@ namespace CrowdFunding_nastya.Controllers
                 if (existingBlog != null)
                 {
                     // Update existing blog properties here
-                    if (tblBlog.BlogThumbnailImage != null)
+                    if (BlogThumbnailImage != null)
                     {
-                        string fileName = Path.GetFileNameWithoutExtension(tblBlog.BlogThumbnailImage.FileName);
-                        string extension = Path.GetExtension(tblBlog.BlogThumbnailImage.FileName);
+                        string fileName = Path.GetFileNameWithoutExtension(BlogThumbnailImage.FileName);
+                        string extension = Path.GetExtension(BlogThumbnailImage.FileName);
                         fileName = fileName + extension;
                         tblBlog.ThumbnailImage = "/assets/assets/img/" + fileName;
                         fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
-                        tblBlog.BlogThumbnailImage.SaveAs(fileName);
+                        BlogThumbnailImage.SaveAs(fileName);
                     }
 
-                    if (tblBlog.BlogAttachedFiles != null && tblBlog.BlogAttachedFiles.Count > 0)
+                    if (BlogAttachedFiles != null && BlogAttachedFiles.Count > 0)
                     {
-                        foreach (var file in tblBlog.BlogAttachedFiles)
+                        foreach (var file in BlogAttachedFiles)
                         {
                             if (file != null && file.ContentLength > 0)
                             {
@@ -84,6 +85,7 @@ namespace CrowdFunding_nastya.Controllers
                                 {
                                     BlogId = tblBlog.BlogId, // Assuming you have the BlogID available
                                     AttachedFiles = filePath,
+                                    EditDate = DateTime.Now,
                                     //FileName = fileName,
                                     //ContentType = file.ContentType,
                                     // ... other properties you may want to store
@@ -95,13 +97,14 @@ namespace CrowdFunding_nastya.Controllers
                         }
                     }
 
-                    existingBlog.BlogTitle = tblBlog.BlogTitle;
-                    existingBlog.BlogDescription = tblBlog.BlogDescription;
-                    existingBlog.ThumbnailImage = tblBlog.ThumbnailImage;
-                    existingBlog.PriorityId = tblBlog.PriorityId;
-                    existingBlog.IsActive = tblBlog.IsActive;
-                    existingBlog.CategoryId = tblBlog.CategoryId;
-                    existingBlog.BlogTypeId = tblBlog.BlogTypeId;
+                    existingBlog.EditDate = DateTime.Now;
+                    //existingBlog.BlogTitle = tblBlog.BlogTitle;
+                    //existingBlog.BlogDescription = tblBlog.BlogDescription;
+                    //existingBlog.ThumbnailImage = tblBlog.ThumbnailImage;
+                    //existingBlog.PriorityId = tblBlog.PriorityId;
+                    //existingBlog.IsActive = tblBlog.IsActive;
+                    //existingBlog.CategoryId = tblBlog.CategoryId;
+                    //existingBlog.BlogTypeId = tblBlog.BlogTypeId;
 
                     _dbContext.tblBlogs.AddOrUpdate(existingBlog);
                     _dbContext.SaveChanges();
@@ -111,19 +114,19 @@ namespace CrowdFunding_nastya.Controllers
             else
             {
                 // Add operation
-                if (tblBlog.BlogThumbnailImage != null)
+                if (BlogThumbnailImage != null)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(tblBlog.BlogThumbnailImage.FileName);
-                    string extension = Path.GetExtension(tblBlog.BlogThumbnailImage.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(BlogThumbnailImage.FileName);
+                    string extension = Path.GetExtension(BlogThumbnailImage.FileName);
                     fileName = fileName + extension;
                     tblBlog.ThumbnailImage = "/assets/assets/img/" + fileName;
                     fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
-                    tblBlog.BlogThumbnailImage.SaveAs(fileName);
+                    BlogThumbnailImage.SaveAs(fileName);
                 }
 
-                if (tblBlog.BlogAttachedFiles != null && tblBlog.BlogAttachedFiles.Count > 0)
+                if (BlogAttachedFiles != null && BlogAttachedFiles.Count > 0)
                 {
-                    foreach (var file in tblBlog.BlogAttachedFiles)
+                    foreach (var file in BlogAttachedFiles)
                     {
                         if (file != null && file.ContentLength > 0)
                         {
@@ -140,6 +143,7 @@ namespace CrowdFunding_nastya.Controllers
                             {
                                 BlogId = tblBlog.BlogId, // Assuming you have the BlogID available
                                 AttachedFiles = filePath,
+                                CreatedDate = DateTime.Now,
                                 //FileName = fileName,
                                 //ContentType = file.ContentType,
                                 // ... other properties you may want to store

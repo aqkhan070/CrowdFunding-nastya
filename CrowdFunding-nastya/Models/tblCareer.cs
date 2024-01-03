@@ -30,11 +30,9 @@ namespace CrowdFunding_nastya.Models
         public Nullable<int> CategoryId { get; set; }
         public Nullable<int> PriorityId { get; set; }
         public Nullable<int> BlogTypeId { get; set; }
-        [NotMapped]
-        public HttpPostedFileBase ThumbnailImage { get; set; }
 
-        public virtual tblCareerBlogType tblCareerBlogType { get; set; }
-        public virtual tblCareerCategory tblCareerCategory { get; set; }
-        public virtual tblCareerPriority tblCareerPriority { get; set; }
+        public virtual tblBlogCategory tblBlogCategory { get; set; }
+        public virtual tblBlogPriority tblBlogPriority { get; set; }
+        public virtual tblBlogType tblBlogType { get; set; }
     }
 }

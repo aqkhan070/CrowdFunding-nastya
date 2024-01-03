@@ -12,24 +12,48 @@
 }
 
 <!-- start page title -->
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Create Blog</h4>
+@{
+    if (Model.BlogId == 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Create Blog</h4>
 
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
-                    <li class="breadcrumb-item active">Create Blog</li>
-                </ol>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
+                            <li class="breadcrumb-item active">Create Blog</li>
+                        </ol>
+                    </div>
+
+                </div>
             </div>
+        </div>
+    }
+    else
+    {
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Update Blog</h4>
 
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Blogs</a></li>
+                        <li class="breadcrumb-item active">Update Blog</li>
+                    </ol>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
+    }
+}
+
 <!-- end page title -->
 
-@using (Html.BeginForm("add", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" , id = "blogForm" }))
+@using (Html.BeginForm("add", "Blog", FormMethod.Post, new { enctype = "multipart/form-data", id = "blogForm" }))
 {
     @Html.ValidationSummary(true)
 
@@ -83,8 +107,19 @@
                         </div>
                         <div class="col-lg-4">
                             <div>
-                                <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
-                                @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr" } })
+                                @{
+                                    if (Model.BlogId == 0)
+                                    {
+                                        <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr" } })
+                                    }
+                                    else
+                                    {
+                                        <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "datetime", @id = "datepicker-deadline-input", @data_provider = "flatpickr" , @readonly = "readonly" } })
+                                    }
+                                }
+
                             </div>
                         </div>
                     </div>
@@ -148,9 +183,21 @@
             </div>
             <!-- end card -->
             <div class="text-end mb-4">
-                <button type="submit" class="btn btn-danger w-sm">Delete</button>
-                <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
-                <button type="submit" class="btn btn-success w-sm" onclick="GetData()" >Create</button>
+                @{
+                    if (Model.BlogId == 0)
+                    {
+                        <button type="button" class="btn btn-danger w-sm">Delete</button>
+                        <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
+                        <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Create</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-danger w-sm">Delete</button>
+                        <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
+                        <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Update</button>
+                    }
+                }
+
             </div>
         </div>
         <!-- end col -->
@@ -163,13 +210,13 @@
                     <div class="mb-3">
                         <label for="CategoryId" class="form-label">Categories</label>
                         @*@Html.EditorFor(model => model.CategoryId)*@
-                    <select id="CategoryId" class="form-control" name="CategoryId" required>
-                        <option value="" @(Model == null || Model.CategoryId == null ? "selected" : "")>---Select Category---</option>
-                        @foreach (var list in ViewBag.CategoryList as SelectList)
-                        {
-                            <option value="@list.Value" @(Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>@list.Text</option>
-                        }
-                    </select>
+                        <select id="CategoryId" class="form-control" name="CategoryId" required>
+                            <option value="" @(Model == null || Model.CategoryId == null ? "selected" : "")>---Select Category---</option>
+                            @foreach (var list in ViewBag.CategoryList as SelectList)
+                            {
+                                <option value="@list.Value" @(Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>@list.Text</option>
+                            }
+                        </select>
                     </div>
 
 
@@ -182,15 +229,15 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <label for="choices-privacy-status-input" class="form-label">Blog Type</label>
+                        <label for="BlogTypeId" class="form-label">Blog Type</label>
                         @*@Html.EditorFor(model => model.BlogTypeId)*@
-                    <select id="CategoryId" class="form-control" name="CategoryId" required>
-                        <option value="" @(Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Category---</option>
-                        @foreach (var list in ViewBag.BlogTypeList as SelectList)
-                        {
-                            <option value="@list.Value" @(Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>@list.Text</option>
-                        }
-                    </select>
+                        <select id="BlogTypeId" class="form-control" name="BlogTypeId" required>
+                            <option value="" @(Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Category---</option>
+                            @foreach (var list in ViewBag.BlogTypeList as SelectList)
+                            {
+                                <option value="@list.Value" @(Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>@list.Text</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <!-- end card body -->
@@ -211,8 +258,8 @@
 
     function GetData() {
         let html = $(".ck-editor__editable").html();
-        
-        $("#BlogDescription").text(html);    
+
+        $("#BlogDescription").text(html);
     }
 
     $(document).ready(function () {

@@ -18,6 +18,7 @@ namespace CrowdFunding_nastya.Models
         public tblBlogCategory()
         {
             this.tblBlogs = new HashSet<tblBlog>();
+            this.tblCareers = new HashSet<tblCareer>();
         }
     
         public int CategoryId { get; set; }
@@ -30,5 +31,7 @@ namespace CrowdFunding_nastya.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblBlog> tblBlogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCareer> tblCareers { get; set; }
     }
 }

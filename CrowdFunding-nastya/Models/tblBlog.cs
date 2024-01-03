@@ -37,10 +37,6 @@ namespace CrowdFunding_nastya.Models
         public Nullable<int> PriorityId { get; set; }
         public Nullable<int> BlogTypeId { get; set; }
         public Nullable<int> AttachedFileId { get; set; }
-        [NotMapped]
-        public HttpPostedFileBase BlogThumbnailImage { get; set; }
-        [NotMapped]
-        public List<HttpPostedFileBase> BlogAttachedFiles { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblBlogAttachedFile> tblBlogAttachedFiles { get; set; }

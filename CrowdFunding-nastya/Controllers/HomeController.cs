@@ -44,17 +44,16 @@ namespace CrowdFunding_nastya.Controllers
         [HttpGet]
         public ActionResult career(int id = 0)
         {
-            var priorityList = _dbContext.tblCareerPriorities.ToList();
-            ViewBag.PriorityList = new SelectList(priorityList, "PriorityId", "PriorityName");
-            var categoryList = _dbContext.tblCareerCategories.ToList();
+            var priorityList = _dbContext.tblBlogPriorities.ToList();
+            ViewBag.PriorityList = new SelectList(priorityList, "PriorityId", "Priority");
+            var categoryList = _dbContext.tblBlogCategories.ToList();
             ViewBag.CategoryList = new SelectList(categoryList, "CategoryId", "CategoryName");
-            var blogTypeList = _dbContext.tblCareerBlogTypes.ToList();
-            ViewBag.CareerTypeList = new SelectList(blogTypeList, "BlogTypeId", "BlogTypeName");
+            var blogTypeList = _dbContext.tblBlogTypes.ToList();
+            ViewBag.BlogTypeList = new SelectList(blogTypeList, "BlogTypeId", "BlogTypeName");
 
             if (id > 0)
             {
                 // Edit operation
-
                 var CareerToEdit = _dbContext.tblCareers.FirstOrDefault(model => model.CareerId == id);
                 return View(CareerToEdit);
             }
@@ -66,34 +65,36 @@ namespace CrowdFunding_nastya.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Career(tblCareer tblCareer)
+        public ActionResult Career(tblCareer tblCareer , HttpPostedFileBase ThumbnailImage)
         {
             if (tblCareer.CareerId > 0)
             {
                 // Update operation
-                var existingBlog = _dbContext.tblCareers.FirstOrDefault(model => model.CareerId == tblCareer.CareerId);
-                if (existingBlog != null)
+                var existingCareer = _dbContext.tblCareers.FirstOrDefault(model => model.CareerId == tblCareer.CareerId);
+                if (existingCareer != null)
                 {
                     // Update existing blog properties here
-                    if (tblCareer.ThumbnailImage != null)
+                    if (ThumbnailImage != null)
                     {
-                        string fileName = Path.GetFileNameWithoutExtension(tblCareer.ThumbnailImage.FileName);
-                        string extension = Path.GetExtension(tblCareer.ThumbnailImage.FileName);
+                        string fileName = Path.GetFileNameWithoutExtension(ThumbnailImage.FileName);
+                        string extension = Path.GetExtension(ThumbnailImage.FileName);
                         fileName = fileName + extension;
                         tblCareer.CareerThumbnailImage = "/assets/assets/img/" + fileName;
                         fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
-                        tblCareer.ThumbnailImage.SaveAs(fileName);
+                        ThumbnailImage.SaveAs(fileName);
                     }
+                    
+                    existingCareer.EditDate = DateTime.Now;
+                    //existingCareer.CareerTitle = tblCareer.CareerTitle;
+                    //existingCareer.CareerDescription = tblCareer.CareerDescription;
+                    //existingCareer.CareerThumbnailImage = tblCareer.CareerThumbnailImage;
+                    //existingCareer.PriorityId = tblCareer.PriorityId;
+                    //existingCareer.IsActive = tblCareer.IsActive;
+                    //existingCareer.CategoryId = tblCareer.CategoryId;
+                    //existingCareer.BlogTypeId = tblCareer.BlogTypeId;
+                    //existingCareer.PublishDate = existingCareer.PublishDate;
 
-                    existingBlog.CareerTitle = tblCareer.CareerTitle;
-                    existingBlog.CareerDescription = tblCareer.CareerDescription;
-                    existingBlog.CareerThumbnailImage = tblCareer.CareerThumbnailImage;
-                    existingBlog.PriorityId = tblCareer.PriorityId;
-                    existingBlog.IsActive = tblCareer.IsActive;
-                    existingBlog.CategoryId = tblCareer.CategoryId;
-                    existingBlog.BlogTypeId = tblCareer.BlogTypeId;
-
-                    _dbContext.tblCareers.AddOrUpdate(existingBlog);
+                    _dbContext.tblCareers.AddOrUpdate(existingCareer);
                     _dbContext.SaveChanges();
                     return RedirectToAction("careerList", "Home");
                 }
@@ -101,14 +102,14 @@ namespace CrowdFunding_nastya.Controllers
             else
             {
                 // Add operation
-                if (tblCareer.ThumbnailImage != null)
+                if (ThumbnailImage != null)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(tblCareer.ThumbnailImage.FileName);
-                    string extension = Path.GetExtension(tblCareer.ThumbnailImage.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(ThumbnailImage.FileName);
+                    string extension = Path.GetExtension(ThumbnailImage.FileName);
                     fileName = fileName + extension;
                     tblCareer.CareerThumbnailImage = "/assets/assets/img/" + fileName;
                     fileName = Path.Combine(Server.MapPath("/assets/assets/img/"), fileName);
-                    tblCareer.ThumbnailImage.SaveAs(fileName);
+                    ThumbnailImage.SaveAs(fileName);
                 }
 
                  tblCareer.CreatedDate = DateTime.Now;
@@ -130,6 +131,7 @@ namespace CrowdFunding_nastya.Controllers
             var checkCareer = _dbContext.tblBlogs.Where(model => model.BlogId.Equals(CareerId)).FirstOrDefault();
             if (checkCareer != null)
             {
+                checkCareer.IsDeleted = true;
                 _dbContext.Entry(checkCareer).State = EntityState.Modified;
                 int a = _dbContext.SaveChanges();
                 if (a > 0)

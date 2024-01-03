@@ -103,42 +103,6 @@
           <Property Name="PriorityId" Type="int" />
           <Property Name="BlogTypeId" Type="int" />
         </EntityType>
-        <EntityType Name="tblCareerBlogType">
-          <Key>
-            <PropertyRef Name="BlogTypeId" />
-          </Key>
-          <Property Name="BlogTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BlogTypeName" Type="nvarchar" MaxLength="250" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="CreatedBy" Type="int" />
-          <Property Name="EditBy" Type="int" />
-          <Property Name="EditDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" />
-        </EntityType>
-        <EntityType Name="tblCareerCategory">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
-          <Property Name="CreatedBy" Type="int" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="EditBy" Type="int" />
-          <Property Name="EditDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" />
-        </EntityType>
-        <EntityType Name="tblCareerPriority">
-          <Key>
-            <PropertyRef Name="PriorityId" />
-          </Key>
-          <Property Name="PriorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PriorityName" Type="nvarchar" MaxLength="250" />
-          <Property Name="CreatedBy" Type="int" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="EditBy" Type="int" />
-          <Property Name="EditDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" />
-        </EntityType>
         <Association Name="FK_tblAttachedFiles_tblBlog">
           <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
           <End Role="tblBlogAttachedFiles" Type="Self.tblBlogAttachedFiles" Multiplicity="*" />
@@ -199,23 +163,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblCareer_tblCareerBlogType">
-          <End Role="tblCareerBlogType" Type="Self.tblCareerBlogType" Multiplicity="0..1" />
+        <Association Name="FK_tblCareer_tblBlogCategory">
+          <End Role="tblBlogCategory" Type="Self.tblBlogCategory" Multiplicity="0..1" />
           <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblCareerBlogType">
-              <PropertyRef Name="BlogTypeId" />
-            </Principal>
-            <Dependent Role="tblCareer">
-              <PropertyRef Name="BlogTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCareer_tblCareerCategory">
-          <End Role="tblCareerCategory" Type="Self.tblCareerCategory" Multiplicity="0..1" />
-          <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCareerCategory">
+            <Principal Role="tblBlogCategory">
               <PropertyRef Name="CategoryId" />
             </Principal>
             <Dependent Role="tblCareer">
@@ -223,15 +175,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblCareer_tblCareerPriority">
-          <End Role="tblCareerPriority" Type="Self.tblCareerPriority" Multiplicity="0..1" />
+        <Association Name="FK_tblCareer_tblBlogPriority">
+          <End Role="tblBlogPriority" Type="Self.tblBlogPriority" Multiplicity="0..1" />
           <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblCareerPriority">
+            <Principal Role="tblBlogPriority">
               <PropertyRef Name="PriorityId" />
             </Principal>
             <Dependent Role="tblCareer">
               <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCareer_tblBlogType">
+          <End Role="tblBlogType" Type="Self.tblBlogType" Multiplicity="0..1" />
+          <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBlogType">
+              <PropertyRef Name="BlogTypeId" />
+            </Principal>
+            <Dependent Role="tblCareer">
+              <PropertyRef Name="BlogTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -243,9 +207,6 @@
           <EntitySet Name="tblBlogPriority" EntityType="Self.tblBlogPriority" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBlogType" EntityType="Self.tblBlogType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCareer" EntityType="Self.tblCareer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCareerBlogType" EntityType="Self.tblCareerBlogType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCareerCategory" EntityType="Self.tblCareerCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCareerPriority" EntityType="Self.tblCareerPriority" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblAttachedFiles_tblBlog" Association="Self.FK_tblAttachedFiles_tblBlog">
             <End Role="tblBlog" EntitySet="tblBlog" />
             <End Role="tblBlogAttachedFiles" EntitySet="tblBlogAttachedFiles" />
@@ -266,16 +227,16 @@
             <End Role="tblBlogType" EntitySet="tblBlogType" />
             <End Role="tblBlog" EntitySet="tblBlog" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCareer_tblCareerBlogType" Association="Self.FK_tblCareer_tblCareerBlogType">
-            <End Role="tblCareerBlogType" EntitySet="tblCareerBlogType" />
+          <AssociationSet Name="FK_tblCareer_tblBlogCategory" Association="Self.FK_tblCareer_tblBlogCategory">
+            <End Role="tblBlogCategory" EntitySet="tblBlogCategory" />
             <End Role="tblCareer" EntitySet="tblCareer" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCareer_tblCareerCategory" Association="Self.FK_tblCareer_tblCareerCategory">
-            <End Role="tblCareerCategory" EntitySet="tblCareerCategory" />
+          <AssociationSet Name="FK_tblCareer_tblBlogPriority" Association="Self.FK_tblCareer_tblBlogPriority">
+            <End Role="tblBlogPriority" EntitySet="tblBlogPriority" />
             <End Role="tblCareer" EntitySet="tblCareer" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCareer_tblCareerPriority" Association="Self.FK_tblCareer_tblCareerPriority">
-            <End Role="tblCareerPriority" EntitySet="tblCareerPriority" />
+          <AssociationSet Name="FK_tblCareer_tblBlogType" Association="Self.FK_tblCareer_tblBlogType">
+            <End Role="tblBlogType" EntitySet="tblBlogType" />
             <End Role="tblCareer" EntitySet="tblCareer" />
           </AssociationSet>
         </EntityContainer>
@@ -346,6 +307,7 @@
           <Property Name="EditDate" Type="DateTime" Precision="7" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="tblBlogs" Relationship="Self.FK_tblBlog_tblBlogCategory" FromRole="tblBlogCategory" ToRole="tblBlog" />
+          <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblBlogCategory" FromRole="tblBlogCategory" ToRole="tblCareer" />
         </EntityType>
         <EntityType Name="tblBlogPriority">
           <Key>
@@ -359,6 +321,7 @@
           <Property Name="EditDate" Type="DateTime" Precision="7" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="tblBlogs" Relationship="Self.FK_tblBlog_tblBlogPriority" FromRole="tblBlogPriority" ToRole="tblBlog" />
+          <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblBlogPriority" FromRole="tblBlogPriority" ToRole="tblCareer" />
         </EntityType>
         <EntityType Name="tblBlogType">
           <Key>
@@ -372,6 +335,7 @@
           <Property Name="EditDate" Type="DateTime" Precision="7" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="tblBlogs" Relationship="Self.FK_tblBlog_tblBlogType" FromRole="tblBlogType" ToRole="tblBlog" />
+          <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblBlogType" FromRole="tblBlogType" ToRole="tblCareer" />
         </EntityType>
         <EntityType Name="tblCareer">
           <Key>
@@ -391,48 +355,9 @@
           <Property Name="CategoryId" Type="Int32" />
           <Property Name="PriorityId" Type="Int32" />
           <Property Name="BlogTypeId" Type="Int32" />
-          <NavigationProperty Name="tblCareerBlogType" Relationship="Self.FK_tblCareer_tblCareerBlogType" FromRole="tblCareer" ToRole="tblCareerBlogType" />
-          <NavigationProperty Name="tblCareerCategory" Relationship="Self.FK_tblCareer_tblCareerCategory" FromRole="tblCareer" ToRole="tblCareerCategory" />
-          <NavigationProperty Name="tblCareerPriority" Relationship="Self.FK_tblCareer_tblCareerPriority" FromRole="tblCareer" ToRole="tblCareerPriority" />
-        </EntityType>
-        <EntityType Name="tblCareerBlogType">
-          <Key>
-            <PropertyRef Name="BlogTypeId" />
-          </Key>
-          <Property Name="BlogTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BlogTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="EditBy" Type="Int32" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblCareerBlogType" FromRole="tblCareerBlogType" ToRole="tblCareer" />
-        </EntityType>
-        <EntityType Name="tblCareerCategory">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="EditBy" Type="Int32" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblCareerCategory" FromRole="tblCareerCategory" ToRole="tblCareer" />
-        </EntityType>
-        <EntityType Name="tblCareerPriority">
-          <Key>
-            <PropertyRef Name="PriorityId" />
-          </Key>
-          <Property Name="PriorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PriorityName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="EditBy" Type="Int32" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblCareerPriority" FromRole="tblCareerPriority" ToRole="tblCareer" />
+          <NavigationProperty Name="tblBlogCategory" Relationship="Self.FK_tblCareer_tblBlogCategory" FromRole="tblCareer" ToRole="tblBlogCategory" />
+          <NavigationProperty Name="tblBlogPriority" Relationship="Self.FK_tblCareer_tblBlogPriority" FromRole="tblCareer" ToRole="tblBlogPriority" />
+          <NavigationProperty Name="tblBlogType" Relationship="Self.FK_tblCareer_tblBlogType" FromRole="tblCareer" ToRole="tblBlogType" />
         </EntityType>
         <Association Name="FK_tblAttachedFiles_tblBlog">
           <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="0..1" />
@@ -494,23 +419,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblCareer_tblCareerBlogType">
-          <End Role="tblCareerBlogType" Type="Self.tblCareerBlogType" Multiplicity="0..1" />
+        <Association Name="FK_tblCareer_tblBlogCategory">
+          <End Role="tblBlogCategory" Type="Self.tblBlogCategory" Multiplicity="0..1" />
           <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblCareerBlogType">
-              <PropertyRef Name="BlogTypeId" />
-            </Principal>
-            <Dependent Role="tblCareer">
-              <PropertyRef Name="BlogTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCareer_tblCareerCategory">
-          <End Role="tblCareerCategory" Type="Self.tblCareerCategory" Multiplicity="0..1" />
-          <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCareerCategory">
+            <Principal Role="tblBlogCategory">
               <PropertyRef Name="CategoryId" />
             </Principal>
             <Dependent Role="tblCareer">
@@ -518,15 +431,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblCareer_tblCareerPriority">
-          <End Role="tblCareerPriority" Type="Self.tblCareerPriority" Multiplicity="0..1" />
+        <Association Name="FK_tblCareer_tblBlogPriority">
+          <End Role="tblBlogPriority" Type="Self.tblBlogPriority" Multiplicity="0..1" />
           <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblCareerPriority">
+            <Principal Role="tblBlogPriority">
               <PropertyRef Name="PriorityId" />
             </Principal>
             <Dependent Role="tblCareer">
               <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCareer_tblBlogType">
+          <End Role="tblBlogType" Type="Self.tblBlogType" Multiplicity="0..1" />
+          <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBlogType">
+              <PropertyRef Name="BlogTypeId" />
+            </Principal>
+            <Dependent Role="tblCareer">
+              <PropertyRef Name="BlogTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -538,9 +463,6 @@
           <EntitySet Name="tblBlogPriorities" EntityType="Self.tblBlogPriority" />
           <EntitySet Name="tblBlogTypes" EntityType="Self.tblBlogType" />
           <EntitySet Name="tblCareers" EntityType="Self.tblCareer" />
-          <EntitySet Name="tblCareerBlogTypes" EntityType="Self.tblCareerBlogType" />
-          <EntitySet Name="tblCareerCategories" EntityType="Self.tblCareerCategory" />
-          <EntitySet Name="tblCareerPriorities" EntityType="Self.tblCareerPriority" />
           <AssociationSet Name="FK_tblAttachedFiles_tblBlog" Association="Self.FK_tblAttachedFiles_tblBlog">
             <End Role="tblBlog" EntitySet="tblBlogs" />
             <End Role="tblBlogAttachedFiles" EntitySet="tblBlogAttachedFiles" />
@@ -561,16 +483,16 @@
             <End Role="tblBlogType" EntitySet="tblBlogTypes" />
             <End Role="tblBlog" EntitySet="tblBlogs" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCareer_tblCareerBlogType" Association="Self.FK_tblCareer_tblCareerBlogType">
-            <End Role="tblCareerBlogType" EntitySet="tblCareerBlogTypes" />
+          <AssociationSet Name="FK_tblCareer_tblBlogCategory" Association="Self.FK_tblCareer_tblBlogCategory">
+            <End Role="tblBlogCategory" EntitySet="tblBlogCategories" />
             <End Role="tblCareer" EntitySet="tblCareers" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCareer_tblCareerCategory" Association="Self.FK_tblCareer_tblCareerCategory">
-            <End Role="tblCareerCategory" EntitySet="tblCareerCategories" />
+          <AssociationSet Name="FK_tblCareer_tblBlogPriority" Association="Self.FK_tblCareer_tblBlogPriority">
+            <End Role="tblBlogPriority" EntitySet="tblBlogPriorities" />
             <End Role="tblCareer" EntitySet="tblCareers" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblCareer_tblCareerPriority" Association="Self.FK_tblCareer_tblCareerPriority">
-            <End Role="tblCareerPriority" EntitySet="tblCareerPriorities" />
+          <AssociationSet Name="FK_tblCareer_tblBlogType" Association="Self.FK_tblCareer_tblBlogType">
+            <End Role="tblBlogType" EntitySet="tblBlogTypes" />
             <End Role="tblCareer" EntitySet="tblCareers" />
           </AssociationSet>
         </EntityContainer>
@@ -682,45 +604,6 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
                 <ScalarProperty Name="BlogTypeId" ColumnName="BlogTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCareerBlogTypes">
-            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblCareerBlogType">
-              <MappingFragment StoreEntitySet="tblCareerBlogType">
-                <ScalarProperty Name="BlogTypeId" ColumnName="BlogTypeId" />
-                <ScalarProperty Name="BlogTypeName" ColumnName="BlogTypeName" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCareerCategories">
-            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblCareerCategory">
-              <MappingFragment StoreEntitySet="tblCareerCategory">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCareerPriorities">
-            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblCareerPriority">
-              <MappingFragment StoreEntitySet="tblCareerPriority">
-                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
-                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
