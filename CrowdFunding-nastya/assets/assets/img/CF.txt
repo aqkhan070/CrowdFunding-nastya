@@ -1,0 +1,11 @@
+//tblCareer
+
+[NotMapped]
+public HttpPostedFileBase ThumbnailImage { get; set; }
+
+//tblBlog
+
+[NotMapped]
+public HttpPostedFileBase BlogThumbnailImage { get; set; }
+[NotMapped]
+public List<HttpPostedFileBase> BlogAttachedFiles { get; set; }

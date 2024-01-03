@@ -136,7 +136,7 @@
                     <div>
                         <p class="text-muted">Add Attached files here.</p>
 
-                        <input name="BlogAttachedFiles" type="file" multiple="multiple">
+                            <input name="BlogAttachedFiles" type="file" multiple="multiple">
                         <div class="dropzone">
                             <div class="fallback">
                             </div>
@@ -175,8 +175,42 @@
                         </ul>
                         @foreach (var attachment in Model.tblBlogAttachedFiles)
                         {
-                            <img src="@attachment.AttachedFiles" height="50" width="50" class="my-2" loading="lazy" style="border-radius: 50%;" />
+                            <div class="image-container" data-image-id="@attachment.AttachedFileId">
+                                <img src="@attachment.AttachedFiles" height="50" width="50" class="my-2 image" loading="lazy" style="border-radius: 50%;" />
+                                <div class="cross-button">✖</div>
+                            </div>
+                            <div id="imageDeleted" class="alert alert-success" role="alert" style="display:none;">
+                                Image Successfully Deleted..!
+                            </div>
+                            <div id="imageNotDeleted" class="alert alert-danger" role="alert" style="display:none;">
+                                Image Not Successfully Deleted..!
+                            </div>
                         }
+                        <style>
+                            .image-container {
+                                position: relative;
+                                display: inline-block;
+                            }
+
+                            .cross-button {
+                                position: absolute;
+                                top: 2px;
+                                right: 2px;
+                                font-size: 10px;
+                                color: white;
+                                background-color: black;
+                                border: none;
+                                border-radius: 50%;
+                                padding: 2px;
+                                cursor: pointer;
+                                display: none;
+                            }
+
+                            .image-container:hover .cross-button {
+                                display: block;
+                            }
+                        </style>
+
                         <!-- end dropzon-preview -->
                     </div>
                 </div>
@@ -252,6 +286,47 @@
 <!-- end row -->
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
+
+    $(document).ready(function () {
+        $('.image-container').on('click', '.cross-button', function () {
+            var imageId = $(this).closest('.image-container').data('image-id');
+
+            // Handle the cross button click event for the specific image with imageId
+            // You can remove the image or perform any other desired action
+            console.log('Removing image with ID:', imageId);
+
+             $.ajax({
+                 url: '@Url.Action("DeleteAttachImage" , "Blog")',
+                 method: 'POST',
+                 data:
+                 {
+                     AttachedFileId: imageId
+                 },
+                 success: function (response) {
+                     if (response.success) {
+                         // Handle success
+                         //alert('Image deleted successfully');
+                         $('#imageDeleted').show();
+                         $('#imageDeleted').fadeOut(3000);
+                     }
+                     else {
+                         $('#imageNotDeleted').show();
+                         $('#imageNotDeleted').fadeOut(3000);
+                     }
+                 },
+                 error: function(error) {
+                     // Handle error
+                     console.error('Error deleting attached image:', error);
+                     $('#imageNotDeleted').show();
+                     $('#imageNotDeleted').fadeOut(3000);
+                 }
+             });
+
+            // Remove the image container from the DOM
+            $(this).closest('.image-container').remove();
+        });
+    });
+
     function goBack() {
         window.history.back();
     }

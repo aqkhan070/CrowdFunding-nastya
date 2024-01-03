@@ -175,7 +175,6 @@
     <Compile Include="Models\tblCareer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="notMappedAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1247,7 +1246,6 @@
     <Content Include="Views\Account\changepassword.cshtml" />
     <Content Include="Views\Admin\settings.cshtml" />
     <Content Include="Views\User\business.cshtml" />
-    <Content Include="Views\Blog\Edit.cshtml" />
     <Content Include="Views\Home\careerList.cshtml" />
     <Content Include="Views\Home\careerAllList.cshtml" />
     <Content Include="Views\Home\careerDetail.cshtml" />

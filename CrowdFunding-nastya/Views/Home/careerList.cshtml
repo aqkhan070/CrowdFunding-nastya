@@ -113,21 +113,19 @@
                     <div class="row g-3">
                         <div class="col-xxl-5 col-sm-12">
                             <div class="search-box">
-                                <input type="text" class="form-control search bg-light border-light" placeholder="Search for tasks or something...">
+                                <input type="text" class="form-control search bg-light border-light" id="search-career" placeholder="Search for tasks or something...">
                                 <i class="ri-search-line search-icon"></i>
                             </div>
                         </div>
                         <!--end col-->
 
-
-
                         <div class="col-xxl-3 col-sm-4">
                             <div class="input-light">
                                 <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                    <option value="">Status</option>
+                                    @*<option value="">Status</option>*@
                                     <option value="all" selected>All</option>
-                                    <option value="New">Active</option>
-                                    <option value="Pending">In-Active</option>
+                                    <option value="true">Active</option>
+                                    <option value="false">In-Active</option>
                                 </select>
                             </div>
                         </div>
@@ -156,11 +154,11 @@
                                 <th class="sort" data-sort="status">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="list form-check-all">
+                        <tbody class="list form-check-all" id="careerTable">
                             @{
                                 foreach (var item in Model)
                                 {
-                                    <tr>
+                                    <tr class="career-row">
                                         <th scope="row">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
@@ -270,7 +268,7 @@
         return id;
 
     }
-
+    //soft-delete code career data
     document.getElementById('delete-record').addEventListener("click", function() {
     // Assuming you have a way to get the BlogId, for example from a data attribute
        // var blogId = blogId
@@ -300,6 +298,51 @@
         }
     });
 });
+
+    //Search bar code
+    $(document).ready(function () {
+        // Event handler for the search input
+        $('#search-career').on('input', function () {
+            var searchText = $(this).val().toLowerCase();
+            //console.log(searchText);
+            // Loop through each row in the table
+            $('#careerTable tr').each(function () {
+                var text = $(this).text().toLowerCase();
+                var isVisible = text.includes(searchText);
+                //console.log(isVisible);
+                $(this).toggle(isVisible);
+            });
+        });
+    });
+
+    //for status
+    $(document).ready(function () {
+        // Store the original state of the table rows
+        var originalRows = $(".career-row").clone();
+
+        // Handle dropdown change event
+        $("#idStatus").change(function () {
+            var selectedStatus = $(this).val().toLowerCase(); // Convert to lowercase for case-insensitive comparison
+            console.log(selectedStatus);
+            // Show all rows if "All" is selected
+            if (selectedStatus === "all") {
+                $("#careerTable").html(originalRows.clone());
+            } else {
+                // Filter rows based on selected status
+                $(".career-row").each(function () {
+                    var rowStatus = $(this).find(".priority span").text().toLowerCase(); // Change to the correct class for status
+                    console.log(rowStatus);
+                    // Adjusted logic based on the values of "true" and "false"
+                    if ((selectedStatus === "true" && rowStatus === "active") ||
+                        (selectedStatus === "false" && rowStatus === "in-active")) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+        });
+    });
 
 
 </script>

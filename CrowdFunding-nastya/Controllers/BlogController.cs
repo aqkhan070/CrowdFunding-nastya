@@ -187,5 +187,24 @@ namespace CrowdFunding_nastya.Controllers
             }
             return View();
         }
+        [HttpPost]
+        public ActionResult DeleteAttachImage(int AttachedFileId)
+        {
+            var checkImage = _dbContext.tblBlogAttachedFiles.Where(model => model.AttachedFileId.Equals(AttachedFileId)).FirstOrDefault();
+            if (checkImage != null)
+            {
+                _dbContext.Entry(checkImage).State = EntityState.Deleted;
+                int a = _dbContext.SaveChanges();
+                if (a > 0)
+                {
+                    return Json(new { success = true });
+                }
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+            return View();
+        }
     }
 }
