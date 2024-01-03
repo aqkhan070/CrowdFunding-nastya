@@ -1,0 +1,91 @@
+﻿@using CrowdFunding_nastya.Models;
+@model CrowdFunding_nastya.Models.tblEditPage
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Privacy</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Content Managment</a></li>
+                    <li class="breadcrumb-item active">Privacy</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            @using (Html.BeginForm("Privacy", "Setting", FormMethod.Post, new
+            {
+                enctype = "multipart/form-data"
+            }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="card-body row">
+                    @if (ViewBag.message != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="LinkCopy">
+                            @ViewBag.message
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            </button>
+                        </div>
+                    }
+                    <input type="text" value="@Model.ID" hidden name="ID">
+
+                    <div class="mb-3">
+                        <label class="form-label">Privacy</label>
+                        <div id="ckeditor-classic">
+                            @Html.Raw(@Model.Privacy)
+                        </div>
+                        <div class="mb-3" hidden>
+                            <textarea id="Privacy" name="Privacy" class="form-control summernote">@Model.Privacy</textarea>
+                        </div>
+                    </div>
+                    <div class="text-end mb-4">
+                        <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
+                        <button type="submit" onclick="GetData()" class="btn btn-success w-sm">Save Changes</button>
+                    </div>
+                </div>
+            }
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+
+    </div>
+
+</div>
+<script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    $(document).ready(function () {
+
+        $(".ul li a").removeClass("active");
+        $('#COntent').addClass('active');
+        $('#sidebarContent').addClass('show');
+        $('#ContentPrivacy').addClass('active');
+        $(".ck-editor__editable").html('@Html.Raw(@Model.Privacy)');
+
+
+    });
+</script>
+<script>
+
+    function GetData() {
+        let html = $(".ck-editor__editable").html();
+        $("#Privacy").text(html);
+    }
+
+</script>

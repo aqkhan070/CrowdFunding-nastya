@@ -1,5 +1,5 @@
-﻿    <!--  Banner START -->
-
+﻿@using CrowdFunding_nastya.Models;
+@model CrowdFunding_nastya.Models.tblEditPage
 <div class="banner">
     <div class="banner__overlay">
         <div class="container">
@@ -13,7 +13,7 @@
                             </a>
                         </li>
                         <li class="banner__ul-list">
-                            contact us
+                            Contact Us
                         </li>
                     </ul>
                 </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="">
                             <h4 class="social__text">Our Location</h4>
-                            <p class="social__number">4517 Washington Ave. Manchester Kentucky 39495</p>
+                            <p class="social__number">@Model.Address</p>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="">
                             <h4 class="social__text">Our Contact</h4>
-                            <p class="social__number">+(548) 1234-456-7890</p>
+                            <p class="social__number">@Model.Phone</p>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="">
                             <h4 class="social__text">Send Mail</h4>
-                            <p class="social__number">info@gmail.com</p>
+                            <p class="social__number">@Model.Email</p>
                         </div>
                     </div>
                 </div>
@@ -87,22 +87,20 @@
     <div class="container p-sm-0">
         <div class="row">
             <form action="#" method="POST" class="contact__form">
-                <div class="col-12 col-md-9 col-lg-6 text-center m-auto" >
+                <div class="col-12 col-md-9 col-lg-6 text-center m-auto">
                     <h3 class="global__text">contact us</h3>
                     <h2 class="global__heading">
                         Get in Touch With Us
                     </h2>
                 </div>
+          
                 <div class="contact__form-body">
                     <div class="">
-                        <input id="nameInp" class="contact__form-inp form-control" type="text"
+                        <input id="name" class="contact__form-inp form-control" type="text"
                                placeholder="Enter Your Name">
                         <div class="">
-                            <span class="sign__text sign__text-name text-danger d-none">
-                                Use a valid
-                                name
-                            </span>
-                            <span class="sign__text sign__text-name--required text-danger d-none">
+
+                            <span class="sign__text sign__text-name--required text-danger" style="display:none" id="text-name">
                                 Name
                                 is
                                 required
@@ -110,15 +108,15 @@
                         </div>
                     </div>
                     <div class="">
-                        <input id="emailInp" class="contact__form-inp form-control" type="email"
+                        <input id="email" class="contact__form-inp form-control" type="email"
                                placeholder="Enter Your Email">
                         <div class="">
-                            <span class="sign__text sign__text-email text-danger d-none">
+                            <span class="sign__text sign__text-email text-danger" style="display:none" id="text-email1">
                                 Email must
                                 be
                                 valid
                             </span>
-                            <span class="sign__text sign__text-email--required text-danger d-none">
+                            <span class="sign__text sign__text-email--required text-danger"  style="display:none" id="text-email">
                                 Email
                                 is
                                 required
@@ -126,41 +124,171 @@
                         </div>
                     </div>
                     <div class="">
-                        <input id="phnInp" class="contact__form-inp form-control" type="tel"
+                        <input id="phone" class="contact__form-inp form-control" type="tel"
                                placeholder="Enter Phone Number">
                         <div class="">
-                            <span class="sign__text sign__text-phn--required text-danger d-none">
+                            <span class="sign__text sign__text-phn--required text-danger"  style="display:none" id="text-phn">
                                 Phone number
                                 is
                                 required
                             </span>
-                            <span class="sign__text sign__text-phn text-danger d-none">Number must be valid</span>
                         </div>
                     </div>
                     <div class="">
-                        <select class="contact__form-inp form-select">
-                            <option value="1">Choose Subject</option>
-                            <option value="2">Choose two</option>
-                            <option value="3">Choose three</option>
-                            <option value="4">Choose four</option>
-                        </select>
+                        <input id="subject" class="contact__form-inp form-control" type="text"
+                               placeholder="Subject">
+                        <div class="">
+                            <span class="sign__text sign__text-phn--required text-danger"  style="display:none" id="text-sub">
+                                Subject
+                                is
+                                required
+                            </span>
+                        </div>
                     </div>
                     <div class="contact__form-body--comnt">
-                        <textarea class="contact__form-inp form-control" id="comment" cols="30" rows="5"
+                        <textarea class="contact__form-inp form-control" id="message" cols="30" rows="5"
                                   placeholder="Write Your Message"></textarea>
-                        <span class="sign__text sign__text-msg--required text-danger d-none">
+                        <span class="sign__text sign__text-msg--required text-danger"  style="display:none" id="text-msg">
                             Message
                             is
                             required
                         </span>
                     </div>
+                    <div style="display:none;" class="alert alert-success alert-dismissible fade show" id="SuccessAlert" role="alert">
+                        <strong>Success! </strong> Your message has been sent. Thank you!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div style="display:none;" class="alert alert-danger alert-dismissible fade show" id="FailureAlert" role="alert">
+                        <strong>Alert! </strong> There is something issue. Please Try again.<br> Thank you!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     <div class="">
-                        <input class="donation__btn global__btn mt-0" type="submit" value="Send Message">
+                        <input class="donation__btn global__btn mt-0" type="button" id="btnsendcontact" onclick="sendcontact()" value="Send Message">
                     </div>
                 </div>
-            </form>
+                </form>
         </div>
     </div>
 </div>
+<script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
+<script>
 
-<!--  Contact END -->
+        function sendcontact()
+        {
+            var i = 0;
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var subject = $("#subject").val();
+            var phone = $("#phone").val();
+            var message = $("#message").val();
+            $("#name").removeClass("is-invalid");
+            $("#email").removeClass("is-invalid");
+            $("#subject").removeClass("is-invalid");
+            $("#phone").removeClass("is-invalid");
+            $("#message").removeClass("is-invalid");
+
+            $("#text-name").fadeOut();
+            $("#text-email").fadeOut();
+            $("#text-phn").fadeOut();
+            $("#text-sub").fadeOut();
+            $("#text-msg").fadeOut();
+            $("#text-email1").fadeOut();
+
+            $("#email").removeClass("is-valid");
+            $("#email").removeClass("is-invalid");
+            $("#email").addClass("is-valid");
+
+            if (name.trim() == "" ) {
+                $("#text-name").fadeIn();
+                $("#name").addClass("is-invalid");
+                i = 1;
+            }
+            if (email.trim() == "" ) {
+                $("#text-email").fadeIn();
+                $("#email").addClass("is-invalid");
+                i = 1;
+            }
+            if (subject.trim() == "" ) {
+                $("#text-sub").fadeIn();
+                $("#subject").addClass("is-invalid");
+                i = 1;
+            }
+
+
+            if ( phone.trim() == "") {
+                $("#text-phn").fadeIn();
+                $("#phone").addClass("is-invalid");
+                i = 1;
+
+            }
+           if ( message.trim() == "") {
+               $("#text-msg").fadeIn();
+               $("#message").addClass("is-invalid");
+               i = 1;
+            }
+
+
+
+
+                var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                if (!expr.test(email)) {
+                    $("#text-email1").fadeIn();
+                    $("#email").removeClass("is-valid");
+                    $("#email").removeClass("is-invalid");
+                    $("#email").addClass("is-invalid");
+                    i = 1;
+                }
+
+
+
+            if (i == 0) {
+
+                document.getElementById("btnsendcontact").innerHTML = " <img id='LoginLoader' style='Width: 34px!important; height: 30px!important' src='/assets/assets/img/loaders.gif' /> &nbsp; Please Wait...";
+                document.getElementById("btnsendcontact").style.backgroundColor = 'black';
+                document.getElementById("btnsendcontact").style.borderColor = "black";
+                document.getElementById("btnsendcontact").disabled = true;
+                document.getElementById("btnsendcontact").style.boxShadow = "0 0.125rem 0.25rem 0 rgb(0,0,0)";
+
+
+
+                var UserInfo = {};
+                UserInfo.email = email;
+                UserInfo.name = name;
+                UserInfo.subject = subject;
+                UserInfo.message = message;
+                UserInfo.phone = phone;
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Contact", "Home")',
+                    data: JSON.stringify(UserInfo),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        if (result.status == "1") {
+                            $("#SuccessAlert").show();
+                            $("#FailureAlert").hide();
+                        }
+                        else {
+                            $("#SuccessAlert").hide();
+                            $("#FailureAlert").show();
+                        }
+
+
+                        document.getElementById("btnsendcontact").innerHTML = "Send Message";
+                        document.getElementById("btnsendcontact").style.backgroundColor = '#47b2e4';
+                        document.getElementById("btnsendcontact").style.borderColor = "#47b2e4";
+
+                        document.getElementById("btnsendcontact").disabled = false;
+
+                        $("#name").val("");
+                        $("#email").val("");
+                        $("#subject").val("");
+                        $("#phone").val("");
+                        $("#message").val("");
+                    }
+                });
+            }
+        }
+</script>

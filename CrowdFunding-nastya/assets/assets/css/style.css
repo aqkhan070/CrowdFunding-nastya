@@ -18693,9 +18693,7 @@ input:checked ~ .form__ul-label--checkmark::after {
   }
 }
 @media screen and (min-width: 1400px) {
-  .contact__form {
-    padding: 110px 178px;
-  }
+
 }
 .contact__form-body {
   display: -webkit-box;
@@ -19198,7 +19196,6 @@ input:checked ~ .sign__form-rem--checkmark::after {
 .footer__inp {
   font-family: "Inter", sans-serif;
   font-size: 16px;
-  color: #fff !important;
   border-radius: 12px;
   padding: 16px 0 16px 12px;
   outline: 0 !important;

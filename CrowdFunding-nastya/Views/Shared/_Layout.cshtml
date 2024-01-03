@@ -111,23 +111,58 @@
                             <h5 class="join__heading global__heading">
                                 Unite Your Hands with Us for a Better Life and Future
                             </h5>
-                            <form action="#" method="POST" >
+                            <form action="#" method="POST">
                                 <div class="row">
                                     <div class="col-md-6 mt-2">
-                                        <input class="col-md-6 footer__inp form-control" type="text" placeholder="Enter Your First Name">
+                                        <input class="col-md-6 footer__inp form-control" type="text" placeholder="Enter Your First Name" id="subs_Firstname">
+                                        <div class="">
+
+                                            <span class="sign__text sign__text-email--required text-danger" style="display:none" id="text-Firstname">
+                                                First Name
+                                                is
+                                                required
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="col-md-6 mt-2">
-                                        <input class="col-md-6 footer__inp form-control" type="text" placeholder="Enter Your Last Name">
+                                        <input class="col-md-6 footer__inp form-control" type="text" placeholder="Enter Your Last Name" id="subs_Lastname">
+                                        <div class="">
+
+                                            <span class="sign__text sign__text-email--required text-danger" style="display:none" id="text-Lastname">
+                                                Last Name
+                                                is
+                                                required
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12 mt-2"> <input class="footer__inp form-control" type="text" placeholder="Enter Your Email"></div>
+                                    <div class="col-md-12 mt-2"> <input class="footer__inp form-control" type="text" placeholder="Enter Your Email" id="subs_email"></div>
+                                    <div class="">
+                                        <span class="sign__text sign__text-email text-danger" style="display:none" id="text-semail1">
+                                            Email must
+                                            be
+                                            valid
+                                        </span>
+                                        <span class="sign__text sign__text-email--required text-danger" style="display:none" id="text-semail">
+                                            Email
+                                            is
+                                            required
+                                        </span>
+                                    </div>
                                 </div>
 
 
 
-                                   
-</form>
 
-                            <button class="global__btn mt-4">
+                            </form>
+                            <div style="display:none;" class="alert alert-success alert-dismissible fade show" id="SuccessAlert1" role="alert">
+                                <strong>Success! </strong> Your message has been sent. Thank you!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div style="display:none;" class="alert alert-danger alert-dismissible fade show" id="FailureAlert1" role="alert">
+                                <strong>Alert! </strong> There is something issue. Please Try again.<br> Thank you!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <button class="global__btn mt-4" type="button" id="btnsendSubscribe" onclick="sendSubscription()">
                                 Subscribe to Our Newsletter
                             </button>
                         </div>
@@ -244,9 +279,30 @@
                         Updates on News and Articles.
                     </p>
                     <form action="#" method="POST" class="d-flex position-relative">
-                        <input class="footer__inp form-control" type="text" placeholder="Enter your email">
-                        <button class="global__btn footer__inp-btn">Subscribe</button>
+                        <input class="footer__inp form-control" type="text" placeholder="Enter your email" id="subs_email1">
+
+                        <button class="global__btn footer__inp-btn" type="button" id="btnsendSubscribe1" onclick="sendSubscription1()">Subscribe</button>
                     </form>
+                    <div class="">
+                        <span class="sign__text sign__text-email text-danger" style="display:none" id="text-semail121">
+                            Email must
+                            be
+                            valid
+                        </span>
+                        <span class="sign__text sign__text-email--required text-danger" style="display:none" id="text-semail12">
+                            Email
+                            is
+                            required
+                        </span>
+                    </div>
+                    <div style="display:none;" class="alert alert-success alert-dismissible fade show" id="SuccessAlert12" role="alert">
+                        <strong>Success! </strong> Your message has been sent. Thank you!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div style="display:none;" class="alert alert-danger alert-dismissible fade show" id="FailureAlert12" role="alert">
+                        <strong>Alert! </strong> There is something issue. Please Try again.<br> Thank you!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
             </div>
             <hr class="footer__border">
@@ -274,6 +330,179 @@
     <script src="~/assets/assets/js/aos.js"></script>
     <!-- JS -->
     <script src="~/assets/assets/js/app.js"></script>
+
+    <script>
+        function sendSubscription()
+        {
+            var i = 0;
+            var Fname = $("#subs_Firstname").val();
+            var Lname = $("#subs_Lastname").val();
+            var email = $("#subs_email").val();
+
+            $("#subs_Firstname").removeClass("is-invalid");
+            $("#subs_email").removeClass("is-invalid");
+            $("#subs_Lastname").removeClass("is-invalid");
+
+
+            //$("#text-Firstname").fadeOut();
+            //$("#text-semail").fadeOut();
+            //$("#text-Lastname").fadeOut();
+            $("#text-semail1").fadeOut();
+
+
+            if (Fname.trim() == "" ) {
+                //$("#text_Firstname").fadeIn();
+                $("#subs_Firstname").addClass("is-invalid");
+                i = 1;
+            }
+            if (Lname.trim() == "") {
+               // $("#text-Lastname").fadeIn();
+                $("#subs_Lastname").addClass("is-invalid");
+                i = 1;
+            }
+            if (email.trim() == "" ) {
+               // $("#subs_email").fadeIn();
+                $("#subs_email").addClass("is-invalid");
+                i = 1;
+            }
+
+
+
+
+
+                var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                if (!expr.test(email)) {
+                    $("#text-semail1").fadeIn();
+                    $("#subs_email").removeClass("is-valid");
+                    i = 1;
+                }
+
+
+
+            if (i == 0) {
+
+                document.getElementById("btnsendSubscribe").innerHTML = " <img id='LoginLoader' style='Width: 34px!important; height: 30px!important' src='/assets/assets/img/loaders.gif' /> &nbsp; Please Wait...";
+                document.getElementById("btnsendSubscribe").style.backgroundColor = 'black';
+                document.getElementById("btnsendSubscribe").style.borderColor = "black";
+                document.getElementById("btnsendSubscribe").disabled = true;
+                document.getElementById("btnsendSubscribe").style.boxShadow = "0 0.125rem 0.25rem 0 rgb(0,0,0)";
+
+
+
+                var UserInfo = {};
+                UserInfo.email = email;
+                UserInfo.name = Fname +" "+Lname;
+
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Subscribe", "Home")',
+                    data: JSON.stringify(UserInfo),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        if (result.status == "1") {
+                            $("#SuccessAlert1").show();
+                            $("#FailureAlert1").hide();
+                        }
+                        else {
+                            $("#SuccessAlert1").hide();
+                            $("#FailureAlert1").show();
+                        }
+
+
+                        document.getElementById("btnsendSubscribe").innerHTML = "Subscribe to Our Newsletter";
+                        document.getElementById("btnsendSubscribe").style.backgroundColor = '#47b2e4';
+                        document.getElementById("btnsendSubscribe").style.borderColor = "#47b2e4";
+
+                        document.getElementById("btnsendSubscribe").disabled = false;
+
+                        $("#subs_Firstname").val("");
+                        $("#subs_Lasttname").val("");
+                        $("#subs_email").val("");
+                    }
+                });
+            }
+        }
+
+
+         function sendSubscription1()
+        {
+            var i = 0;
+             var email = $("#subs_email1").val();
+
+            $("#subs_email1").removeClass("is-invalid");
+              $("#text-semail121").fadeOut();
+              $("#text-semail12").fadeOut();
+
+
+           
+            if (email.trim() == "" ) {
+                $("#subs_email12").fadeIn();
+                $("#subs_email1").addClass("is-invalid");
+                i = 1;
+            }
+
+
+
+
+
+                var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                if (!expr.test(email)) {
+                    $("#text-semail121").fadeIn();
+                    $("#subs_email1").removeClass("is-valid");
+                    i = 1;
+                }
+
+
+
+            if (i == 0) {
+
+                document.getElementById("btnsendSubscribe1").innerHTML = " <img id='LoginLoader' style='Width: 34px!important; height: 30px!important' src='/assets/assets/img/loaders.gif' /> &nbsp; Please Wait...";
+                document.getElementById("btnsendSubscribe1").style.backgroundColor = 'black';
+                document.getElementById("btnsendSubscribe1").style.borderColor = "black";
+                document.getElementById("btnsendSubscribe1").disabled = true;
+                document.getElementById("btnsendSubscribe1").style.boxShadow = "0 0.125rem 0.25rem 0 rgb(0,0,0)";
+
+
+
+                var UserInfo = {};
+                UserInfo.email = email;
+
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Subscribe", "Home")',
+                    data: JSON.stringify(UserInfo),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        if (result.status == "1") {
+                            $("#SuccessAlert12").show();
+                            $("#FailureAlert12").hide();
+                        }
+                        else {
+                            $("#SuccessAlert12").hide();
+                            $("#FailureAlert12").show();
+                        }
+
+
+                        document.getElementById("btnsendSubscribe1").innerHTML = "Subscribe";
+                        document.getElementById("btnsendSubscribe1").style.backgroundColor = '#47b2e4';
+                        document.getElementById("btnsendSubscribe1").style.borderColor = "#47b2e4";
+
+                        document.getElementById("btnsendSubscribe1").disabled = false;
+                        $("#subs_email1").val("");
+                    }
+                });
+            }
+        }
+    </script>
 </body>
+
+
+
 
 </html>

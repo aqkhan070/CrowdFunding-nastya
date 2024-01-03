@@ -389,6 +389,27 @@
                                 <i class="mdi mdi-lock-alert "></i> <span data-key="t-dashboards">Change Password</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="#sidebarContent" class="nav-link" id="COntent" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarproject">
+                                <i class="bx bx-server"></i> Content Managment
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarContent">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("About","Setting")" class="nav-link" data-key="t-main-calender" id="ContentAbout"> About </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Privacy","Setting")" class="nav-link" data-key="t-month-grid" id="ContentPrivacy"> Privacy </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Legal","Setting")" class="nav-link" data-key="t-month-grid" id="ContentLegal"> Legal </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Contact","Setting")" class="nav-link" data-key="t-month-grid" id="ContentContact"> Contact </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                         <li class="nav-item ">
                             <a class="nav-link menu-link " href="@Url.Action("settings","Admin")" aria-expanded="false" id="settings">
                                 <i class="mdi mdi-cog-outline 1"></i> <span data-key="t-dashboards">Settings</span>
