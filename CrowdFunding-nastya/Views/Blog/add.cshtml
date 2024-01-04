@@ -64,19 +64,19 @@
                     @Html.HiddenFor(model => model.BlogId)
                     <div class="mb-3">
                         <label class="form-label" for="project-title-input">Blog Title</label>
-                        @Html.EditorFor(model => model.BlogTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter project title" } })
+                        @Html.EditorFor(model => model.BlogTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter project title", required = "required" } })
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="project-thumbnail-img">Thumbnail Image</label>
-                        <input class="form-control" name="BlogThumbnailImage" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg">
+                        <input class="form-control" name="BlogThumbnailImage" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg" required>
                         <img src="@Model.ThumbnailImage" width="50" height="50" class="mt-1" style="border-radius: 50%;" />
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Blog Description</label>
                         <div id="ckeditor-classic">
-                            @Html.TextAreaFor(model => model.BlogDescription, new { htmlAttributes = new { @id = "BlogDescription" } })
+                            @Html.TextAreaFor(model => model.BlogDescription, new { htmlAttributes = new { @id = "BlogDescription" , required = "required" } })
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@
                                     if (Model.BlogId == 0)
                                     {
                                         <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
-                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr" } })
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr" , required = "required" } })
                                     }
                                     else
                                     {
@@ -137,7 +137,7 @@
                         <p class="text-muted">Add Attached files here.</p>
                         <div class="file-container">
                             <label for="file-input" class="file-label">Choose Files</label>
-                            <input id="file-input" name="BlogAttachedFiles" type="file" multiple="multiple" class="file-input" onchange="displaySelectedImages(this)">
+                            <input id="file-input" name="BlogAttachedFiles" type="file" multiple="multiple" class="file-input" onchange="displaySelectedImages(this)" required>
                         </div>
 
                         <div class="selected-images" id="selected-images"></div>

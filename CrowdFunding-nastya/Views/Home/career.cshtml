@@ -61,19 +61,19 @@
                     @Html.HiddenFor(model => model.CareerId)
                     <div class="mb-3">
                         <label class="form-label" for="project-title-input">Career Title</label>
-                        @Html.EditorFor(model => model.CareerTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter project title" } })
+                        @Html.EditorFor(model => model.CareerTitle, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter project title", required = "required"} })
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="project-thumbnail-img">Thumbnail Image</label>
-                        <input class="form-control" name="ThumbnailImage" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg">
+                        <input class="form-control" name="ThumbnailImage" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg" required>
                         <img src="@Model.CareerThumbnailImage" width="50" height="50" class="mt-1" style="border-radius: 50%;" />
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Career Description</label>
                         <div id="ckeditor-classic">
-                            @Html.TextAreaFor(model => model.CareerDescription, new { htmlAttributes = new { @id = "CareerDescription" } })
+                            @Html.TextAreaFor(model => model.CareerDescription, new { htmlAttributes = new { @id = "CareerDescription" , required = "required"} })
                         </div>
                     </div>
 
@@ -108,7 +108,7 @@
                                     if (Model.CareerId == 0)
                                     {
                                         <label for="datepicker-deadline-input" class="form-label">Publish Date</label>
-                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr" } })
+                                        @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @id = "datepicker-deadline-input", @data_provider = "flatpickr", required = "required" } })
                                     }
                                     else
                                     {
