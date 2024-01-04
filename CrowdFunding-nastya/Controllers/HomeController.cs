@@ -23,6 +23,10 @@ namespace CrowdFunding_nastya.Controllers
             cookie["Twitter"] = editPage.Twitter.Replace('\r', ' ').Replace('\n', ' '); ;
             cookie.Expires = DateTime.Now.AddMonths(1);
             HttpContext.Response.Cookies.Add(cookie);
+
+            List<tblProject> project = new List<tblProject>();
+            project=dbEntities.tblProjects.ToList();
+            ViewBag.project = project;
             return View();
         }
         public ActionResult works()
@@ -81,13 +85,18 @@ namespace CrowdFunding_nastya.Controllers
         {
             return View();
         }
-        public ActionResult case_detail()
+        public ActionResult case_detail(int id = 0)
         {
-            return View();
+            tblProject Data = dbEntities.tblProjects.Where(x => x.ProjectId == id).FirstOrDefault();
+            List<tblProject> project = new List<tblProject>();
+            project = dbEntities.tblProjects.Take(3).ToList();
+            ViewBag.project = project;
+            return View(Data);
         }
-        public ActionResult preview()
+        public ActionResult preview(int id = 0)
         {
-            return View();
+            tblProject Data = dbEntities.tblProjects.Where(x => x.ProjectId == id).FirstOrDefault();
+            return View(Data);
         }
         public ActionResult About()
         {

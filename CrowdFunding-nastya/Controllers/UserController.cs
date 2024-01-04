@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace CrowdFunding_nastya.Controllers
 {
+    [FilterConfig.NoDirectAccess]
     public class UserController : Controller
     {
         CrowdfundingnastyaEntities DB = new CrowdfundingnastyaEntities();
@@ -85,9 +86,10 @@ namespace CrowdFunding_nastya.Controllers
 
                         if (Image != null)
                         {
-                            path = Path.Combine(Server.MapPath("~/Uploading/User"), Path.GetFileName("User" + DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(Image.FileName)));
+                            string FileName = "User" + DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(Image.FileName);
+                            path = Path.Combine(Server.MapPath("~/Uploading/User"), FileName);
                             Image.SaveAs(path);
-                            path = Path.Combine("\\Uploading\\User", Path.GetFileName("User" + DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(Image.FileName)));
+                            path = Path.Combine("\\Uploading\\User", FileName);
                             Data.ImagePath = path;
                         }
 
@@ -143,9 +145,10 @@ namespace CrowdFunding_nastya.Controllers
 
                         if (Image != null)
                         {
-                            path = Path.Combine(Server.MapPath("~/Uploading/User"), Path.GetFileName("User" + DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(Image.FileName)));
+                            string FileName = "User" + DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(Image.FileName);
+                            path = Path.Combine(Server.MapPath("~/Uploading/User"), FileName);
                             Image.SaveAs(path);
-                            path = Path.Combine("\\Uploading\\User", Path.GetFileName("User" + DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(Image.FileName)));
+                            path = Path.Combine("\\Uploading\\User", FileName);
                             Data.ImagePath = path;
                         }
 

@@ -1,4 +1,4 @@
-﻿﻿@model List<CrowdFunding_nastya.Models.tblUser>
+﻿@model List<CrowdFunding_nastya.Models.tblUser>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -35,7 +35,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p class="fw-semibold text-muted mb-0">Total Lenders</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="10">0</span></h2>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Count()"></span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -56,7 +56,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p class="fw-semibold text-muted mb-0">Active Lenders</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="5">0</span></h2>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Where(x => x.isActive != false).Count()"></span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -77,7 +77,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p class="fw-semibold text-muted mb-0">In-Active Lenders</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="5">0</span></h2>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Where(x => x.isActive == false).Count()"></span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -308,7 +308,7 @@
                     @using (Html.BeginForm("delete", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {@Html.AntiForgeryToken()
                     <div class="hstack gap-2 justify-content-center remove">
-                        <input type="text" name="Id" id="DeleteId" value="" hidden />
+                        <input type="text" name="Id" id="DeleteId" value="" hidden/>
                         <button class="btn btn-link btn-ghost-primary fw-medium text-decoration-none" id="deleteRecord-close" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</button>
                         <button class="btn btn-info" id="delete-record">Yes, Delete It</button>
                     </div>

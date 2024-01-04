@@ -12,28 +12,23 @@ namespace CrowdFunding_nastya.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tblPriority
+    public partial class tblStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblPriority()
+        public tblStatu()
         {
-            this.tblBlogs = new HashSet<tblBlog>();
-            this.tblCareers = new HashSet<tblCareer>();
             this.tblProjects = new HashSet<tblProject>();
         }
     
-        public int PriorityId { get; set; }
-        public string Priority { get; set; }
+        public int StatusId { get; set; }
+        public string Status { get; set; }
         public Nullable<int> CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public Nullable<int> EditBy { get; set; }
         public Nullable<System.DateTime> EditDate { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public bool isActive { get; set; }
+        public bool isDeleted { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblBlog> tblBlogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblCareer> tblCareers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProject> tblProjects { get; set; }
     }

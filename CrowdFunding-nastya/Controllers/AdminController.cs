@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace CrowdFunding_nastya.Controllers
 {
+    [FilterConfig.NoDirectAccess]
     public class AdminController : Controller
     {
         CrowdfundingnastyaEntities _dbContext = new CrowdfundingnastyaEntities();

@@ -184,10 +184,16 @@
     <Compile Include="Models\tblPriority.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblProject.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblRole.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblSetting.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblStatu.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblSubscriber.cs">
@@ -1180,8 +1186,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\Crowdfunding.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Crowdfunding.Context.cs</LastGenOutput>
       <DependentUpon>Crowdfunding.edmx</DependentUpon>
+      <LastGenOutput>Crowdfunding.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Crowdfunding.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1287,6 +1293,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploading\Blog\" />
+    <Folder Include="Uploading\Career\" />
+    <Folder Include="Uploading\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

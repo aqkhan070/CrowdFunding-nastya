@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CrowdFunding_nastya.Controllers
 {
+    [FilterConfig.NoDirectAccess]
     public class SettingController : Controller
     {
         CrowdfundingnastyaEntities dbEntities = new CrowdfundingnastyaEntities();

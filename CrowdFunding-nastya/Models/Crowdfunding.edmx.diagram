@@ -4,34 +4,40 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="27ba8b5d1c814386b6b9dc51011d189e" Name="Diagram1">
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblContact" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblEditPage" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblSubscriber" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblBlog" Width="1.5" PointX="8.625" PointY="8.875" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblBlogAttachedFile" Width="1.5" PointX="10.875" PointY="9.75" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblCareer" Width="1.5" PointX="5.625" PointY="9.125" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblCategory" Width="1.5" PointX="6.375" PointY="18.625" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblPriority" Width="1.5" PointX="3.375" PointY="9.875" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblType" Width="1.5" PointX="6.375" PointY="15.125" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblAttachedFiles_tblBlog" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblBlogAttachedFiles" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblCategory" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblPriority" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblType" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblCareer_tblCategory" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblCareer_tblPriority" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblCareer_tblType" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblAccessLevel" Width="1.5" PointX="18.625" PointY="4" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblLog" Width="1.5" PointX="3.375" PointY="5.75" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblMenu" Width="1.5" PointX="16.375" PointY="10.75" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblRole" Width="1.5" PointX="13.375" PointY="4.375" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblUser" Width="1.5" PointX="15.625" PointY="3.5" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblVerificationCode" Width="1.5" PointX="5.375" PointY="5.75" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_AccessManu" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_AccessRole" />
-        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblUser_tblRole" />
-        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblSetting" Width="1.5" PointX="5.375" PointY="0.75" />
+      <Diagram DiagramId="b0c114a12c22460d85f9fde341d15c5f" Name="Diagram1">
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblAccessLevel" Width="1.5" PointX="14" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblBlog" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblBlogAttachedFile" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblCareer" Width="1.5" PointX="6" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblCategory" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblContact" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblEditPage" Width="1.5" PointX="2.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblLog" Width="1.5" PointX="4.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblMenu" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblPriority" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblProject" Width="1.5" PointX="9" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblRole" Width="1.5" PointX="11.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblSetting" Width="1.5" PointX="8.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblStatu" Width="1.5" PointX="6.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblSubscriber" Width="1.5" PointX="11.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblType" Width="1.5" PointX="0.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblUser" Width="1.5" PointX="14" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CrowdfundingnastyaModel.tblVerificationCode" Width="1.5" PointX="13.75" PointY="15.75" IsExpanded="true" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_AccessManu" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_AccessRole" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblAttachedFiles_tblBlog" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblBlogAttachedFiles" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblPriority" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblBlog_tblType" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblCareer_tblCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblCareer_tblPriority" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblCareer_tblType" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblProject_tblCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblProject_tblStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblProject_tblType" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblUser_tblRole" ManuallyRouted="false" />
+        <AssociationConnector Association="CrowdfundingnastyaModel.FK_tblProject_tblPriority" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

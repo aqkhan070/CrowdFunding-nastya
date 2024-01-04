@@ -1,4 +1,8 @@
-﻿    <!--  Banner START -->
+﻿@using CrowdFunding_nastya.Models;
+@{
+    List<tblProject> projectList = (List<tblProject>)ViewBag.project;
+}
+@model CrowdFunding_nastya.Models.tblProject
 
 <div class="banner">
     <div class="banner__overlay">
@@ -35,175 +39,87 @@
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="col-md-10">
-                    <h2 class="global__heading mb-0">Ensure Education for every poor children</h2>
+                    <h2 class="global__heading mb-0">@Model.Title</h2>
                     <p class="education__price global__desc">
-                        <span class="education__price-show">$18,610</span> of
+                        <span class="education__price-show">$ @Model.Value</span> of
                         $10,000 raised
                     </p>
                 </div>
                 <div class="">
                     <div class="card education__card">
                         <div class="education__card-img">
-                            <img class="img-fluid w-100" src="~/assets/assets/img/single-case.png" alt="image">
-                            <h4 class="education__card-tag">Education</h4>
+                            <img class="img-fluid w-100" src="@Model.ImagePath" alt="image">
+                            <h4 class="education__card-tag">@(Model.tblCategory != null? @Model.tblCategory.CategoryName: "")</h4>
                         </div>
                         <div class="">
-                            <p class="education__para education__para-mt">
-                                On the other hand, we denounce with righteous indignation and dislike men who are so
-                                beguiled and demoralized by the
-                                charms of pleasure of the moment, so blinded by desire, that they cannot foresee the
-                                pain and trouble that are bound to
-                                ensue and equal blame belongs to those who fail in their duty through weakness of
-                                will, which is the same as saying
-                                through shrinking from toil and pain.
-                            </p>
-                            <p class="education__para my-3">
-                                These cases are perfectly simple and easy to distinguish. In a free hour, when our
-                                power of choice is untrammelled and
-                                when nothing prevents our being able to do what we like best, every pleasure is to
-                                be welcomed and every pain avoided.
-                            </p>
-                            <p class="education__para">
-                                But in certain circumstances and owing to the claims of duty or the obligations of
-                                business it will frequently occur
-                                that pleasures have to be repudiated and annoyances accepted. The wise man therefore
-                                always holds in these matters to
-                                this principle of selection: he rejects pleasures.
-                            </p>
+                            @Html.Raw(@Model.Description)
                         </div>
                     </div>
-                </div>
-                <div class="">
-                    <h3 class="education__headline">We want to ensure the education for the kids.</h3>
-                    <p class="education__para education__para-mb">
-                        These cases are perfectly simple and easy to distinguish. In a free hour, when our power of
-                        choice is untrammelled and
-                        when nothing prevents our being able to do what we like best, every pleasure.
-                    </p>
-                    <div class="">
-                        <ul class="education__list">
-                            <li class="education__para">
-                                The wise man therefore always holds in these matters.
-                            </li>
-                            <li class="education__para">
-                                In a free hour, when our power of choice and when nothing.
-                            </li>
-                            <li class="education__para">
-                                Else he endures pains to avoid worse pains.
-                            </li>
-                            <li class="education__para">
-                                We denounce with righteous indignation and dislike men.
-                            </li>
-                            <li class="education__para">
-                                Which is the same as saying through.
-                            </li>
-                        </ul>
-                    </div>
-                    <p class="education__para">
-                        But in certain circumstances and owing to the claims of duty or the obligations of business
-                        it will frequently occur
-                        that pleasures have to be repudiated and annoyances accepted. The wise man therefore always
-                        holds in these matters to
-                        this principle of selection: he rejects pleasures.
-                    </p>
                 </div>
             </div>
             <!-- Right Sider_Bar -->
             <div class="col-12 col-sm-8 col-lg-4 mt-5 mt-lg-0">
-                <div class="education__search">
-                    <h4 class="education__txt">search</h4>
-                    <form action="#" method="POST" class="d-flex position-relative mt-3">
-                        <input class="education__inp form-control" type="text" placeholder="Enter your email">
-                        <button class="global__btn education__inp-btn">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </form>
-                </div>
+
                 <div class="education__cases">
                     <h4 class="education__txt">recent cases</h4>
                     <div class="">
                         <ul class="education__cases-list">
-                            <li>
-                                <a class="education__cases-list--img" href="single-cases.html">
-                                    <img class="" src="~/assets/assets/img/recent-img-1.png" alt="image">
-                                </a>
-                                <div class="">
-                                    <a href="single-cases.html" class="education__cases-list--link">
+                            @foreach (var item in projectList)
+                            {
+                                <li>
+                                    <a class="education__cases-list--img" href="@Url.Action("case_detail","Home", new { id=item.ProjectId})">
+                                        <img class="" src="@item.ImagePath" alt="image">
+                                    </a>
+                                    <div class="">
+                                        <a href="@Url.Action("case_detail","Home", new { id=item.ProjectId})" class="education__cases-list--link">
+                                          @item.Title
+                                        </a>
+                                        <p class="education__cases-list--date">@item.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                    </div>
+                                </li>
+                            }
+
+                           
+                        </ul>
+                    </div>
+                </div>
+                @*<div class="education__cases">
+                        <h4 class="education__txt">Categories</h4>
+                        <div class="">
+                            <ul class="education__cases-list">
+                                <li class="education__cases-list--m">
+                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                        healthy
+                                        food
+                                    </a>
+                                </li>
+                                <li class="education__cases-list--m">
+                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                        Free
                                         Education
-                                        program in
-                                        Uganda
                                     </a>
-                                    <p class="education__cases-list--date">October 25, 2023</p>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="education__cases-list--img" href="single-cases.html">
-                                    <img class="" src="~/assets/assets/img/recent-img-2.png" alt="image">
-                                </a>
-                                <div class="">
-                                    <a href="single-cases.html" class="education__cases-list--link">
-                                        African water
-                                        crisis :
-                                        Children
-                                        and women
+                                </li>
+                                <li class="education__cases-list--m">
+                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                        Clean
+                                        Water
                                     </a>
-                                    <p class="education__cases-list--date">October 25, 2023</p>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="education__cases-list--img" href="single-cases.html">
-                                    <img class="" src="~/assets/assets/img/recent-img-3.png" alt="image">
-                                </a>
-                                <div class="">
-                                    <a href="single-cases.html" class="education__cases-list--link">
-                                        Be kind for the
-                                        poor
-                                        people and
-                                        the kids.
+                                </li>
+                                <li class="education__cases-list--m">
+                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                        Medical
+                                        Facilities
                                     </a>
-                                    <p class="education__cases-list--date">October 25, 2023</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="education__cases">
-                    <h4 class="education__txt">Categories</h4>
-                    <div class="">
-                        <ul class="education__cases-list">
-                            <li class="education__cases-list--m">
-                                <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                    healthy
-                                    food
-                                </a>
-                            </li>
-                            <li class="education__cases-list--m">
-                                <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                    Free
-                                    Education
-                                </a>
-                            </li>
-                            <li class="education__cases-list--m">
-                                <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                    Clean
-                                    Water
-                                </a>
-                            </li>
-                            <li class="education__cases-list--m">
-                                <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                    Medical
-                                    Facilities
-                                </a>
-                            </li>
-                            <li class="education__cases-list--m">
-                                <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                    Halping
-                                    Poor
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                                </li>
+                                <li class="education__cases-list--m">
+                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                        Halping
+                                        Poor
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>*@
             </div>
         </div>
         <!-- Form -->

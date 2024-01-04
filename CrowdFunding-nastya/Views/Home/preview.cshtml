@@ -1,4 +1,5 @@
 ﻿    <!--  Banner START -->
+@model CrowdFunding_nastya.Models.tblProject
 <!--  Banner END -->
 <!-- Education START -->
 <div class="education global__py pt-5">
@@ -7,11 +8,13 @@
             <div class="col-12 col-lg-8">
                 <div class="col-md-12">
                     <h2 class="global__heading mb-0">
-                        Anna's bakery, Chelsea, London, UK
+                        @Model.Title
                     </h2>
                     <p class="education__price global__desc">
-                        <span class="education__price-show">$18,610</span> of
-                        $10,000 raised
+                        <span class="education__price-show">
+                            $@Model.Value
+                        </span> @*of
+        $10,000 raised*@
                     </p>
                         
                             
@@ -19,46 +22,12 @@
                 <div class="">
                     <div class="card education__card">
                         <div class="education__card-img">
-                            <img class="img-fluid w-100" src="~/assets/assets/img/single-case.png" alt="image">
-                            <h4 class="education__card-tag">Food</h4>
+                            <img class="img-fluid w-100" src="@Model.ImagePath" alt="image">
+                            <h4 class="education__card-tag">@(Model.tblCategory != null? @Model.tblCategory.CategoryName: "")</h4>
                         </div>
                         <div class="">
-                            <p class="education__para education__para-mt">
-                                Hello!
-                                My name is Anna, and this is my business shower for my bakery - a
-                                delectable haven that promises to fill the heart of Chelsea with the
-                                irresistible aroma of freshly baked goods. Our dream is to create a warm
-                                and inviting space where people from all walks of life can come together,
-                                indulge in mouthwatering treats, and make lasting memories.
-
-
-
-                            </p>
-                            <p class="education__para my-3">
-                                My goal is £10,000 that I'
-                                m going to use to renovate the bakery. Please
-                                have a look at the library to get an idea how it looks now. I'
-                                ve invested all
-                                my savings to rent the place, buy the equipment that I need, but I need a
-                                little support to paint, decorate and furnish the venue.
-                            </p>
-                            <p class="education__para">
-                                If you can help in any other way except funding, pease feel free to contact
-                                me. I'
-                                ve been passionate about baking my whole life. My grandparent
-                                used to have a bakery in our lovely Chelsea, and these has always been in
-                                my veins.
-                            </p>
-                            <p class="education__para">
-                                I'
-                                m very excited to share this new venture with you, and I would be beyond
-                                happy if you can help me make my dream come true as soon as possible.
-                                Thank you in advance! Looking forward to welcome you at Anna
-                                '
-                                s Bakery!
-                                Kind regards,
-                                Anna
-                            </p>
+                            @Html.Raw(@Model.Description)
+                            
                         </div>
                     </div>
                 </div>

@@ -1,19 +1,40 @@
-﻿
+﻿@model CrowdFunding_nastya.Models.tblProject
+@using CrowdFunding_nastya.Models;
 @{
     ViewBag.Title = "add";
     Layout = "~/Views/Shared/_Admin.cshtml";
+    List<tblStatu> Status = (List<tblStatu>)ViewBag.Status;
+    List<tblCategory> Categories = (List<tblCategory>)ViewBag.Categories;
+    List<tblType> Types = (List<tblType>)ViewBag.Types;
+    List<tblPriority> Priorities = (List<tblPriority>)ViewBag.Priorities;
 }
 
 <!-- start page title -->
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            @if (Model.ProjectId == 0)
+            {
             <h4 class="mb-sm-0">Create Project</h4>
+            }
+            else
+            {
+        <h4 class="mb-sm-0">Update Project</h4>
+            }
+            
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Projects</a></li>
-                    <li class="breadcrumb-item active">Create Project</li>
+                    @if (Model.ProjectId == 0)
+                    {
+                        <li class="breadcrumb-item active">Create Project</li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item active">Update Project</li>
+                    }
+
                 </ol>
             </div>
 
@@ -22,23 +43,26 @@
 </div>
 <!-- end page title -->
 
+        @using (Html.BeginForm("add", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {@Html.AntiForgeryToken()
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
                 <div class="mb-3">
                     <label class="form-label" for="project-title-input">Project Title</label>
-                    <input type="text" class="form-control" id="project-title-input" placeholder="Enter project title">
+                    <input type="text" class="form-control" id="project-title-input" name="ProjectId" placeholder="Enter project title" value="@Model.ProjectId" hidden>
+                    <input type="text" class="form-control" id="project-title-input" name="Title" placeholder="Enter project title" value="@Model.Title">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="project-thumbnail-img">Thumbnail Image</label>
-                    <input class="form-control" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg">
+                    <input class="form-control" id="project-thumbnail-img" type="file" accept="image/png, image/gif, image/jpeg" name="Image">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Project Description</label>
-                    <div id="ckeditor-classic">
+                    @*<div id="ckeditor-classic">
                         <p>It will be as simple as occidental in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
                         <ul>
                             <li>Product Design, Figma (Software), Prototype</li>
@@ -46,6 +70,12 @@
                             <li>Create calendar, chat and email app pages.</li>
                             <li>Add authentication pages</li>
                         </ul>
+                    </div>*@
+                    <div id="ckeditor-classic" >
+                        @Html.Raw(@Model.Description)
+                    </div>
+                    <div class="mb-3" hidden>
+                        <textarea id="CareerDescription" name="Description" class="form-control summernote">@Model.Description</textarea>
                     </div>
                 </div>
 
@@ -53,94 +83,119 @@
                     <div class="col-lg-3">
                         <div class="mb-3 mb-lg-0">
                             <label for="choices-priority-input" class="form-label">Priority</label>
-                            <select class="form-select" data-choices data-choices-search-false id="choices-priority-input">
-                                <option value="High" selected>High</option>
+                            <select class="form-select" data-choices data-choices-search-false id="choices-priority-input" name="PriorityId">
+                                @foreach (var item in Priorities)
+                                {
+                                    if (Model.PriorityId == item.PriorityId)
+                                    {
+                                        <option value="@item.PriorityId" selected>@item.Priority</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.PriorityId">@item.Priority</option>
+                                    }
+
+                                }
+                                @*<option value="High" selected>High</option>
                                 <option value="Medium">Medium</option>
-                                <option value="Low">Low</option>
+                                <option value="Low">Low</option>*@
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="mb-3 mb-lg-0">
                             <label for="choices-status-input" class="form-label">Status</label>
-                            <select class="form-select" data-choices data-choices-search-false id="choices-status-input">
-                                <option value="Inprogress" selected>Inprogress</option>
-                                <option value="Completed">Completed</option>
+                            <select class="form-select" data-choices data-choices-search-false id="choices-status-input" name="StatusId">
+                                @foreach (var item in Status)
+                                {
+                                    if (Model.StatusId == item.StatusId)
+                                    {
+                                        <option value="@item.StatusId" selected>@item.Status</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.StatusId">@item.Status</option>
+                                    }
+
+                                }
+                                @*<option value="Inprogress" selected>Inprogress</option>
+                                <option value="Completed">Completed</option>*@
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div>
                             <label for="datepicker-deadline-input" class="form-label">Deadline</label>
-                            <input type="text" class="form-control" id="datepicker-deadline-input" placeholder="Enter due date" data-provider="flatpickr">
+                            <input type="date" class="form-control" id="datepicker-deadline-input" placeholder="Enter due date" data-provider="flatpickr" name="Deadline" value="@Model.Deadline">
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div>
                             <label for="datepicker-deadline-input" class="form-label">Value</label>
-                            <input type="text" class="form-control" id="datepicker-deadline-input" placeholder="Enter amount" data-provider="flatpickr">
+                            <input type="number" class="form-control" id="datepicker-deadline-input" placeholder="Enter amount" data-provider="flatpickr" name="Value" value="@Model.Value">
                         </div>
                     </div>
                 </div>
             </div>
             <!-- end card body -->
         </div>
+
         <!-- end card -->
 
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Attached files</h5>
-            </div>
-            <div class="card-body">
-                <div>
-                    <p class="text-muted">Add Attached files here.</p>
+        <!--<div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Attached files</h5>
+        </div>
+        <div class="card-body">
+            <div>
+                <p class="text-muted">Add Attached files here.</p>
 
-                    <div class="dropzone">
-                        <div class="fallback">
-                            <input name="file" type="file" multiple="multiple">
+                <div class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple="multiple">
+                    </div>
+                    <div class="dz-message needsclick">
+                        <div class="mb-3">
+                            <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
                         </div>
-                        <div class="dz-message needsclick">
-                            <div class="mb-3">
-                                <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
-                            </div>
 
-                            <h5>Drop files here or click to upload.</h5>
+                        <h5>Drop files here or click to upload.</h5>
+                    </div>
+                </div>
+
+                <ul class="list-unstyled mb-0" id="dropzone-preview">
+                    <li class="mt-2" id="dropzone-preview-list">-->
+        <!-- This is used as the file preview template -->
+        <!--<div class="border rounded">
+                <div class="d-flex p-2">
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm bg-light rounded">
+                            <img src="#" alt="Project-Image" data-dz-thumbnail class="img-fluid rounded d-block" />
                         </div>
                     </div>
-
-                    <ul class="list-unstyled mb-0" id="dropzone-preview">
-                        <li class="mt-2" id="dropzone-preview-list">
-                            <!-- This is used as the file preview template -->
-                            <div class="border rounded">
-                                <div class="d-flex p-2">
-                                    <div class="flex-shrink-0 me-3">
-                                        <div class="avatar-sm bg-light rounded">
-                                            <img src="#" alt="Project-Image" data-dz-thumbnail class="img-fluid rounded d-block" />
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="pt-1">
-                                            <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
-                                            <p class="fs-13 text-muted mb-0" data-dz-size></p>
-                                            <strong class="error text-danger" data-dz-errormessage></strong>
-                                        </div>
-                                    </div>
-                                    <div class="flex-shrink-0 ms-3">
-                                        <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- end dropzon-preview -->
+                    <div class="flex-grow-1">
+                        <div class="pt-1">
+                            <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
+                            <p class="fs-13 text-muted mb-0" data-dz-size></p>
+                            <strong class="error text-danger" data-dz-errormessage></strong>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 ms-3">
+                        <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
+                    </div>
                 </div>
             </div>
+        </li>
+    </ul>-->
+        <!-- end dropzon-preview -->
+        <!--</div>
         </div>
+    </div>-->
         <!-- end card -->
         <div class="text-end mb-4">
-            <button type="submit" class="btn btn-danger w-sm">Delete</button>
+            @*<button type="submit" class="btn btn-danger w-sm">Delete</button>*@
             <button type="button" class="btn btn-secondary w-sm" onclick="goBack()">Cancel</button>
-            <button type="submit" class="btn btn-success w-sm">Create</button>
+            <button type="submit" class="btn btn-success w-sm" onclick="GetData()">Create</button>
         </div>
     </div>
     <!-- end col -->
@@ -152,10 +207,22 @@
             <div class="card-body">
                 <div>
                     <label for="choices-privacy-status-input" class="form-label">Status</label>
-                    <select class="form-select" data-choices data-choices-search-false id="choices-privacy-status-input">
-                        <option value="Private" selected>Private</option>
+                    <select class="form-select" data-choices data-choices-search-false id="choices-privacy-status-input" name="TypeId">
+                        @foreach (var item in Types)
+                        {
+                            if (Model.TypeId == item.TypeId)
+                            {
+                                <option value="@item.TypeId" selected>@item.TypeName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.TypeId">@item.TypeName</option>
+                            }
+
+                        }
+                        @*<option value="Private" selected>Private</option>
                         <option value="Team">Team</option>
-                        <option value="Public">Public</option>
+                        <option value="Public">Public</option>*@
                     </select>
                 </div>
             </div>
@@ -170,15 +237,27 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="choices-categories-input" class="form-label">Categories</label>
-                    <select class="form-select" data-choices data-choices-search-false id="choices-categories-input">
-                        <option value="Designing" selected>Designing</option>
-                        <option value="Development">Development</option>
+                    <select class="form-select" data-choices data-choices-search-false id="choices-categories-input" name="CategoryId">
+                        @foreach (var item in Categories)
+                        {
+                            if (Model.CategoryId == item.CategoryId)
+                            {
+                                <option value="@item.CategoryId" selected>@item.CategoryName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.CategoryId">@item.CategoryName</option>
+                            }
+
+                        }
+                        @*<option value="Designing" selected>Designing</option>
+                        <option value="Development">Development</option>*@
                     </select>
                 </div>
 
                 <div>
-                    <label for="choices-text-input" class="form-label">Skills</label>
-                    <input class="form-control" id="choices-text-input" data-choices data-choices-limit="Required Limit" placeholder="Enter Skills" type="text" value="UI/UX, Figma, HTML, CSS, Javascript, C#, Nodejs" />
+                    <label for="choices-text-input" class="form-label">Tags</label>
+                    <input class="form-control" id="choices-text-input" data-choices data-choices-limit="Required Limit" placeholder="Enter Tags" type="text" name="Skills" value="@Model.Skills" />
                 </div>
             </div>
             <!-- end card body -->
@@ -188,9 +267,14 @@
     </div>
     <!-- end col -->
 </div>
+        }
 <!-- end row -->
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
+    function GetData() {
+        let html = $(".ck-editor__editable").html();
+        $("#CareerDescription").text(html);
+    }
     function goBack() {
         window.history.back();
     }

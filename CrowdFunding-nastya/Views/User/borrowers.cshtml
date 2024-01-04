@@ -1,4 +1,4 @@
-﻿﻿@model List<CrowdFunding_nastya.Models.tblUser>
+﻿@model List<CrowdFunding_nastya.Models.tblUser>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -35,7 +35,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p class="fw-semibold text-muted mb-0">Total Borrowers</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="10">0</span></h2>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Count()"></span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -56,7 +56,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p class="fw-semibold text-muted mb-0">Active Borrowers</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="5">0</span></h2>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Where(x => x.isActive != false).Count()"></span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -77,7 +77,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <p class="fw-semibold text-muted mb-0">In-Active Borrowers</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="5">0</span></h2>
+                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Where(x => x.isActive == false).Count()"></span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -219,48 +219,48 @@
                                 </tr>
                             }
                             @*<tr>
-                                    <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                        </div>
-                                    </th>
-                                    <td class="id"><a href="apps-tasks-details.html" class="fw-medium link-primary">#VLZ501</a></td>
-                                    <td class="project_name"><a href="apps-projects-overview.html" class="fw-medium link-primary">Velzon - v1.0.0</a></td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div class="flex-grow-1 tasks_name">velzon@gmail.com</div>
-                                            <div class="flex-shrink-0 ms-4">
-                                                    <ul class="list-inline tasks-list-menu mb-0">
-                                                        <li class="list-inline-item"><a href="apps-tasks-details.html"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
-                                                        <li class="list-inline-item"><a class="edit-item-btn" href="#showModal" data-bs-toggle="modal"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
-                                                        <li class="list-inline-item">
-                                                            <a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
-                                                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                        </div>
-                                    </td>
-                                    <td class="client_name">Admin</td>
+            <th scope="row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                </div>
+            </th>
+            <td class="id"><a href="apps-tasks-details.html" class="fw-medium link-primary">#VLZ501</a></td>
+            <td class="project_name"><a href="apps-projects-overview.html" class="fw-medium link-primary">Velzon - v1.0.0</a></td>
+            <td>
+                <div class="d-flex">
+                    <div class="flex-grow-1 tasks_name">velzon@gmail.com</div>
+                    <div class="flex-shrink-0 ms-4">
+                            <ul class="list-inline tasks-list-menu mb-0">
+                                <li class="list-inline-item"><a href="apps-tasks-details.html"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
+                                <li class="list-inline-item"><a class="edit-item-btn" href="#showModal" data-bs-toggle="modal"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
+                                <li class="list-inline-item">
+                                    <a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
+                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+            </td>
+            <td class="client_name">Admin</td>
 
-                                    <td class="due_date">25 Jan, 2022</td>
-                                    <td class="priority"><span class="badge bg-danger text-uppercase">In-Active</span></td>
-                                    <td class="priority"><a href="@Url.Action("business","User")"><span class="badge bg-secondary text-uppercase">View</span></a></td>
-                                    <td>
-                                        <div class="flex-shrink-0 ms-4">
-                                            <ul class="list-inline tasks-list-menu mb-0">
-                                                <li class="list-inline-item"><a href="@Url.Action("add","User")"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
-                                                <li class="list-inline-item"><a class="edit-item-btn" href="@Url.Action("add","User")"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
-                                                <li class="list-inline-item">
-                                                    <a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
-                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>*@
+            <td class="due_date">25 Jan, 2022</td>
+            <td class="priority"><span class="badge bg-danger text-uppercase">In-Active</span></td>
+            <td class="priority"><a href="@Url.Action("business","User")"><span class="badge bg-secondary text-uppercase">View</span></a></td>
+            <td>
+                <div class="flex-shrink-0 ms-4">
+                    <ul class="list-inline tasks-list-menu mb-0">
+                        <li class="list-inline-item"><a href="@Url.Action("add","User")"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
+                        <li class="list-inline-item"><a class="edit-item-btn" href="@Url.Action("add","User")"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
+                        <li class="list-inline-item">
+                            <a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
+                                <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>*@
                         </tbody>
                     </table>
                     <!--end table-->
@@ -306,7 +306,7 @@
                     @using (Html.BeginForm("delete", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {@Html.AntiForgeryToken()
                     <div class="hstack gap-2 justify-content-center remove">
-                        <input type="text" name="Id" id="DeleteId" value="" hidden />
+                        <input type="text" name="Id" id="DeleteId" value="" hidden/>
                         <button class="btn btn-link btn-ghost-primary fw-medium text-decoration-none" id="deleteRecord-close" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Close</button>
                         <button class="btn btn-info" id="delete-record">Yes, Delete It</button>
                     </div>
