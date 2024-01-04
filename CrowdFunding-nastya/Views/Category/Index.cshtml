@@ -1,0 +1,257 @@
+﻿@using CrowdFunding_nastya.Models;
+@{
+    List<tblCategory> list = (List<tblCategory>)ViewBag.CategoryList;
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Admin.cshtml";
+    }
+
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">Categories</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Categories</a></li>
+                        <li class="breadcrumb-item active">List</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card" id="tasksList">
+                <div class="card-header border-0">
+                    <div class="d-flex align-items-center">
+                        <h5 class="card-title mb-0 flex-grow-1">Categories</h5>
+                        <div class="flex-shrink-0">
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="#editInformation)" class="open-AddBookDialog  btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Create New</a>
+                                <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body border border-dashed border-end-0 border-start-0">
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-xxl-5 col-sm-12">
+                                @if (@ViewBag.Success != "" && @ViewBag.Success != null)
+                                {
+                                    <div class="alert alert-success alert-dismissible fade show" id="SuccessAlert" role="alert">
+                                        <strong>Success! </strong> @ViewBag.Success
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                }
+                                @if (@ViewBag.update != "" && @ViewBag.update != null)
+                                {
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert" id="OldPasserror">
+                                        <strong>Alert! </strong>@ViewBag.update
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                }
+                                @if (@ViewBag.Error != "" && @ViewBag.Error != null)
+                                {
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="OldPasserror">
+                                        <strong>Alert! </strong>@ViewBag.Error
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                }
+                            </div>
+                            <!--end col-->
+                            <!--end col-->
+                            <!--end col-->
+                        </div>
+                        <!--end row-->
+                    </form>
+                </div>
+                <!--end card-body-->
+                <div class="card-body">
+                    <div class="table-responsive table-card mb-4">
+                        <table class="table align-middle table-nowrap mb-0" id="tasksTable">
+                            <thead class="table-light text-muted">
+                                <tr>
+
+                                    <th class="sort" data-sort="blog_name">Name</th>
+                                    <th class="sort" data-sort="status">Status</th>
+                                    <th class="sort" data-sort="status">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="list form-check-all">
+                                @{
+                                    foreach (var item in list)
+                                    {
+                                        <tr>
+
+                                            <td>
+                                                
+                                                <a href="#javascript: void(0);" >@item.CategoryName</a>
+                                            </td>
+
+                                           
+
+                                            <td class="priority">
+                                                @*@{
+                                                    if (item.IsActive == true)
+                                                    {
+                                                        <span class="badge bg-success text-uppercase">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-danger text-uppercase">In-Active</span>
+                                                    }
+                                                }*@
+                                            </td>
+                                          
+                                            <td>
+                                                <div class="flex-shrink-0 ms-4">
+                                                    <ul class="list-inline tasks-list-menu mb-0">
+                                                        <li class="list-inline-item"><a class="open-AddBookDialog  edit-item-btn" href="#editInformation"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
+                                                        <li class="list-inline-item"><a class="remove-item-btn open-AddBookDialog1" data-bs-toggle="modal" href="#delete_modal" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                             <td style="display:none;" class="Isdisplay ID ">@item.CategoryId</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <!--end table-->
+                        <div class="noresult" style="display: none">
+                            <div class="text-center">
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                                <h5 class="mt-2">Sorry! No Result Found</h5>
+                                <p class="text-muted mb-0">We've searched more than 200k+ tasks We did not find any tasks for you search.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                        <div class="pagination-wrap hstack gap-2">
+                            <a class="page-item pagination-prev disabled" href="#">
+                                Previous
+                            </a>
+                            <ul class="pagination listjs-pagination mb-0"></ul>
+                            <a class="page-item pagination-next" href="#">
+                                Next
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--end card-body-->
+            </div>
+            <!--end card-->
+        </div>
+        <!--end col-->
+    </div>
+
+    <div class="modal fade" id="editInformation" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-simple modal-edit-user">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                        <h3>Category</h3>
+                    </div>
+                    <form action="@Url.Action("Create", "Setup")" method="post">
+                        <div class="mb-3" hidden>
+                            <label class="form-label">ID</label>
+                            <input type="number" id="ID" name="ID" class="form-control" value="0" />
+                            <input type="text" id="type" name="type" class="form-control" value="Unit" />
+                        </div>
+                        @*<div class="mb-3">
+                                <label class="form-label"> Code</label>
+                                <input type="text" id="Code" name="Code" class="form-control" />
+                            </div>*@
+                        <div class="mb-3">
+                            <label class="form-label"> Name</label>
+                            <input type="text" id="Name" name="Name" class="form-control" required />
+                        </div>
+                      
+                        <div class="mb-3">
+                            <input type="checkbox" id="IsActive" class="form-check-input" name="IsActive" value="true" />
+                            <label class="form-label" for="IsActive">Active</label>
+
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Save</button>
+                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete_modal" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!--	<div class="modal-header">
+                        <h5 class="modal-title">Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>-->
+                <div class="modal-body text-center">
+
+                    <div class="form-content p-2">
+                        @using (Html.BeginForm("Delete", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {@Html.AntiForgeryToken()
+                        <input type="text" id="type" name="type" class="form-control" value="Unit" hidden />
+                        <input type="number" id="ID" name="ID" class="form-control" hidden />
+                        <h4 class="modal-title">Delete</h4>
+                        <p class="mb-4">Are you sure want to delete ?</p>
+                        <button type="submit" class="btn btn-primary">Save </button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                    }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
+
+    <script>
+        $(document).on("click", ".open-AddBookDialog1", function () {
+            var myModal = $('#delete_modal');
+            var id = $(this).closest('tr').find('.ID').text();
+            $("#ID", myModal).val(id);
+            myModal.show();
+        });
+    </script>
+
+    <script>
+        $(document).on("click", ".open-AddBookDialog", function () {
+
+            var myModal = $('#editInformation');
+            var ID = $(this).closest('tr').find('.ID').text();
+            var Name = $(this).closest('tr').find('.Name').text().trim();
+              var IsActive = $(this).closest('tr').find('.IsActive').text().trim();
+            $("#ID", myModal).val(ID);
+            $("#Name", myModal).val(Name);
+            
+            if (IsActive == "Active" || IsActive == "Actif") {
+
+                $("#IsActive").attr("checked", true);
+            }
+            else {
+                $("#IsActive").attr("checked", false);
+            }
+            // myModal.show();
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $(".ul li a").removeClass("active");
+            $('#Categories').addClass('active');
+        });
+    </script>
+
