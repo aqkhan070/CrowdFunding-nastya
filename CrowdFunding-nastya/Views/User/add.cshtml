@@ -46,183 +46,178 @@
             </div>
             <div class="card-body p-4">
                 <div class="tab-content">
-                            <span style="color:red;display:none;" id="fademsg">@ViewBag.error</span>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="ErrorAlert1" style="display:none;">
+                        <strong> Error! </strong>  <span style="color:red;display:none;" id="fademsg">@ViewBag.error</span>
+                    </div>
                     <div class="tab-pane active" id="personalDetails" role="tabpanel">
                         @using (Html.BeginForm("add", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {@Html.AntiForgeryToken()
-                        <form action="javascript:void(0);">
-                            <div class="row">
-                                <div class="profile-user position-relative d-inline-block mb-4">
-                                    @*<img src="~/assets/admin/images/users/avatar-1.jpg" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">*@
-                                    <img src="@Model.ImagePath" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
-                                    <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
-                                        <input id="profile-img-file-input" name="Image" type="file" class="profile-img-file-input">
-                                        <label for="profile-img-file-input" class="profile-photo-edit avatar-xs" style="left:0 !important">
-                                            <span class="avatar-title rounded-circle bg-light text-body">
-                                                <i class="ri-camera-fill"></i>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="firstnameInput" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="UserIdInput" name="UserId" placeholder="UserId" value="@Model.UserId" hidden>
-                                        <input type="text" class="form-control" id="firstnameInput" name="FirstName" placeholder="Enter your firstname" value="@Model.FirstName" required>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="lastnameInput" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="lastnameInput" name="LastName" placeholder="Enter your lastname" value="@Model.LastName" required>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="phonenumberInput" class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" id="phonenumberInput" name="Phone" placeholder="Enter your phone number" value="@Model.Phone">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="emailInput" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="emailInput" name="Email" placeholder="Enter your email" value="@Model.Email" required>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                @if (Model.UserId == null || Model.UserId == 0)
-                                {
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="passwordInput" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="passwordInput" name="Password" placeholder="Enter your Password" autocomplete="off" value="" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="confirmpasswordInput" class="form-label">Confirm Password</label>
-                                            <input type="password" class="form-control" id="confirmpasswordInput" placeholder="Enter confirm Password" autocomplete="off" value="" required>
-                                        </div>
-                                    </div>
-                                }
-
-                                <!--end col-->
-                                <!--end col-->
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="choices-status-input" class="form-label">Status</label>
-                                        <select class="form-select" data-choices data-choices-search-false id="choices-status-input" name="isActive">
-                                            @if (@Model.isActive == false)
-                                            {
-                                                <option value="True">Active</option>
-                                                <option value="False" selected>In-Active</option>
-                                            }
-                                            else
-                                            {
-                                                <option value="True" selected>Active</option>
-                                                <option value="False">In-Active</option>
-                                            }
-
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="choices-status-input" class="form-label">Type</label>
-                                        <select class="form-select" data-choices data-choices-search-false id="choices-status-input" name="RoleId">
-
-                                            @*<option value="Completed">Lender</option>
-                    <option value="Completed">Borrower</option>*@
-                                            @foreach (var item in Roles)
-                                            {
-                                                if (item.RoleId == Model.RoleId)
+                                        <form action="javascript:void(0);">
+                                            <div class="row">
+                                                <div class="profile-user position-relative d-inline-block mb-4">
+                                                    @*<img src="~/assets/admin/images/users/avatar-1.jpg" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">*@
+                                                    <img src="@Model.ImagePath" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
+                                                    <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                                                        <input id="profile-img-file-input" name="Image" type="file" class="profile-img-file-input">
+                                                        <label for="profile-img-file-input" class="profile-photo-edit avatar-xs" style="left:0 !important">
+                                                            <span class="avatar-title rounded-circle bg-light text-body">
+                                                                <i class="ri-camera-fill"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="firstnameInput" class="form-label">First Name</label>
+                                                        <input type="text" class="form-control" id="UserIdInput" name="UserId" placeholder="UserId" value="@Model.UserId" hidden>
+                                                        <input type="text" class="form-control" id="firstnameInput" name="FirstName" placeholder="Enter your firstname" value="@Model.FirstName" required>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="lastnameInput" class="form-label">Last Name</label>
+                                                        <input type="text" class="form-control" id="lastnameInput" name="LastName" placeholder="Enter your lastname" value="@Model.LastName" required>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="phonenumberInput" class="form-label">Phone Number</label>
+                                                        <input type="text" class="form-control" id="phonenumberInput" name="Phone" placeholder="Enter your phone number" value="@Model.Phone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="emailInput" class="form-label">Email Address</label>
+                                                        <input type="email" class="form-control" id="emailInput" name="Email" placeholder="Enter your email" value="@Model.Email" required>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                @if (Model.UserId == null || Model.UserId == 0)
                                                 {
-                                                    <option value="@item.RoleId" selected>@item.Role</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="@item.RoleId">@item.Role</option>
-                                                }
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="passwordInput" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="passwordInput" name="Password" placeholder="Enter your Password" autocomplete="off" value="" required>
+                                    </div>
+                                </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="confirmpasswordInput" class="form-label">Confirm Password</label>
+                                                            <input type="password" class="form-control" id="confirmpasswordInput" placeholder="Enter confirm Password" autocomplete="off" value="" required>
+                                                        </div>
+                                                    </div>}
 
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
+                                                <!--end col-->
+                                                <!--end col-->
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="choices-status-input" class="form-label">Status</label>
+                                                        <select class="form-select" data-choices data-choices-search-false id="choices-status-input" name="isActive">
+                                                            @if (@Model.isActive == false)
+                                                            {
+                                            <option value="True">Active</option>
+                                                                <option value="False" selected>In-Active</option> }
+                                                                                else
+                                                                                {
+                                                                <option value="True" selected>Active</option>
+                                                                                    <option value="False">In-Active</option>}
 
-                                <!--end col-->
-                                <!--end col-->
-                                <div class="col-lg-12">
-                                    <div class="mb-3 pb-2">
-                                        <label for="exampleFormControlTextarea" class="form-label">Description</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea" name="Description" placeholder="Enter your description" rows="3">@Model.Description</textarea>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-12">
-                                    <div class="hstack gap-2 justify-content-end">
-                                        <button type="submit" class="btn btn-primary" id="UserSaveChanges">Save</button>
-                                        <button type="button" class="btn btn-soft-info" onclick="goBack()">Cancel</button>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                        </form>
-                    }
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="choices-status-input" class="form-label">Type</label>
+                                                        <select class="form-select" data-choices data-choices-search-false id="choices-status-input" name="RoleId">
+
+                                                            @*<option value="Completed">Lender</option>
+                                                <option value="Completed">Borrower</option>*@
+                                                            @foreach (var item in Roles)
+                                                            {
+                                                                if (item.RoleId == Model.RoleId)
+                                                                {
+                                            <option value="@item.RoleId" selected>@item.Role</option> }
+                                                                else
+                                                                {
+                                            <option value="@item.RoleId">@item.Role</option>}
+
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!--end col-->
+                                                <!--end col-->
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3 pb-2">
+                                                        <label for="exampleFormControlTextarea" class="form-label">Description</label>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea" name="Description" placeholder="Enter your description" rows="3">@Model.Description</textarea>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                                <div class="col-lg-12">
+                                                    <div class="hstack gap-2 justify-content-end">
+                                                        <button type="submit" class="btn btn-primary" id="UserSaveChanges">Save</button>
+                                                        <button type="button" class="btn btn-soft-info" onclick="goBack()">Cancel</button>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
+                                            </div>
+                                            <!--end row-->
+                                        </form>}
                     </div>
                     <!--end tab-pane-->
                     <div class="tab-pane" id="changePassword" role="tabpanel">
                         @*<span style="color:red;display:none;" id="fademsg">@ViewBag.error</span>*@
                         @using (Html.BeginForm("ChangePassword", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {@Html.AntiForgeryToken()
-                        <form action="javascript:void(0);">
-                            <div class="row g-2">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-lg-12 mb-2">
-                                            <div>
-                                                <label for="oldpasswordInput" class="form-label">Old Password*</label>
-                                                <input type="text" class="form-control" name="id" value="@Model.UserId" hidden>
-                                                <input type="password" class="form-control" id="PasswordEmail" name="Email" value="@Model.Email" hidden>
-                                                <input type="password" class="form-control" onchange="CheckPassword()" id="OldPassword" name="OldPassword" placeholder="Enter current password" required>
-                                            </div>
+                                        <form action="javascript:void(0);">
+                                            <div class="row g-2">
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 mb-2">
+                                                            <div>
+                                                                <label for="oldpasswordInput" class="form-label">Old Password*</label>
+                                                                <input type="text" class="form-control" name="id" value="@Model.UserId" hidden>
+                                                                <input type="password" class="form-control" id="PasswordEmail" name="Email" value="@Model.Email" hidden>
+                                                                <input type="password" class="form-control" onchange="CheckPassword()" id="OldPassword" name="OldPassword" placeholder="Enter current password" required>
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-lg-12 mb-2">
+                                                            <div>
+                                                                <label for="newpasswordInput" class="form-label">New Password*</label>
+                                                                <input type="password" class="form-control" id="pass" name="NewPassword" placeholder="Enter new password" required>
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-lg-12 mb-2">
+                                                            <div>
+                                                                <label for="confirmpasswordInput" class="form-label">Confirm Password*</label>
+                                                                <input type="password" class="form-control" id="comfpass" name="ConfirmPassword" placeholder="Enter Confirm password" required>
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                </div>
+                                                @*<div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
                                         </div>
-                                        <!--end col-->
-                                        <div class="col-lg-12 mb-2">
-                                            <div>
-                                                <label for="newpasswordInput" class="form-label">New Password*</label>
-                                                <input type="password" class="form-control" id="pass" name="NewPassword" placeholder="Enter new password" required>
+                                    </div>*@
+                                                <!--end col-->
+                                                <div class="col-lg-12">
+                                                    <div class="text-end">
+                                                        <button type="submit" id="SaveChanges" class="btn btn-info">Change Password</button>
+                                                    </div>
+                                                </div>
+                                                <!--end col-->
                                             </div>
-                                        </div>
-                                        <!--end col-->
-                                        <div class="col-lg-12 mb-2">
-                                            <div>
-                                                <label for="confirmpasswordInput" class="form-label">Confirm Password*</label>
-                                                <input type="password" class="form-control" id="comfpass" name="ConfirmPassword" placeholder="Enter Confirm password" required>
-                                            </div>
-                                        </div>
-                                        <!--end col-->
-                                    </div>
-                                </div>
-                                @*<div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
-                                    </div>
-                                </div>*@
-                                <!--end col-->
-                                <div class="col-lg-12">
-                                    <div class="text-end">
-                                        <button type="submit" id="SaveChanges" class="btn btn-info">Change Password</button>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                        </form>
-                        }
+                                            <!--end row-->
+                                        </form>}
                     </div>
                     <!--end tab-pane-->
 
@@ -253,10 +248,12 @@
                 console.log(r);
                 if (r == 1) {
                     $("#SaveChanges").attr("disabled", false);
+                    $("#ErrorAlert1").fadeOut();
                     $("#fademsg").fadeOut();
                 }
                 else {
                     $("#fademsg").text("Old password is not Correct!");
+                    $("#ErrorAlert1").fadeIn();
                     $("#fademsg").fadeIn();
                     $("#SaveChanges").attr("disabled", true);
                 }
@@ -272,11 +269,13 @@
         if (New) {
             if ($("#pass").val() != $("#comfpass").val()) {
                 $("#fademsg").text("New password and confirm password not matched.");
+                $("#ErrorAlert1").fadeIn();
                 $("#fademsg").fadeIn();
 
                 $("#SaveChanges").attr("disabled", true);
             } else {
                 $("#SaveChanges").attr("disabled", false);
+                $("#ErrorAlert1").fadeOut();
                 $("#fademsg").fadeOut();
             }
         }
@@ -289,11 +288,13 @@
         if (New) {
             if ($("#passwordInput").val() != $("#confirmpasswordInput").val()) {
                 $("#fademsg").text("New password and confirm password not matched.");
+                $("#ErrorAlert1").fadeIn();
                 $("#fademsg").fadeIn();
 
                 $("#UserSaveChanges").attr("disabled", true);
             } else {
                 $("#UserSaveChanges").attr("disabled", false);
+                $("#ErrorAlert1").fadeOut();
                 $("#fademsg").fadeOut();
             }
         }
