@@ -93,7 +93,22 @@
     </div>
 </div>
 
-
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="SuccessAlert" style="display:none;">
+    <strong> Success! </strong> @Success
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="alert alert-secondary alert-dismissible fade show" role="alert" id="UpdateAlert" style="display:none;">
+    <strong> Success! </strong> @Update
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="alert alert-warning alert-dismissible fade show" role="alert" id="DeleteAlert" style="display:none;">
+    <strong> Success! </strong> @Delete
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="alert alert-danger alert-dismissible fade show" role="alert" id="ErrorAlert" style="display:none;">
+    <strong> Error! </strong> @Error
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 <div class="row">
     <div class="col-lg-12">
         <div class="card" id="tasksList">
@@ -112,28 +127,27 @@
                 <form>
                     <div class="row g-3">
                         <div class="col-xxl-5 col-sm-12">
-                            <div class="alert alert-success alert-dismissible fade show" role="alert" id="SuccessAlert" style="display:none;">
-                                <strong> Success! </strong> @Success
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            <div class="alert alert-secondary alert-dismissible fade show" role="alert" id="UpdateAlert" style="display:none;">
-                                <strong> Success! </strong> @Update
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="DeleteAlert" style="display:none;">
-                                <strong> Success! </strong> @Delete
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="ErrorAlert" style="display:none;">
-                                <strong> Error! </strong> @Error
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div class="search-box">
+                                <input type="text" class="form-control search bg-light border-light" placeholder="Search for tasks or something...">
+                                <i class="ri-search-line search-icon"></i>
                             </div>
                         </div>
                         <!--end col-->
 
 
 
-                       
+                        <div class="col-xxl-3 col-sm-4">
+                            <div class="input-light">
+                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
+                                    <option value="">Status</option>
+                                    <option value="all" selected>All</option>
+                                    <option value="New">Active</option>
+                                    <option value="Pending">In-Active</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <!--end col-->
                     </div>
                     <!--end row-->
                 </form>
