@@ -120,7 +120,7 @@
                                                                             <a href="@Url.Action("case_detail","Home", new { id=item.ProjectId})">
                                                                                 <img class="img-fluid w-100" src="@item.ImagePath" alt="image">
                                                                             </a>
-                                                                            <h4 class="cases__card-tag">@(item.tblCategory != null? item.tblCategory.CategoryName: "")</h4>
+                                                                            <h4 class="cases__card-tag">@(Model.tblCategory != null? @Model.tblCategory.CategoryName: "")</h4>
                                                                         </div>
                                                                         <div class="card-body px-4">
                                                                             <div class="d-flex">
@@ -130,7 +130,7 @@
                                                                                 </span>
                                                                             </div>
                                                                             <div class="">
-                                                                                <a href="@Url.Action("case_detail","Home",new { id=item.ProjectId})" class="cases__card-title">
+                                                                                <a href="@Url.Action("case_detail","Home",new { id=item.ProjectId}))" class="cases__card-title">
                                                                                     @item.Title
                                                                                 </a>
                                                                             </div>
@@ -151,7 +151,7 @@
                                                                                     <div class="d-flex align-items-center gap-2">
                                                                                         <img class="cases__card-range--dollar" src="~/assets/assets/img/dollar-s.svg"
                                                                                              alt="icon">
-                                                                                        <span class="cases__card-range--price">goal: $ @item.Value</span>
+                                                                                        <span class="cases__card-range--price">goal: $ @Model.Value</span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

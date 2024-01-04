@@ -27,7 +27,7 @@ namespace CrowdFunding_nastya.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(int ID, string Name,  bool? IsActive)
+        public ActionResult Create(int ID, string Name, string Name_fr, string Code, string type, string RID, bool? IsActive)
         {
             try
             {
