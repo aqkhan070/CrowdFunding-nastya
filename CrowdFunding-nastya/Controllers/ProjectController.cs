@@ -26,13 +26,15 @@ namespace CrowdFunding_nastya.Controllers
         public ActionResult add(int id = 0)
         {
             ViewBag.Status = DB.tblStatus.Where(x => x.isDeleted != true).ToList();
-            ViewBag.Categories = DB.tblCategories.ToList();
+            ViewBag.Categories = DB.tblCategories.Where(x => x.isActive == true).ToList();
             ViewBag.Types = DB.tblTypes.ToList();
             ViewBag.Priorities = DB.tblPriorities.Where(x => x.IsDeleted != true).ToList();
             tblProject Project = DB.tblProjects.Where(x => x.ProjectId == id && x.isDeleted != true).FirstOrDefault();
             if (Project == null)
             {
+
                 Project = new tblProject();
+                Project.ImagePath = "/assets/admin/images/faq-img.png";
             }
             return View(Project);
         }
@@ -72,7 +74,7 @@ namespace CrowdFunding_nastya.Controllers
                     Data.CreatedBy = UserId;
                     Data.EditDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
                     Data.EditBy = UserId;
-                    Data.isActive = true;
+                    Data.isActive = Project.isActive;
                     Data.isDeleted = false;
                     DB.tblProjects.Add(Data);
                     DB.SaveChanges();
@@ -124,7 +126,7 @@ namespace CrowdFunding_nastya.Controllers
                     Data.CategoryId = Project.CategoryId;
                     Data.EditDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
                     Data.EditBy = UserId;
-                    Data.isActive = true;
+                    Data.isActive = Project.isActive;
                     Data.isDeleted = false;
                     Data.EditDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
                     Data.EditBy = UserId;

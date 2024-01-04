@@ -11,12 +11,14 @@ namespace CrowdFunding_nastya.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class tblCareer
     {
         public int CareerId { get; set; }
         public string CareerTitle { get; set; }
         public string CareerThumbnailImage { get; set; }
+        [AllowHtml]
         public string CareerDescription { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime PublishDate { get; set; }
@@ -29,8 +31,8 @@ namespace CrowdFunding_nastya.Models
         public Nullable<int> PriorityId { get; set; }
         public Nullable<int> BlogTypeId { get; set; }
     
-        public virtual tblCategory tblCategory { get; set; }
         public virtual tblPriority tblPriority { get; set; }
         public virtual tblType tblType { get; set; }
+        public virtual tblCategory tblCategory { get; set; }
     }
 }

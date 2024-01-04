@@ -14,6 +14,15 @@ namespace CrowdFunding_nastya.Models
     
     public partial class tblUser
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblUser()
+        {
+            this.tblNotifications = new HashSet<tblNotification>();
+            this.tblTransactions = new HashSet<tblTransaction>();
+            this.tblWithdraws = new HashSet<tblWithdraw>();
+            this.tblWithdraws1 = new HashSet<tblWithdraw>();
+        }
+    
         public int UserId { get; set; }
         public string username { get; set; }
         public string LastName { get; set; }
@@ -24,6 +33,7 @@ namespace CrowdFunding_nastya.Models
         public string ImagePath { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
+        public Nullable<double> Balance { get; set; }
         public Nullable<int> RoleId { get; set; }
         public Nullable<System.DateTime> LastLogin { get; set; }
         public Nullable<int> CreatedBy { get; set; }
@@ -33,6 +43,14 @@ namespace CrowdFunding_nastya.Models
         public bool isActive { get; set; }
         public Nullable<bool> isDeleted { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblNotification> tblNotifications { get; set; }
         public virtual tblRole tblRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblTransaction> tblTransactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblWithdraw> tblWithdraws { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblWithdraw> tblWithdraws1 { get; set; }
     }
 }

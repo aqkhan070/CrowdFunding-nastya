@@ -17,7 +17,7 @@ namespace CrowdFunding_nastya.Controllers
         // GET: Blog
         public ActionResult Index(string Success, string Update, string Error)
         {
-            var blogUser = _dbContext.tblBlogs.ToList();
+            var blogUser = _dbContext.tblBlogs.Where(x=>x.IsDeleted!=true).ToList();
             ViewBag.Success = Success;
             ViewBag.Update = Update;
             ViewBag.Error = Error;
@@ -29,7 +29,7 @@ namespace CrowdFunding_nastya.Controllers
         {
             var priorityList = _dbContext.tblPriorities.ToList();
             ViewBag.PriorityList = new SelectList(priorityList, "PriorityId", "Priority");
-            var categoryList = _dbContext.tblCategories.ToList();
+            var categoryList = _dbContext.tblCategories.Where(x => x.isActive == true).ToList();
             ViewBag.CategoryList = new SelectList(categoryList, "CategoryId", "CategoryName");
             var blogTypeList = _dbContext.tblTypes.ToList();
             ViewBag.BlogTypeList = new SelectList(blogTypeList, "BlogTypeId", "BlogTypeName");

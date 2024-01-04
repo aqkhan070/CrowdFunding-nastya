@@ -157,53 +157,51 @@
             </div>
         </div>
         <!-- end col -->
-        <!--<div class="col-lg-4">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">Category</h5>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label for="CategoryId" class="form-label">Categories</label>
-                        Html.EditorFor(model => model.CategoryId)
-                        <!--<select id="CategoryId" class="form-control" name="CategoryId" required>
-                            <option value="" (Model == null || Model.CategoryId == null ? "selected" : "")>---Select Category---</option>
-                            foreach (var list in ViewBag.CategoryList as SelectList)
+                        
+                        <select id="CategoryId" class="form-control" name="CategoryId" required>
+                            @foreach (var list in ViewBag.CategoryList as SelectList)
                             {
-                                <option value="list.Value" (Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>list.Text</option>
+                                <option value="@list.Value" @(Model != null && list.Value == Model.CategoryId.ToString() ? "selected" : "")>@list.Text</option>
                             }
                         </select>
                     </div>
 
 
                 </div>
-                <!-- end card body -->
-            <!--</div>
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Type</h5>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <label for="BlogTypeId" class="form-label">Career Type</label>
-                        Html.EditorFor(model => model.BlogTypeId)
-                        <select id="BlogTypeId" class="form-control" name="BlogTypeId" required>
-                            <option value="" (Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Type---</option>
-                            foreach (var list in ViewBag.BlogTypeList as SelectList)
-                            {
-                                <option value="list.Value" (Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>list.Text</option>
-                            }
-                        </select>
+            </div>
+        </div>
+    <!--<div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">Type</h5>
+        </div>
+        <div class="card-body">
+            <div>
+                <label for="BlogTypeId" class="form-label">Career Type</label>
+                Html.EditorFor(model => model.BlogTypeId)
+                <select id="BlogTypeId" class="form-control" name="BlogTypeId" required>
+                    <option value="" (Model == null || Model.BlogTypeId == null ? "selected" : "")>---Select Type---</option>
+                    foreach (var list in ViewBag.BlogTypeList as SelectList)
+                    {
+                        <option value="list.Value" (Model != null && list.Value == Model.BlogTypeId.ToString() ? "selected" : "")>list.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <!-- end card body -->
+                        <!--</div>-->
+                        <!-- end card -->
+                        <!-- end card -->
+                        <!-- end card -->
+                        <!--</div>-->
+                        <!-- end col -->
                     </div>
-                </div>-->
-                <!-- end card body -->
-            <!--</div>-->
-            <!-- end card -->
-            <!-- end card -->
-            <!-- end card -->
-        <!--</div>-->
-        <!-- end col -->
-    </div>
 }
 <!-- end row -->
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>

@@ -52,6 +52,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -135,9 +138,12 @@
     <Compile Include="Controllers\CareerController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WithdrawController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -156,6 +162,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Crowdfunding.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PaypalConfiguration.cs" />
     <Compile Include="Models\tblAccessLevel.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
@@ -183,6 +190,9 @@
     <Compile Include="Models\tblMenu.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblNotification.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblPriority.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
@@ -201,6 +211,9 @@
     <Compile Include="Models\tblSubscriber.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblTransaction.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblType.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
@@ -208,6 +221,12 @@
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblVerificationCode.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblWithdraw.cs">
+      <DependentUpon>Crowdfunding.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblWithdrawStatu.cs">
       <DependentUpon>Crowdfunding.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1294,12 +1313,17 @@
     <Content Include="Views\Admin\Subscriber.cshtml" />
     <Content Include="Views\Action\Index.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Withdraw\Withdraw.cshtml" />
+    <Content Include="Views\Withdraw\Withdrawals.cshtml" />
+    <Content Include="Views\Withdraw\Transactions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Uploading\Blog\" />
     <Folder Include="Uploading\Career\" />
     <Folder Include="Uploading\User\" />
+    <Folder Include="Views\Paypal\" />
+    <Folder Include="Views\Transaction\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

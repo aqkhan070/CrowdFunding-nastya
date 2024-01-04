@@ -13,6 +13,17 @@ namespace CrowdFunding_nastya.Controllers
         CrowdfundingnastyaEntities _dbContext = new CrowdfundingnastyaEntities();
         public ActionResult Index()
         {
+            HttpCookie cookieObj = Request.Cookies["User"];
+              string  Role = cookieObj["Role"];
+            ViewBag.Name = cookieObj["FirstName"];
+            ViewBag.Donners = _dbContext.tblUsers.Where(x => x.isActive == true && x.isDeleted != true && x.RoleId==3).Take(5).ToList();
+            ViewBag.DonnersCount = _dbContext.tblUsers.Where(x => x.isActive == true && x.isDeleted != true && x.RoleId==3).Count();
+            ViewBag.Donees = _dbContext.tblUsers.Where(x => x.isActive == true && x.isDeleted != true && x.RoleId==2).Take(5).ToList();
+            ViewBag.DoneesCount = _dbContext.tblUsers.Where(x => x.isActive == true && x.isDeleted != true && x.RoleId==2).Count();
+            ViewBag.ProjectCount = _dbContext.tblProjects.Where(x => x.isActive == true && x.isDeleted != true).Count();
+            
+
+
             return View();
         }  
         public ActionResult settings()

@@ -67,8 +67,8 @@ namespace CrowdFunding_nastya.Controllers
                     string UserIdEnc = Convert.ToBase64String(EncDataBtye);
                     HttpCookie cookie = new HttpCookie("User");
 
-                    //cookie["RoleId"] = User.RoleId.ToString();
-                    //cookie["Role"] = User.tblRole.Role;
+                    cookie["RoleId"] = User.RoleId.ToString();
+                    cookie["Role"] = User.tblRole.Role;
                     cookie["UserId"] = UserIdEnc.ToString();
                     cookie["Email"] = User.Email;
                     cookie["FirstName"] = User.FirstName;
@@ -115,6 +115,7 @@ namespace CrowdFunding_nastya.Controllers
         }
         public ActionResult sign_up()
         {
+            ViewBag.EditPage = DB.tblEditPages.FirstOrDefault();
             ViewBag.Roles = DB.tblRoles.Where(x => x.isActive == true && x.isDeleted != true && x.RoleId != 1).ToList();
             return View();
         }
@@ -191,6 +192,8 @@ namespace CrowdFunding_nastya.Controllers
                             path = Path.Combine("\\Uploading\\Project", Path.GetFileName("Project" + DateTime.Now.ToString("ddMMyyyyHHmmss") + Path.GetExtension(ProjectImage.FileName)));
                             ProjectData.ImagePath = path;
                         }
+                        ProjectData.StatusId = 5;
+                        ProjectData.CreatedBy = Data.UserId;
                         ProjectData.CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
                         ProjectData.EditDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
                         ProjectData.isActive = true;

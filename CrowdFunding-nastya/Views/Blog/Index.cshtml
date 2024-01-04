@@ -162,7 +162,7 @@
                                        
                                         <td>
                                             <img src="@item.ThumbnailImage" alt="" class="avatar-xs rounded-circle me-2">
-                                            <a href="#javascript: void(0);" class="text-body fw-medium">@item.BlogTitle</a>
+                                            <a href="@Url.Action("blog_detail","Home", new {id = item.BlogId})" class="text-body fw-medium">@item.BlogTitle</a>
                                         </td>
 
                                         <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@Html.DisplayFor(modelItem => item.tblPriority.Priority)</span></td>

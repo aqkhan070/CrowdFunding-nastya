@@ -11,16 +11,22 @@ namespace CrowdFunding_nastya.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class tblEditPage
     {
         public int ID { get; set; }
+        [AllowHtml]
         public string About { get; set; }
+        [AllowHtml]
         public string TermsCondition { get; set; }
+        [AllowHtml]
         public string Contact { get; set; }
+        [AllowHtml]
         public string Privacy { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        [AllowHtml]
         public string Address { get; set; }
         public string Facebook { get; set; }
         public string Instagram { get; set; }

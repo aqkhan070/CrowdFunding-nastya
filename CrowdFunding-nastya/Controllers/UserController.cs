@@ -46,7 +46,7 @@ namespace CrowdFunding_nastya.Controllers
             return View();
         }
 
-        public ActionResult add(int id = 0, int RoleId = 0)
+        public ActionResult add(int id = 0, int RoleId = 0, string message="")
         {
             ViewBag.Roles = DB.tblRoles.Where(x => x.isActive == true && x.isDeleted != true).ToList();
             tblUser User = DB.tblUsers.Where(x => x.UserId == id && x.isDeleted != true).FirstOrDefault();
@@ -56,6 +56,7 @@ namespace CrowdFunding_nastya.Controllers
                 User.RoleId = RoleId;
                 User.ImagePath = "/assets/admin/images/users/avatar-1.jpg";
             }
+            ViewBag.message = message;
             return View(User);
         }
         [HttpPost]
@@ -64,10 +65,10 @@ namespace CrowdFunding_nastya.Controllers
             tblUser Data = new tblUser();
             try
             {
-                //HttpCookie cookieObj = Request.Cookies["User"];
-                //int UserId = Int32.Parse(cookieObj["UserId"]);
-                //int RoleId = Int32.Parse(cookieObj["RoleId"]);
-                int UserId = 1;
+                HttpCookie cookieObj = Request.Cookies["User"];
+                byte[] b = Convert.FromBase64String(cookieObj["UserId"]);
+                string decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+                int UserId = Int32.Parse(decrypted);
                 if (User.UserId == 0)
                 {
                     if (DB.tblUsers.Select(r => r).Where(x => x.Email == User.Email).FirstOrDefault() == null)
@@ -184,20 +185,28 @@ namespace CrowdFunding_nastya.Controllers
                         LogData.CreatedDate = DateTime.Now;
                         DB.tblLogs.Add(LogData);
                         DB.SaveChanges();
-                        if (Data.RoleId == 1)
+                        if (Data.UserId == UserId)
                         {
-                            string Update = "User has been Update successfully.";
-                            return RedirectToAction("Index", new { Update = Update });
-                        }
-                        else if (Data.RoleId == 2)
-                        {
-                            string Update = "Donee has been Update successfully.";
-                            return RedirectToAction("borrowers", new { Update = Update });
+                            string Update = "Record has been updated successfully.";
+                            return RedirectToAction("add", new {id=Data.UserId, message = Update });
                         }
                         else
                         {
-                            string Update = "Donner has been Update successfully.";
-                            return RedirectToAction("lenders", new { Update = Update });
+                            if (Data.RoleId == 1)
+                            {
+                                string Update = "User has been Update successfully.";
+                                return RedirectToAction("Index", new { Update = Update });
+                            }
+                            else if (Data.RoleId == 2)
+                            {
+                                string Update = "Donee has been Update successfully.";
+                                return RedirectToAction("borrowers", new { Update = Update });
+                            }
+                            else
+                            {
+                                string Update = "Donner has been Update successfully.";
+                                return RedirectToAction("lenders", new { Update = Update });
+                            }
                         }
                     }
                     else
@@ -256,10 +265,10 @@ namespace CrowdFunding_nastya.Controllers
             tblUser Data = new tblUser();
             try
             {
-                //HttpCookie cookieObj = Request.Cookies["User"];
-                //int UserId = Int32.Parse(cookieObj["UserId"]);
-                //int RoleId = Int32.Parse(cookieObj["RoleId"]);
-                int UserId = 1;
+                HttpCookie cookieObj = Request.Cookies["User"];
+                byte[] b = Convert.FromBase64String(cookieObj["UserId"]);
+                string decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+                int UserId = Int32.Parse(decrypted);
                 Data = DB.tblUsers.Select(r => r).Where(x => x.UserId == Id).FirstOrDefault();
 
                 Data.isDeleted = true;
@@ -409,18 +418,25 @@ namespace CrowdFunding_nastya.Controllers
                     LogData.CreatedDate = DateTime.Now;
                     DB.tblLogs.Add(LogData);
                     DB.SaveChanges();
-                    string Update = "Password has been change successfully!";
-                    if (Data.RoleId == 1)
+                    string Update = "Password has been changed successfully!";
+                    if (Data.UserId == UserId)
                     {
-                        return RedirectToAction("Index", new { Update = Update });
-                    }
-                    else if (Data.RoleId == 2)
-                    {
-                        return RedirectToAction("borrowers", new { Update = Update });
+                        return RedirectToAction("add", new { id = Data.UserId, message = Update });
                     }
                     else
                     {
-                        return RedirectToAction("lenders", new { Update = Update });
+                        if (Data.RoleId == 1)
+                        {
+                            return RedirectToAction("Index", new { Update = Update });
+                        }
+                        else if (Data.RoleId == 2)
+                        {
+                            return RedirectToAction("borrowers", new { Update = Update });
+                        }
+                        else
+                        {
+                            return RedirectToAction("lenders", new { Update = Update });
+                        }
                     }
                 }
                 else

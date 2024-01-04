@@ -239,10 +239,8 @@
                             </div>
                             <div class="col-6 col-sm-6 m-auto">
                                 <div class="">
-                                    <a href="@Url.Action("preview", "Home")">
                                         <input class="sign__btn sign__btn-in form-control" type="button"
-                                               value="Preview">
-                                    </a>
+                                               value="Back" onclick="backpart(1)">
                                 </div>
 
                             </div>
@@ -295,7 +293,7 @@
                                 </div>
                                 <div class="">
                                     <span class="volunteer__list-sub">Call Anytime</span>
-                                    <h5 class="volunteer__list-content">+91 (000) 4569</h5>
+                                    <h5 class="volunteer__list-content">@ViewBag.EditPage.Phone</h5>
                                 </div>
                             </li>
                             <li class="mb-0">
@@ -304,7 +302,7 @@
                                 </div>
                                 <div class="">
                                     <span class="volunteer__list-sub">Email Us</span>
-                                    <h5 class="volunteer__list-content">info@gmail.com</h5>
+                                    <h5 class="volunteer__list-content">@ViewBag.EditPage.Email</h5>
                                 </div>
                             </li>
                         </ul>
@@ -317,8 +315,8 @@
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
     function Check() {
-        console.log("Check");
-        $('#myForm').submit();
+        //console.log("Check");
+        //$('#myForm').submit();
     }
     function ChangeRole() {
         let RoleId = $("#RoleId").val();
@@ -338,6 +336,13 @@
         if (id == 1) {
             $("#first").fadeOut();
             $("#second").fadeIn();
+        }
+
+    }
+    function backpart(id) {
+        if (id == 1) {
+            $("#first").fadeIn();
+            $("#second").fadeOut();
         }
 
     }

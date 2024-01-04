@@ -1,0 +1,377 @@
+﻿@model List<CrowdFunding_nastya.Models.tblTransaction>
+@{
+    ViewBag.Title = "Withdraw";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+
+    string Success = @ViewBag.Success;
+    string Update = @ViewBag.Update;
+    string Delete = @ViewBag.Delete;
+    string Error = @ViewBag.Error;
+    string Role = ViewBag.Role;
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Transactions</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Transactions</a></li>
+                    <li class="breadcrumb-item active">List</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <!-- card -->
+        <div class="card card-animate">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <p class="text-uppercase fw-semibold text-muted mb-0">Total</p>
+                    </div>
+
+                </div>
+                <div class="d-flex align-items-end justify-content-between mt-4">
+                    <div>
+                        <h4 class="fs-22 fw-bold ff-secondary mb-4">$<span class="counter-value" data-target="@Model.Select(x => x.Amount).Sum()"></span></h4>
+
+                    </div>
+                    <div class="avatar-sm flex-shrink-0">
+                        <span class="avatar-title bg-light rounded fs-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text text-info icon-dual-info"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </span>
+                    </div>
+                </div>
+            </div><!-- end card body -->
+        </div><!-- end card -->
+    </div>
+    @if (Role.ToLower().Contains("admin"))
+    {
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-animate">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <p class="text-uppercase fw-semibold text-muted mb-0">Commission</p>
+                        </div>
+
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between mt-4">
+                        <div>
+                            <h4 class="fs-22 fw-bold ff-secondary mb-4">$<span class="counter-value" data-target="@Model.Select(x => x.ComissionAmount).Sum()"></span></h4>
+
+                        </div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-light rounded fs-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text text-info icon-dual-info"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-animate">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <p class="text-uppercase fw-semibold text-muted mb-0">Additional</p>
+                        </div>
+
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between mt-4">
+                        <div>
+                            <h4 class="fs-22 fw-bold ff-secondary mb-4">$<span class="counter-value" data-target="@Model.Select(x => x.AdditionalCharges).Sum()"></span></h4>
+
+                        </div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-light rounded fs-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text text-info icon-dual-info"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-animate">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1">
+                            <p class="text-uppercase fw-semibold text-muted mb-0">Profit</p>
+                        </div>
+
+                    </div>
+                    @{ double? profit = @Model.Select(x => x.AdditionalCharges).Sum() + @Model.Select(x => x.ComissionAmount).Sum();}
+                    <div class="d-flex align-items-end justify-content-between mt-4">
+                        <div>
+                            <h4 class="fs-22 fw-bold ff-secondary mb-4">$<span class="counter-value" data-target="@profit"></span></h4>
+
+                        </div>
+                        <div class="avatar-sm flex-shrink-0">
+                            <span class="avatar-title bg-light rounded fs-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text text-info icon-dual-info"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div>
+    }
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card" id="tasksList">
+            <div class="card-header border-0">
+                <div class="d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Transactions</h5>
+                    @*<div class="flex-shrink-0">
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-primary add-btn" data-bs-toggle="modal" href="#deleteOrder"><i class="ri-add-line align-bottom me-1"></i> Withdraw Money</button>
+                            <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+            <div class="">
+                <form>
+                    <div class="row g-3">
+                        <div class="col-xxl-5 col-sm-12">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert" id="SuccessAlert" style="display:none;">
+                                <strong> Success! </strong> @Success
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-secondary alert-dismissible fade show" role="alert" id="UpdateAlert" style="display:none;">
+                                <strong> Success! </strong> @Update
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="DeleteAlert" style="display:none;">
+                                <strong> Success! </strong> @Delete
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="ErrorAlert" style="display:none;">
+                                <strong> Error! </strong> @Error
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <!--end col-->
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                </form>
+            </div>
+            <!--end card-body-->
+            <div class="card-body">
+                <div class="table-responsive table-card mb-4">
+                    <table class="table align-middle table-nowrap mb-0" id="tasksTable">
+                        <thead class="table-light text-muted">
+                            <tr>
+                                @*<th class="sort" data-sort="id">ID</th>*@
+                                <th class="sort" data-sort="id" hidden>Transaction Id</th>
+                                <th class="sort" data-sort="project_name">Transaction #</th>
+                                <th class="sort" data-sort="tasks_name">Donner Name</th>
+                                <th class="sort" data-sort="tasks_name">Amount</th>
+                                @if (Role.ToLower().Contains("admin"))
+                                {
+                                    <th class="sort" data-sort="tasks_name">Comission</th>
+                                    <th class="sort" data-sort="tasks_name">Paid amount</th>
+                                }
+                                    <th class="sort" data-sort="due_date">Project</th>
+                                    <th class="sort" data-sort="status">Date</th>
+                                </tr>
+                        </thead>
+                        <tbody class="list form-check-all">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="id" hidden>@item.Id</td>
+                                    <td>
+
+                                        <a href="#javascript: void(0);" class="text-body fw-medium">@item.PayerId</a>
+                                    </td>
+                                    <td>
+                                        <div class="flex-grow-1 ms-2">
+                                            <h6 class="mb-1"><a class="text-body">@item.UserFirstName @item.UserLastName</a></h6>
+                                            <p class="text-muted mb-0">@item.UserEmail</p>
+                                        </div>
+                                     
+                                    </td>
+                                    <td>
+                                        <h6 class="text-success mb-1 amount">@item.Amount</h6>
+                                        
+                                    </td>
+                                    @if (Role.ToLower().Contains("admin"))
+                                    {
+                                        <td>
+                                            <div class="text-danger mb-1 amount">@item.ComissionAmount</div>
+                                            <p class="text-muted mb-0">@item.ComissionType : @item.Comission</p>
+                                        </td>
+                                        <td>
+                                            <div class="text-nowrap">@item.PaidAmount</div>
+                                        </td>
+                                    }
+                                    <td>
+                                        <a href="@Url.Action("preview","Home",new {id=item.ProjectId })"><div class="text-nowrap">@item.tblProject.Title</div></a>
+                                    </td>
+
+                                    <td class="due_date"> @item.PaymentDateTime</td>
+
+                                </tr>
+                            }
+                            @*<tr>
+                                    <th scope="row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                        </div>
+                                    </th>
+                                    <td class="id"><a href="apps-tasks-details.html" class="fw-medium link-primary">#VLZ501</a></td>
+                                    <td>
+                                        <img src="~/assets/admin/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle me-2">
+                                        <a href="#javascript: void(0);" class="text-body fw-medium">Donald Risher</a>
+                                    </td>
+                                    <td>
+                                        <div class="text-nowrap">$100.1K</div>
+                                    </td>
+                                    <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">High</span></td>
+
+
+                                    <td class="priority"><span class="badge bg-danger text-uppercase">In-Active</span></td>
+                                    <td class="due_date">25 Jan, 2022</td>
+                                    <td>
+                                        <div class="flex-shrink-0 ms-4">
+                                            <ul class="list-inline tasks-list-menu mb-0">
+                                                <li class="list-inline-item"><a href="@Url.Action("add","Project")"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
+                                                <li class="list-inline-item"><a class="edit-item-btn" href="@Url.Action("add","Project")"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
+                                                <li class="list-inline-item">
+                                                    <a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder">
+                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>*@
+                        </tbody>
+                    </table>
+                    <!--end table-->
+                    <div class="noresult" style="display: none">
+                        <div class="text-center">
+                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                            <h5 class="mt-2">Sorry! No Result Found</h5>
+                            <p class="text-muted mb-0">We've searched more than 200k+ tasks We did not find any tasks for you search.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-2">
+                    <div class="pagination-wrap hstack gap-2">
+                        <a class="page-item pagination-prev disabled" href="#">
+                            Previous
+                        </a>
+                        <ul class="pagination listjs-pagination mb-0"></ul>
+                        <a class="page-item pagination-next" href="#">
+                            Next
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--end card-body-->
+        </div>
+        <!--end card-->
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+
+<div class="modal  fade flip" id="deleteOrder" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        @using (Html.BeginForm("Withdraw", "Withdraw", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {@Html.AntiForgeryToken()
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="varyingcontentModalLabel">Request Withdrawal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="project-title-input">Account Title</label>
+                        <input class="form-control" type="text" name="AccountTitle" id="DeleteId" value="" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="project-title-input">Bank Name</label>
+                        <input class="form-control" type="text" name="BankName" id="DeleteId" value="" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="project-title-input">Account Detail</label>
+                        <input class="form-control" type="text" name="AccountDetail" id="DeleteId" value="" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label" for="project-title-input">Amount</label>
+                        <input class="form-control" type="text" name="Amount" id="TotalAmountInput" value="" required />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Back</button>
+                <button type="submit" class="btn btn-primary">Withdraw</button>
+            </div>
+        </div>
+    }
+    </div>
+</div>
+
+
+<script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+         if ("@Success" != "") {
+            $('#SuccessAlert').fadeIn();
+            $('#SuccessAlert').fadeOut(10000);
+         }
+        else {
+            $('#SuccessAlert').fadeOut();
+        }
+        if ("@Update" != "") {
+           $('#UpdateAlert').fadeIn();
+           $('#UpdateAlert').fadeOut(10000);
+         }
+        else {
+             $('#UpdateAlert').fadeOut();
+        }
+        if ("@Delete" != "") {
+            $('#DeleteAlert').fadeIn();
+            $('#DeleteAlert').fadeOut(10000);
+         }
+        else {
+            $('#DeleteAlert').fadeOut();
+        }
+        if ("@Error" != "") {
+            $('#ErrorAlert').fadeIn();
+            $('#ErrorAlert').fadeOut(10000);
+         }
+        else {
+            $('#ErrorAlert').fadeOut();
+        }
+
+
+        //$(".ul li a").removeClass("active");
+        //$('#projects').addClass('active');
+        //$('#sidebarproject').addClass('show');
+        //$('#project').addClass('active');
+
+
+
+    });
+</script>
