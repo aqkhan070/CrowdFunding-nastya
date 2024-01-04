@@ -1,6 +1,10 @@
 ﻿@using CrowdFunding_nastya.Models;
 @{
     List<tblProject> projectList = (List<tblProject>)ViewBag.project;
+    string Success = @ViewBag.Success;
+    string Update = @ViewBag.Update;
+    string Delete = @ViewBag.Delete;
+    string Error = @ViewBag.Error;
 }
 @model CrowdFunding_nastya.Models.tblProject
 
@@ -36,13 +40,29 @@
 <!-- Education START -->
 <div class="education global__py pt-0">
     <div class="container p-sm-0">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="SuccessAlert" style="display:none;">
+            <strong> Success! </strong> @Success
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-secondary alert-dismissible fade show" role="alert" id="UpdateAlert" style="display:none;">
+            <strong> Success! </strong> @Update
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" id="DeleteAlert" style="display:none;">
+            <strong> Success! </strong> @Delete
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="ErrorAlert" style="display:none;">
+            <strong> Error! </strong> @Error
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="col-md-10">
                     <h2 class="global__heading mb-0">@Model.Title</h2>
                     <p class="education__price global__desc">
                         <span class="education__price-show">$ @Model.Value</span> of
-                        $10,000 raised
+                        $@Model.RaisedAmount raised
                     </p>
                 </div>
                 <div class="">
@@ -61,74 +81,82 @@
             <div class="col-12 col-sm-8 col-lg-4 mt-5 mt-lg-0">
 
                 <div class="education__cases">
-                    <h4 class="education__txt">recent cases</h4>
+                    <h4 class="education__txt">Recent donation</h4>
                     <div class="">
                         <ul class="education__cases-list">
-                            @foreach (var item in projectList)
+                            @foreach (tblTransaction item in ViewBag.TransactionData)
                             {
                                 <li>
-                                    <a class="education__cases-list--img" href="@Url.Action("case_detail","Home", new { id=item.ProjectId})">
-                                        <img class="" src="@item.ImagePath" alt="image">
+                                    <a class="education__cases-list--img" href="single-cases.html">
+                                        @if (item.UserId != null)
+                                        {
+                                            <img class="" src="@item.tblUser.ImagePath" alt="image">
+                                        }
+                                        else
+                                        {
+                                            <img class="" src="~/assets/assets/img/add-1.png" alt="image">
+                                        }
+
                                     </a>
                                     <div class="">
-                                        <a href="@Url.Action("case_detail","Home", new { id=item.ProjectId})" class="education__cases-list--link">
-                                          @item.Title
+                                        <a href="single-cases.html" class="education__cases-list--link">
+                                            @(item.UserFirstName!=""? "Anonymous" : item.UserFirstName+" "+ item.UserLastName)
                                         </a>
-                                        <p class="education__cases-list--date">@item.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                        <p class="education__cases-list--date">$ @item.Amount</p>
                                     </div>
                                 </li>
                             }
-
-                           
                         </ul>
                     </div>
                 </div>
                 @*<div class="education__cases">
-                        <h4 class="education__txt">Categories</h4>
-                        <div class="">
-                            <ul class="education__cases-list">
-                                <li class="education__cases-list--m">
-                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                        healthy
-                                        food
-                                    </a>
-                                </li>
-                                <li class="education__cases-list--m">
-                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                        Free
-                                        Education
-                                    </a>
-                                </li>
-                                <li class="education__cases-list--m">
-                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                        Clean
-                                        Water
-                                    </a>
-                                </li>
-                                <li class="education__cases-list--m">
-                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                        Medical
-                                        Facilities
-                                    </a>
-                                </li>
-                                <li class="education__cases-list--m">
-                                    <a href="#" class="education__cases-list--link education__cases-list--tag">
-                                        Halping
-                                        Poor
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>*@
+                    <h4 class="education__txt">Categories</h4>
+                    <div class="">
+                        <ul class="education__cases-list">
+                            <li class="education__cases-list--m">
+                                <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                    healthy
+                                    food
+                                </a>
+                            </li>
+                            <li class="education__cases-list--m">
+                                <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                    Free
+                                    Education
+                                </a>
+                            </li>
+                            <li class="education__cases-list--m">
+                                <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                    Clean
+                                    Water
+                                </a>
+                            </li>
+                            <li class="education__cases-list--m">
+                                <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                    Medical
+                                    Facilities
+                                </a>
+                            </li>
+                            <li class="education__cases-list--m">
+                                <a href="#" class="education__cases-list--link education__cases-list--tag">
+                                    Halping
+                                    Poor
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
             </div>
         </div>
         <!-- Form -->
         <div class="row">
             <div class="col-lg-10 col-xl-8">
-                <form action="#" method="POST" class="form border-0">
+                <form class="form border-0" style="float:right" role="form" id="payment-form" method="POST" action="@Url.Action("PaymentWithPaypal","PayPal")">
+                    <input type="text" name="UserId" value="@ViewBag.UserId" hidden />
+                    <input type="text" name="ProjectID" value="@Model.ProjectId" hidden />
                     <div class="d-flex align-items-center">
                         <img class="form__icon" src="~/assets/assets/img/dollar-lg-S.svg" alt="icon">
-                        <p class="form__price">$100</p>
+                        <p class="form__price">@Model.Value</p>
                     </div>
                     <hr class="form__border">
                     <div class="form__mb">
@@ -137,7 +165,7 @@
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
                                         $25
-                                        <input type="radio" name="radio">
+                                        <input type="radio" name="FixAmount" value="25">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
                                 </label>
@@ -146,7 +174,7 @@
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
                                         $50
-                                        <input type="radio" name="radio">
+                                        <input type="radio" name="FixAmount" value="50">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
                                 </label>
@@ -155,7 +183,7 @@
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
                                         $100
-                                        <input type="radio" name="radio">
+                                        <input type="radio" name="FixAmount" value="100">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
                                 </label>
@@ -164,7 +192,7 @@
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
                                         $250
-                                        <input type="radio" name="radio">
+                                        <input type="radio" name="FixAmount" value="250">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
                                 </label>
@@ -175,7 +203,7 @@
                                     <label class="form__ul-label form__ul-label--pointer">
                                         <span class="form__ul-div d-block">
                                             Custom Amount
-                                            <input type="radio" name="radio">
+                                            <input type="radio" name="FixAmount">
                                             <span class="form__ul-label--checkmark"></span>
                                         </span>
                                     </label>
@@ -183,10 +211,10 @@
                             </li>
                         </ul>
                         <div class="collapse col-5 col-sm-3 col-lg-2 mt-3" id="collapseExample">
-                            <input class="form-control form__input" type="number" placeholder="$50">
+                            <input class="form-control form__input" type="number" placeholder="$50" name="Amount">
                         </div>
                     </div>
-                    <div class="form__mb">
+                    @*<div class="form__mb">
                         <ul class="form__ul">
                             <li class="bg-transparent py-0 ps-0">
                                 <label class="form__ul-label form__ul-label--pointer">
@@ -207,73 +235,78 @@
                                 </label>
                             </li>
                         </ul>
-                    </div>
+                    </div>*@
+
                     <div class="form__mb">
-                        <h4 class="form__heading form__mb">Personal Information</h4>
-                        <div class="d-sm-flex col-12">
-                            <div class="col-sm-6 pe-sm-3">
-                                <label class="form__ul-label form__ul-label--lg" for="first">
-                                    first name
-                                    <span class="text-danger ps-1">*</span>
-                                    <span class="ps-2"><img src="~/assets/assets/img/question.svg" alt="image"></span>
-                                </label>
-                                <input class="form-control form__input" id="first" type="text"
-                                       placeholder="First Name">
-                            </div>
-                            <div class="col-sm-6 ps-sm-3 mt-4 mt-sm-0">
-                                <label class="form__ul-label form__ul-label--lg" for="last">
-                                    last name<span class="text-danger ps-1">*</span><span class="ps-2">
-                                        <img src="~/assets/assets/img/question.svg" alt="image">
-                                    </span>
-                                </label>
-                                <input class="form-control form__input" id="last" type="text"
-                                       placeholder="Last Name">
-                            </div>
-                        </div>
-                        <div class="col-12 mt-4">
-                            <div class="">
-                                <label class="form__ul-label form__ul-label--lg" for="email">
-                                    Email Address
-                                    <span class="text-danger ps-1">*</span><span class="ps-2">
-                                        <img src="~/assets/assets/img/question.svg" alt="image">
-                                    </span>
-                                </label>
-                                <input class="form-control form__input" id="email" type="email" placeholder="Email">
-                            </div>
-                            <div class="mt-4">
-                                <label class="form__ul-label form__ul-label--lg ps-0" for="comment">
-                                    Comment
-                                    <span class="ps-2">
-                                        <img src="~/assets/assets/img/question.svg"
-                                             alt="image">
-                                    </span>
-                                </label>
-                                <textarea class="form-control form__input" id="comment" cols="30" rows="5"
-                                          placeholder="Leave a Comment"></textarea>
-                            </div>
-                            <div class="mt-4 d-flex align-items-center">
-                                <label class="form__ul-label form__ul-label--pointer ps-0">
-                                    <span class="form__ul-div d-block">
-                                        <input type="checkbox" id="testSaven" name="check">
-                                        <span class="form__ul-label--checkmark form__ul-label--checkmark2"></span>
-                                        <span class="ps-2">
-                                            Make
-                                            this an
-                                            anonymous
-                                            donation.
-                                        </span>
-                                        <span class="ps-2">
+
+                        @if (ViewBag.UserId == 0)
+                        {
+                            <h4 class="form__heading form__mb HidePersonal">Personal Information</h4>
+                            <div class="row col-12 HidePersonal">
+                                <div class="col-sm-6 pe-sm-3">
+                                    <label class="form__ul-label form__ul-label--lg" for="first">
+                                        first name
+                                        <span class="text-danger ps-1">*</span>
+                                        <span class="ps-2"><img src="~/assets/assets/img/question.svg" alt="image"></span>
+                                    </label>
+                                    <input class="form-control form__input RequiredFields" id="first" type="text" name="UserFirstName" required
+                                           placeholder="First Name">
+                                </div>
+                                <div class="col-sm-6 ps-sm-3 mt-4 mt-sm-0">
+                                    <label class="form__ul-label form__ul-label--lg" for="last">
+                                        last name<span class="text-danger ps-1">*</span><span class="ps-2">
                                             <img src="~/assets/assets/img/question.svg" alt="image">
                                         </span>
-                                    </span>
-                                </label>
+                                    </label>
+                                    <input class="form-control form__input RequiredFields" id="last" type="text" name="UserLastName" required
+                                           placeholder="Last Name">
+                                </div>
                             </div>
-                            <div class="">
-                                <button class="btn donation__btn global__btn" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" type="button">
-                                    donation now
-                                </button>
+                            <div class="col-12 mt-4">
+                                <div class="HidePersonal">
+                                    <label class="form__ul-label form__ul-label--lg" for="email">
+                                        Email Address
+                                        <span class="text-danger ps-1">*</span><span class="ps-2">
+                                            <img src="~/assets/assets/img/question.svg" alt="image">
+                                        </span>
+                                    </label>
+                                    <input class="form-control form__input RequiredFields" id="email" type="email" name="UserEmail" placeholder="Email" required>
+                                </div>
+                                <div class="mt-4 HidePersonal">
+                                    <label class="form__ul-label form__ul-label--lg ps-0" for="comment">
+                                        Comment
+                                        <span class="ps-2">
+                                            <img src="~/assets/assets/img/question.svg"
+                                                 alt="image">
+                                        </span>
+                                    </label>
+                                    <textarea class="form-control form__input" id="comment" cols="30" rows="5"
+                                              placeholder="Leave a Comment" name="Comment"></textarea>
+                                </div>
+                                <div class="mt-4 d-flex align-items-center">
+                                    <label class="form__ul-label form__ul-label--pointer ps-0">
+                                        <span class="form__ul-div d-block">
+                                            <input type="checkbox" id="testSaven" name="check" onclick="ChangeRequired(this)">
+                                            <span class="form__ul-label--checkmark form__ul-label--checkmark2"></span>
+                                            <span class="ps-2">
+                                                Make
+                                                this an
+                                                anonymous
+                                                donation.
+                                            </span>
+                                            <span class="ps-2">
+                                                <img src="~/assets/assets/img/question.svg" alt="image">
+                                            </span>
+                                        </span>
+                                    </label>
+                                </div>
                             </div>
+                        }
+                        <div class="">
+                            <button class="btn donation__btn global__btn" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" type="submit">
+                                donation now
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -281,4 +314,52 @@
         </div>
     </div>
 </div>
+<script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
+<script>
+    function ChangeRequired(Obj) {
+        let checked = $(Obj).prop('checked');
+        console.log(checked);
+        if (checked) {
+            $('.HidePersonal').hide();
+            $('.RequiredFields').prop('required', false);
+        }
+        else {
+            $('.HidePersonal').show();
+            $('.RequiredFields').prop('required', true);
+        }
+
+    }
+    $(document).ready(function () {
+        if ("@Success" != "") {
+            $('#SuccessAlert').fadeIn();
+            $('#SuccessAlert').fadeOut(10000);
+         }
+        else {
+            $('#SuccessAlert').fadeOut();
+        }
+        if ("@Update" != "") {
+           $('#UpdateAlert').fadeIn();
+           $('#UpdateAlert').fadeOut(10000);
+         }
+        else {
+             $('#UpdateAlert').fadeOut();
+        }
+        if ("@Delete" != "") {
+            $('#DeleteAlert').fadeIn();
+            $('#DeleteAlert').fadeOut(10000);
+         }
+        else {
+            $('#DeleteAlert').fadeOut();
+        }
+        if ("@Error" != "") {
+            $('#ErrorAlert').fadeIn();
+            $('#ErrorAlert').fadeOut(10000);
+         }
+        else {
+            $('#ErrorAlert').fadeOut();
+        }
+
+
+    });
+</script>
 <!-- Education END  -->

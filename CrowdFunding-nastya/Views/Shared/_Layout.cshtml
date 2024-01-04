@@ -40,6 +40,18 @@
 
 
         }
+
+        int UserId = 0;
+        HttpCookie cookieObj = Request.Cookies["User"];
+        if (cookieObj != null)
+        {
+            byte[] b = Convert.FromBase64String(cookieObj["UserId"]);
+            string decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+            UserId = Int32.Parse(decrypted);
+
+
+        }
+
     }
 </head>
 
@@ -74,7 +86,7 @@
                         <li class="nav-item">
                             <a class="nav-link menu__list-link" href="@Url.Action("about","Home")">About us</a>
                         </li>
-                 
+
 
                         <li class="nav-item">
                             <a class="nav-link menu__list-link" href="@Url.Action("blogs","Home")">Blogs</a>
@@ -95,16 +107,28 @@
                             </ul>
                         </li>
                     </ul>
-                    <div class="d-sm-flex d-lg-block gap-4 mt-3 mt-lg-0">
-                        <a href="@Url.Action("sign_in","Account")" class="btn menu__btn menu__btn-in mb-3 mb-lg-0">
-                            Sign
-                            in
-                        </a>
-                        <a href="@Url.Action("sign_up","Account")" class="btn menu__btn menu__btn-up mb-3 mb-lg-0">
-                            Sign
-                            up
-                        </a>
-                    </div>
+                    @if (UserId == 0)
+                    {
+                        <div class="d-sm-flex d-lg-block gap-4 mt-3 mt-lg-0">
+                            <a href="@Url.Action("sign_in","Account")" class="btn menu__btn menu__btn-in mb-3 mb-lg-0">
+                                Sign
+                                in
+                            </a>
+                            <a href="@Url.Action("sign_up","Account")" class="btn menu__btn menu__btn-up mb-3 mb-lg-0">
+                                Sign
+                                up
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-sm-flex d-lg-block gap-4 mt-3 mt-lg-0">
+                            <a href="@Url.Action("Index","Admin")" class="btn menu__btn menu__btn-in mb-3 mb-lg-0">
+                                Go to dashboard
+                            </a>
+                        </div>
+                    }
+
                 </div>
             </div>
         </nav>
@@ -344,7 +368,7 @@
     <!-- Bootstrap JS -->
     <script src="~/assets/assets/js/bootstrap.bundle.min.js"></script>
     <!-- Aos JS -->
-    <script src="~/assets/assets/js/aos.js"></script>
+    @*<script src="~/assets/assets/js/aos.js"></script>*@
     <!-- JS -->
     <script src="~/assets/assets/js/app.js"></script>
 

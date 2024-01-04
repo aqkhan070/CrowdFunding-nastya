@@ -9,12 +9,12 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Add User</h4>
+            <h4 class="mb-sm-0"> User</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">User Management</a></li>
-                    <li class="breadcrumb-item active">Add User</li>
+                    <li class="breadcrumb-item active"> User</li>
                 </ol>
             </div>
 
@@ -25,6 +25,15 @@
 <div class="row">
     <div class="col-xxl-9">
         <div class="card ">
+            @if (@ViewBag.message != "" && @ViewBag.message != null)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="OldPasserror">
+                    <strong>Alert! </strong>@ViewBag.message
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+
             <div class="card-header">
                 <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -40,29 +49,30 @@
                             </a>
                         </li>
                     }
-                    
+
 
                 </ul>
             </div>
             <div class="card-body p-4">
                 <div class="tab-content">
-                            <span style="color:red;display:none;" id="fademsg">@ViewBag.error</span>
+                    <span style="color:red;display:none;" id="fademsg">@ViewBag.error</span>
                     <div class="tab-pane active" id="personalDetails" role="tabpanel">
                         @using (Html.BeginForm("add", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {@Html.AntiForgeryToken()
                         <form action="javascript:void(0);">
                             <div class="row">
+                              
                                 <div class="profile-user position-relative d-inline-block mb-4">
-                                    @*<img src="~/assets/admin/images/users/avatar-1.jpg" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">*@
-                                    <img src="@Model.ImagePath" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
+                                    <img src="@Model.ImagePath" class="avatar-xl img-thumbnail user-profile-image" alt="user-profile-image" id="user_img">
                                     <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
-                                        <input id="profile-img-file-input" name="Image" type="file" class="profile-img-file-input">
-                                        <label for="profile-img-file-input" class="profile-photo-edit avatar-xs" style="left:0 !important">
+                                        <input id="profile-img-file-input" name="Image" type="file" class="profile-img-file-input" onchange="show1(this)" accept="image/png, image/gif, image/jpeg">
+                                        <label for="profile-img-file-input" class="profile-photo-edit avatar-xs" style="right:auto !important">
                                             <span class="avatar-title rounded-circle bg-light text-body">
                                                 <i class="ri-camera-fill"></i>
                                             </span>
                                         </label>
                                     </div>
+                                    <input type="text" class="form-control" id="ImagePath" name="ImagePath" value="@Model.ImagePath" hidden />
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
@@ -208,10 +218,10 @@
                                     </div>
                                 </div>
                                 @*<div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
-                                    </div>
-                                </div>*@
+                                <div class="mb-3">
+                                    <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
+                                </div>
+                            </div>*@
                                 <!--end col-->
                                 <div class="col-lg-12">
                                     <div class="text-end">
@@ -222,7 +232,7 @@
                             </div>
                             <!--end row-->
                         </form>
-                        }
+                    }
                     </div>
                     <!--end tab-pane-->
 
@@ -234,6 +244,17 @@
 
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
+    function show1(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+
+
+    }
     function CheckPassword() {
         let Email = $("#PasswordEmail").val();
         let Password = $("#OldPassword").val();

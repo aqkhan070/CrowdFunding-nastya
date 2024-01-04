@@ -10,8 +10,8 @@
                 <div class="col-12">
                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                         <div class="flex-grow-1">
-                            <h4 class="fs-16 mb-1">Good Morning, Anna!</h4>
-                            <p class="text-muted mb-0">Here's what's happening with your app today.</p>
+                            <h4 class="fs-16 mb-1">Hello, @ViewBag.Name!</h4>
+                            <p class="text-muted mb-0">Here's what's happening with your app.</p>
                         </div>
 
                     </div>
@@ -25,14 +25,14 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Lenders</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Donners</p>
                                 </div>
 
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="10">0</span> </h4>
-                                    <a href="#" class="text-decoration-underline">View Lenders</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="@ViewBag.DonnersCount"></span> </h4>
+                                    <a href="@Url.Action("lenders","User")" class="text-decoration-underline">View Donners</a>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-primary-subtle rounded fs-3">
@@ -49,14 +49,14 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Borrowers</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Donee</p>
                                 </div>
 
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="5">0</span> </h4>
-                                    <a href="#" class="text-decoration-underline">View Brorrowers</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="@ViewBag.DoneesCount"></span> </h4>
+                                    <a href="@Url.Action("borrowers","User")" class="text-decoration-underline">View Donees</a>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-info-subtle rounded fs-3">
@@ -73,14 +73,14 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Project</p>
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Compaigns</p>
                                 </div>
 
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="20">0</span> </h4>
-                                    <a href="#" class="text-decoration-underline">View Projects</a>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="@ViewBag.ProjectCount"></span> </h4>
+                                    <a href="@Url.Action("Index","Project")" class="text-decoration-underline">View Compaigns</a>
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -91,41 +91,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-md-6">
-                    <!-- card -->
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Total Companies</p>
-                                </div>
-
-                            </div>
-                            <div class="d-flex align-items-end justify-content-between mt-4">
-                                <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="3">0</span> </h4>
-                                    <a href="#" class="text-decoration-underline">View Companies</a>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-secondary-subtle rounded fs-3">
-                                        <i class="bx bx-card text-primary"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
             </div>
             <div class="row">
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Lenders</h4>
-                            <div class="flex-shrink-0">
+                            <h4 class="card-title mb-0 flex-grow-1">Donners</h4>
+                            @*<div class="flex-shrink-0">
                                 <button type="button" class="btn btn-soft-info btn-sm">
                                     <i class="ri-file-list-3-line align-middle"></i> Generate Report
                                 </button>
-                            </div>
+                            </div>*@
                         </div><!-- end card header -->
 
                         <div class="card-body">
@@ -134,113 +111,35 @@
                                     <thead class="text-muted table-light">
                                         <tr>
 
+                                            <th scope="col" hidden>UserID</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Amount</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        @foreach (var item in ViewBag.Donners)
+                                        {
+                                            <tr>
+                                                <td class="id" hidden>@item.UserId</td>
+                                                <td class="project_name"><a href="#" class="fw-medium link-primary">@item.FirstName @item.LastName</a></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1 tasks_name">@item.Email</div>
 
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle" />
                                                     </div>
-                                                    <div class="flex-grow-1">Alex Smith</div>
-                                                </div>
-                                            </td>
-                                            <td>AlexSmith@gmail.com</td>
-                                            <td>
-                                                <span class="text-success">$109.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-success-subtle text-success">Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Jansh Brown</div>
-                                                </div>
-                                            </td>
-                                            <td>JanshBrown@yahoo.com</td>
-                                            <td>
-                                                <span class="text-success">$149.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-danger-subtle text-danger">In-Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-3.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Ayaan Bowen</div>
-                                                </div>
-                                            </td>
-                                            <td>AyaanBowen@gmail.com</td>
-                                            <td>
-                                                <span class="text-success">$215.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-success-subtle text-success">Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-4.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Prezy Mark</div>
-                                                </div>
-                                            </td>
-                                            <td>PrezyMark@hotmail.com</td>
-                                            <td>
-                                                <span class="text-success">$199.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-danger-subtle text-danger">In-Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Vihan Hudda</div>
-                                                </div>
-                                            </td>
-                                            <td>VihanHudda@gmail.com</td>
-                                            <td>
-                                                <span class="text-success">$330.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-success-subtle text-success">Active</span>
-                                            </td>
-
-                                        </tr>
+                                                </td>
+                                                @if (item.isActive == true)
+                                                {
+                                                    <td class="priority"><span class="badge bg-success text-uppercase">Active</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="priority"><span class="badge bg-danger text-uppercase">In-Active</span></td>
+                                                }
+                                            </tr>
+                                        }
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -250,12 +149,12 @@
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Borrowers</h4>
-                            <div class="flex-shrink-0">
+                            <h4 class="card-title mb-0 flex-grow-1">Donees</h4>
+                            @*<div class="flex-shrink-0">
                                 <button type="button" class="btn btn-soft-info btn-sm">
                                     <i class="ri-file-list-3-line align-middle"></i> Generate Report
                                 </button>
-                            </div>
+                            </div>*@
                         </div><!-- end card header -->
 
                         <div class="card-body">
@@ -263,116 +162,36 @@
                                 <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
                                     <thead class="text-muted table-light">
                                         <tr>
-
+                                            <th scope="col" hidden>UserID</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Email</th>
-                                            <th scope="col">Amount</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
 
-                                        <tr>
+                                        @foreach (var item in ViewBag.Donees)
+                                        {
+                                            <tr>
+                                                <td class="id" hidden>@item.UserId</td>
+                                                <td class="project_name"><a href="#" class="fw-medium link-primary">@item.FirstName @item.LastName</a></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1 tasks_name">@item.Email</div>
 
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-3.jpg" alt="" class="avatar-xs rounded-circle" />
                                                     </div>
-                                                    <div class="flex-grow-1">Ayaan Bowen</div>
-                                                </div>
-                                            </td>
-                                            <td>AyaanBowen@gmail.com</td>
-                                            <td>
-                                                <span class="text-success">$215.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-success-subtle text-success">Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-1.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Alex Smith</div>
-                                                </div>
-                                            </td>
-                                            <td>AlexSmith@gmail.com</td>
-                                            <td>
-                                                <span class="text-success">$109.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-success-subtle text-success">Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-4.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Prezy Mark</div>
-                                                </div>
-                                            </td>
-                                            <td>PrezyMark@hotmail.com</td>
-                                            <td>
-                                                <span class="text-success">$199.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-danger-subtle text-danger">In-Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-6.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Vihan Hudda</div>
-                                                </div>
-                                            </td>
-                                            <td>VihanHudda@gmail.com</td>
-                                            <td>
-                                                <span class="text-success">$330.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-success-subtle text-success">Active</span>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="~/assets/admin/images/users/avatar-2.jpg" alt="" class="avatar-xs rounded-circle" />
-                                                    </div>
-                                                    <div class="flex-grow-1">Jansh Brown</div>
-                                                </div>
-                                            </td>
-                                            <td>JanshBrown@yahoo.com</td>
-                                            <td>
-                                                <span class="text-success">$149.00</span>
-                                            </td>
-
-                                            <td>
-                                                <span class="badge bg-danger-subtle text-danger">In-Active</span>
-                                            </td>
-
-                                        </tr>
+                                                </td>
+                                                @if (item.isActive == true)
+                                                {
+                                                    <td class="priority"><span class="badge bg-success text-uppercase">Active</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="priority"><span class="badge bg-danger text-uppercase">In-Active</span></td>
+                                                }
+                                            </tr>
+                                        }
 
                                     </tbody>
                                 </table>

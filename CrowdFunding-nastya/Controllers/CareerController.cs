@@ -16,7 +16,7 @@ namespace CrowdFunding_nastya.Controllers
         CrowdfundingnastyaEntities dbEntities = new CrowdfundingnastyaEntities();
         public ActionResult Index(string Success, string Update, string Error)
         {
-            var allCareer = dbEntities.tblCareers.ToList();
+            var allCareer = dbEntities.tblCareers.Where(x => x.IsDeleted != true).ToList();
             ViewBag.Success = Success;
             ViewBag.Update = Update;
             ViewBag.Error = Error;
@@ -30,7 +30,7 @@ namespace CrowdFunding_nastya.Controllers
         {
             var priorityList = dbEntities.tblPriorities.ToList();
             ViewBag.PriorityList = new SelectList(priorityList, "PriorityId", "Priority");
-            var categoryList = dbEntities.tblCategories.ToList();
+            var categoryList = dbEntities.tblCategories.Where(x => x.isActive == true).ToList();
             ViewBag.CategoryList = new SelectList(categoryList, "CategoryId", "CategoryName");
             var blogTypeList = dbEntities.tblTypes.ToList();
             ViewBag.BlogTypeList = new SelectList(blogTypeList, "BlogTypeId", "BlogTypeName");

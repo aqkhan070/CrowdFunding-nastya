@@ -27,24 +27,22 @@ namespace CrowdFunding_nastya.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(int ID, string Name, string Name_fr, string Code, string type, string RID, bool? IsActive)
+        public ActionResult Create(int ID, string Name, bool? IsActive)
         {
             try
             {
-                int UserID = 0;
                 HttpCookie cookieObj = Request.Cookies["User"];
-                if (cookieObj != null)
-                {
-                    UserID = Int32.Parse(cookieObj["UserId"]);
-                }
-              
-                    tblCategory category = new tblCategory();
+                byte[] b = Convert.FromBase64String(cookieObj["UserId"]);
+                string decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+                int UserID = Int32.Parse(decrypted);
+
+                tblCategory category = new tblCategory();
                     if (Convert.ToInt32(ID) > 0)
                     {
                         category = _dbContext.tblCategories.Where(x => x.CategoryId == ID).FirstOrDefault();
                         category.CategoryName = Name;
-                        //category.IsActive = IsActive;
-                        category.EditBy = UserID;
+                    category.isActive = IsActive;
+                    category.EditBy = UserID;
                         category.EditDate = DateTime.Now;
                         _dbContext.Entry(category).State = EntityState.Modified;
                         _dbContext.SaveChanges();
@@ -53,8 +51,8 @@ namespace CrowdFunding_nastya.Controllers
                     else
                     {
                         category.CategoryName = Name;
-                        //category.IsActive = IsActive;
-                        category.CreatedBy = UserID;
+                    category.isActive = IsActive;
+                    category.CreatedBy = UserID;
                         category.CreatedDate = DateTime.Now;
                         _dbContext.tblCategories.Add(category);
                         _dbContext.SaveChanges();

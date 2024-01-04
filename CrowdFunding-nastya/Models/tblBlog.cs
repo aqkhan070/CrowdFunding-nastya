@@ -11,7 +11,8 @@ namespace CrowdFunding_nastya.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class tblBlog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,7 @@ namespace CrowdFunding_nastya.Models
         public int BlogId { get; set; }
         public string BlogTitle { get; set; }
         public string ThumbnailImage { get; set; }
+        [AllowHtml]
         public string BlogDescription { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime PublishDate { get; set; }
@@ -39,8 +41,8 @@ namespace CrowdFunding_nastya.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblBlogAttachedFile> tblBlogAttachedFiles { get; set; }
         public virtual tblBlogAttachedFile tblBlogAttachedFile { get; set; }
-        public virtual tblCategory tblCategory { get; set; }
         public virtual tblPriority tblPriority { get; set; }
         public virtual tblType tblType { get; set; }
+        public virtual tblCategory tblCategory { get; set; }
     }
 }

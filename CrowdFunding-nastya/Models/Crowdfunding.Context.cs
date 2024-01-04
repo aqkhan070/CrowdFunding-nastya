@@ -29,19 +29,23 @@ namespace CrowdFunding_nastya.Models
         public virtual DbSet<tblBlog> tblBlogs { get; set; }
         public virtual DbSet<tblBlogAttachedFile> tblBlogAttachedFiles { get; set; }
         public virtual DbSet<tblCareer> tblCareers { get; set; }
-        public virtual DbSet<tblCategory> tblCategories { get; set; }
         public virtual DbSet<tblContact> tblContacts { get; set; }
         public virtual DbSet<tblEditPage> tblEditPages { get; set; }
         public virtual DbSet<tblLog> tblLogs { get; set; }
         public virtual DbSet<tblMenu> tblMenus { get; set; }
         public virtual DbSet<tblPriority> tblPriorities { get; set; }
-        public virtual DbSet<tblProject> tblProjects { get; set; }
         public virtual DbSet<tblRole> tblRoles { get; set; }
         public virtual DbSet<tblSetting> tblSettings { get; set; }
         public virtual DbSet<tblStatu> tblStatus { get; set; }
         public virtual DbSet<tblSubscriber> tblSubscribers { get; set; }
         public virtual DbSet<tblType> tblTypes { get; set; }
-        public virtual DbSet<tblUser> tblUsers { get; set; }
         public virtual DbSet<tblVerificationCode> tblVerificationCodes { get; set; }
+        public virtual DbSet<tblNotification> tblNotifications { get; set; }
+        public virtual DbSet<tblWithdraw> tblWithdraws { get; set; }
+        public virtual DbSet<tblWithdrawStatu> tblWithdrawStatus { get; set; }
+        public virtual DbSet<tblTransaction> tblTransactions { get; set; }
+        public virtual DbSet<tblProject> tblProjects { get; set; }
+        public virtual DbSet<tblUser> tblUsers { get; set; }
+        public virtual DbSet<tblCategory> tblCategories { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace CrowdFunding_nastya.Controllers
             HttpContext.Response.Cookies.Add(cookie);
 
             List<tblProject> project = new List<tblProject>();
-            project=dbEntities.tblProjects.ToList();
+            project=dbEntities.tblProjects.Where(x => x.isActive == true && x.isDeleted != true && x.StatusId==9).ToList();
             ViewBag.project = project;
             return View();
         }
@@ -52,13 +52,13 @@ namespace CrowdFunding_nastya.Controllers
         [HttpGet]
         public ActionResult career()
         {
-            var allCareer = dbEntities.tblCareers.ToList();
+            var allCareer = dbEntities.tblCareers.Where(x => x.IsActive == true && x.IsDeleted != true).ToList();
             return View(allCareer);
         }
         [HttpGet]
         public ActionResult careerDetail(int id)
         {
-            var careerPre = dbEntities.tblCareers.SingleOrDefault(model => model.CareerId == id);
+            var careerPre = dbEntities.tblCareers.Where(x => x.IsActive == true && x.IsDeleted != true).SingleOrDefault(model => model.CareerId == id);
             if (careerPre != null)
             {
                 return View(careerPre);
@@ -68,12 +68,12 @@ namespace CrowdFunding_nastya.Controllers
 
         public ActionResult blogs()
         {
-            var blogs = dbEntities.tblBlogs.ToList();
+            var blogs = dbEntities.tblBlogs.Where(x => x.IsActive == true && x.IsDeleted != true).ToList();
             return View(blogs);
         }
         public ActionResult blog_detail(int id)
         {
-            var blogsPre = dbEntities.tblBlogs.SingleOrDefault(model => model.BlogId == id);
+            var blogsPre = dbEntities.tblBlogs.Where(x => x.IsActive == true && x.IsDeleted != true).SingleOrDefault(model => model.BlogId == id);
             if (blogsPre != null)
             {
                 return View(blogsPre);
@@ -85,19 +85,59 @@ namespace CrowdFunding_nastya.Controllers
         {
             return View();
         }
-        public ActionResult case_detail(int id = 0)
+        public ActionResult case_detail(string Success, string Update, string Delete, string Error,int id = 0)
         {
-            tblProject Data = dbEntities.tblProjects.Where(x => x.ProjectId == id).FirstOrDefault();
+            ViewBag.Success = Success;
+            ViewBag.Update = Update;
+            ViewBag.Delete = Delete;
+            ViewBag.Error = Error;
+            ViewBag.TransactionData = dbEntities.tblTransactions.Where(x => x.ProjectId == id).ToList();
+            tblProject Data = dbEntities.tblProjects.Where(x => x.ProjectId == id &&  x.isActive == true && x.isDeleted != true).FirstOrDefault();
             List<tblProject> project = new List<tblProject>();
             project = dbEntities.tblProjects.Take(3).ToList();
             ViewBag.project = project;
+            HttpCookie cookieObj = Request.Cookies["User"];
+            if (cookieObj == null)
+            {
+                ViewBag.UserId = 0;
+            }
+            else
+            {
+                byte[] b = Convert.FromBase64String(cookieObj["UserId"]);
+                string decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+                ViewBag.UserId = Int32.Parse(decrypted);
+            }
+            
+            
             return View(Data);
         }
-        public ActionResult preview(int id = 0)
+        public ActionResult preview(string Success, string Update, string Delete, string Error,int id = 0)
         {
-            tblProject Data = dbEntities.tblProjects.Where(x => x.ProjectId == id).FirstOrDefault();
+            ViewBag.Success = Success;
+            ViewBag.Update = Update;
+            ViewBag.Delete = Delete;
+            ViewBag.Error = Error;
+            ViewBag.TransactionData = dbEntities.tblTransactions.Where(x => x.ProjectId == id).ToList();
+            tblProject Data = dbEntities.tblProjects.Where(x => x.ProjectId == id && x.isActive == true && x.isDeleted != true).FirstOrDefault();
+            List<tblProject> project = new List<tblProject>();
+            project = dbEntities.tblProjects.Take(3).ToList();
+            ViewBag.project = project;
+            HttpCookie cookieObj = Request.Cookies["User"];
+            if (cookieObj == null)
+            {
+                ViewBag.UserId = 0;
+            }
+            else
+            {
+                byte[] b = Convert.FromBase64String(cookieObj["UserId"]);
+                string decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+                ViewBag.UserId = Int32.Parse(decrypted);
+            }
+            
+            
             return View(Data);
         }
+        
         public ActionResult About()
         {
             tblEditPage sa = dbEntities.tblEditPages.Find(1);

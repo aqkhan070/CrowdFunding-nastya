@@ -176,7 +176,7 @@
                                           
                                             <td>
                                                 <img src="@item.CareerThumbnailImage" alt="" class="avatar-xs rounded-circle me-2">
-                                                <a href="#javascript: void(0);" class="text-body fw-medium">@item.CareerTitle</a>
+                                                <a href="@Url.Action("careerDetail", "Home", new { id = item.CareerId })" class="text-body fw-medium">@item.CareerTitle</a>
                                             </td>
 
                                             <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@Html.DisplayFor(modelItem => item.tblPriority.Priority)</span></td>

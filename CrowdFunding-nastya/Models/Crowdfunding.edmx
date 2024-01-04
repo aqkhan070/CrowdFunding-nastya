@@ -84,6 +84,7 @@
           <Property Name="CreatedDate" Type="datetime2" Precision="7" />
           <Property Name="EditBy" Type="int" />
           <Property Name="EditDate" Type="datetime2" Precision="7" />
+          <Property Name="isActive" Type="bit" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
         <EntityType Name="tblContact">
@@ -145,6 +146,16 @@
           <Property Name="ElementId" Type="nvarchar" MaxLength="500" />
           <Property Name="OrderBy" Type="int" />
         </EntityType>
+        <EntityType Name="tblNotification">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
         <EntityType Name="tblPriority">
           <Key>
             <PropertyRef Name="PriorityId" />
@@ -167,12 +178,13 @@
           <Property Name="PostCode" Type="nvarchar" MaxLength="150" />
           <Property Name="FundraisingFor" Type="nvarchar" MaxLength="150" />
           <Property Name="Phone" Type="nvarchar" MaxLength="150" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="150" />
           <Property Name="story" Type="nvarchar" MaxLength="1500" />
           <Property Name="Goal" Type="nvarchar" MaxLength="500" />
           <Property Name="Deadline" Type="datetime" />
           <Property Name="Value" Type="float" />
+          <Property Name="RaisedAmount" Type="float" />
           <Property Name="Skills" Type="nvarchar" MaxLength="1500" />
           <Property Name="VerificationCodeTo" Type="nvarchar" MaxLength="150" />
           <Property Name="PriorityId" Type="int" />
@@ -242,6 +254,34 @@
           <Property Name="Email" Type="nvarchar" MaxLength="250" />
           <Property Name="Created_Date" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblTransaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentDateTime" Type="datetime" />
+          <Property Name="PaypalPaymentId" Type="nvarchar" MaxLength="50" />
+          <Property Name="PayerEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="PayerFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PayerLastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PayerId" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comission" Type="float" />
+          <Property Name="ComissionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ComissionAmount" Type="float" />
+          <Property Name="PaidAmount" Type="float" />
+          <Property Name="AdditionalCharges" Type="float" />
+          <Property Name="PaymentDescription" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserFirstName" Type="nvarchar" MaxLength="150" />
+          <Property Name="UserLastName" Type="nvarchar" MaxLength="150" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="150" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="tblType">
           <Key>
             <PropertyRef Name="TypeId" />
@@ -267,7 +307,8 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="150" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="150" />
           <Property Name="Address" Type="nvarchar" MaxLength="150" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Balance" Type="float" />
           <Property Name="RoleId" Type="int" />
           <Property Name="LastLogin" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
@@ -289,6 +330,31 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="isActive" Type="bit" />
           <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblWithdraw">
+          <Key>
+            <PropertyRef Name="WithdrawId" />
+          </Key>
+          <Property Name="WithdrawId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="AccountTitle" Type="nvarchar" MaxLength="255" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="255" />
+          <Property Name="AccountDetail" Type="nvarchar" MaxLength="500" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="500" />
+          <Property Name="TransactionNo" Type="nvarchar" MaxLength="500" />
+          <Property Name="Reason" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="EditBy" Type="int" />
+          <Property Name="EditDate" Type="date" />
+        </EntityType>
+        <EntityType Name="tblWithdrawStatus">
+          <Key>
+            <PropertyRef Name="WithdrawStatusId" />
+          </Key>
+          <Property Name="WithdrawStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <Association Name="FK_AccessManu">
           <End Role="tblMenu" Type="Self.tblMenu" Multiplicity="0..1" />
@@ -410,6 +476,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblNotification_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblNotification" Type="Self.tblNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblNotification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblProject_tblCategory">
           <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
           <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
@@ -458,6 +536,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblTransaction_tblProject">
+          <End Role="tblProject" Type="Self.tblProject" Multiplicity="0..1" />
+          <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tblTransaction">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTransaction_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblTransaction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblUser_tblRole">
           <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
@@ -467,6 +569,42 @@
             </Principal>
             <Dependent Role="tblUser">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWithdraw_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWithdraw" Type="Self.tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWithdraw">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWithdraw_tblUser1">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+          <End Role="tblWithdraw" Type="Self.tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWithdraw">
+              <PropertyRef Name="EditBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWithdraw_tblWithdrawStatus">
+          <End Role="tblWithdrawStatus" Type="Self.tblWithdrawStatus" Multiplicity="0..1" />
+          <End Role="tblWithdraw" Type="Self.tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblWithdrawStatus">
+              <PropertyRef Name="WithdrawStatusId" />
+            </Principal>
+            <Dependent Role="tblWithdraw">
+              <PropertyRef Name="Status" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -480,15 +618,19 @@
           <EntitySet Name="tblEditPages" EntityType="Self.tblEditPages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLog" EntityType="Self.tblLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblMenu" EntityType="Self.tblMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNotification" EntityType="Self.tblNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPriority" EntityType="Self.tblPriority" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProject" EntityType="Self.tblProject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRole" EntityType="Self.tblRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSetting" EntityType="Self.tblSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStatus" EntityType="Self.tblStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSubscriber" EntityType="Self.tblSubscriber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTransaction" EntityType="Self.tblTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblType" EntityType="Self.tblType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVerificationCode" EntityType="Self.tblVerificationCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWithdraw" EntityType="Self.tblWithdraw" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblWithdrawStatus" EntityType="Self.tblWithdrawStatus" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AccessManu" Association="Self.FK_AccessManu">
             <End Role="tblMenu" EntitySet="tblMenu" />
             <End Role="tblAccessLevel" EntitySet="tblAccessLevel" />
@@ -529,6 +671,10 @@
             <End Role="tblType" EntitySet="tblType" />
             <End Role="tblCareer" EntitySet="tblCareer" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblNotification_tblUser" Association="Self.FK_tblNotification_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblNotification" EntitySet="tblNotification" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblProject_tblCategory" Association="Self.FK_tblProject_tblCategory">
             <End Role="tblCategory" EntitySet="tblCategory" />
             <End Role="tblProject" EntitySet="tblProject" />
@@ -545,9 +691,29 @@
             <End Role="tblType" EntitySet="tblType" />
             <End Role="tblProject" EntitySet="tblProject" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblTransaction_tblProject" Association="Self.FK_tblTransaction_tblProject">
+            <End Role="tblProject" EntitySet="tblProject" />
+            <End Role="tblTransaction" EntitySet="tblTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTransaction_tblUser" Association="Self.FK_tblTransaction_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblTransaction" EntitySet="tblTransaction" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblUser_tblRole" Association="Self.FK_tblUser_tblRole">
             <End Role="tblRole" EntitySet="tblRole" />
             <End Role="tblUser" EntitySet="tblUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdraw_tblUser" Association="Self.FK_tblWithdraw_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblWithdraw" EntitySet="tblWithdraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdraw_tblUser1" Association="Self.FK_tblWithdraw_tblUser1">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblWithdraw" EntitySet="tblWithdraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdraw_tblWithdrawStatus" Association="Self.FK_tblWithdraw_tblWithdrawStatus">
+            <End Role="tblWithdrawStatus" EntitySet="tblWithdrawStatus" />
+            <End Role="tblWithdraw" EntitySet="tblWithdraw" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -594,9 +760,9 @@
           <Property Name="AttachedFileId" Type="Int32" />
           <NavigationProperty Name="tblBlogAttachedFiles" Relationship="Self.FK_tblAttachedFiles_tblBlog" FromRole="tblBlog" ToRole="tblBlogAttachedFiles" />
           <NavigationProperty Name="tblBlogAttachedFile" Relationship="Self.FK_tblBlog_tblBlogAttachedFiles" FromRole="tblBlog" ToRole="tblBlogAttachedFiles" />
-          <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblBlog_tblCategory" FromRole="tblBlog" ToRole="tblCategory" />
           <NavigationProperty Name="tblPriority" Relationship="Self.FK_tblBlog_tblPriority" FromRole="tblBlog" ToRole="tblPriority" />
           <NavigationProperty Name="tblType" Relationship="Self.FK_tblBlog_tblType" FromRole="tblBlog" ToRole="tblType" />
+          <NavigationProperty Name="tblCategory" Relationship="CrowdfundingnastyaModel.FK_tblBlog_tblCategory" FromRole="tblBlog" ToRole="tblCategory" />
         </EntityType>
         <EntityType Name="tblBlogAttachedFile">
           <Key>
@@ -631,24 +797,9 @@
           <Property Name="CategoryId" Type="Int32" />
           <Property Name="PriorityId" Type="Int32" />
           <Property Name="BlogTypeId" Type="Int32" />
-          <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblCareer_tblCategory" FromRole="tblCareer" ToRole="tblCategory" />
           <NavigationProperty Name="tblPriority" Relationship="Self.FK_tblCareer_tblPriority" FromRole="tblCareer" ToRole="tblPriority" />
           <NavigationProperty Name="tblType" Relationship="Self.FK_tblCareer_tblType" FromRole="tblCareer" ToRole="tblType" />
-        </EntityType>
-        <EntityType Name="tblCategory">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="7" />
-          <Property Name="EditBy" Type="Int32" />
-          <Property Name="EditDate" Type="DateTime" Precision="7" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblBlogs" Relationship="Self.FK_tblBlog_tblCategory" FromRole="tblCategory" ToRole="tblBlog" />
-          <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblCategory" FromRole="tblCategory" ToRole="tblCareer" />
-          <NavigationProperty Name="tblProjects" Relationship="Self.FK_tblProject_tblCategory" FromRole="tblCategory" ToRole="tblProject" />
+          <NavigationProperty Name="tblCategory" Relationship="CrowdfundingnastyaModel.FK_tblCareer_tblCategory" FromRole="tblCareer" ToRole="tblCategory" />
         </EntityType>
         <EntityType Name="tblContact">
           <Key>
@@ -725,39 +876,6 @@
           <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblPriority" FromRole="tblPriority" ToRole="tblCareer" />
           <NavigationProperty Name="tblProjects" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblPriority" FromRole="tblPriority" ToRole="tblProject" />
         </EntityType>
-        <EntityType Name="tblProject">
-          <Key>
-            <PropertyRef Name="ProjectId" />
-          </Key>
-          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Located" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="PostCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="FundraisingFor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="story" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <Property Name="Goal" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Deadline" Type="DateTime" Precision="3" />
-          <Property Name="Value" Type="Double" />
-          <Property Name="Skills" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
-          <Property Name="VerificationCodeTo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="PriorityId" Type="Int32" />
-          <Property Name="StatusId" Type="Int32" />
-          <Property Name="TypeId" Type="Int32" />
-          <Property Name="CategoryId" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditBy" Type="Int32" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblCategory" Relationship="Self.FK_tblProject_tblCategory" FromRole="tblProject" ToRole="tblCategory" />
-          <NavigationProperty Name="tblStatu" Relationship="Self.FK_tblProject_tblStatus" FromRole="tblProject" ToRole="tblStatus" />
-          <NavigationProperty Name="tblType" Relationship="Self.FK_tblProject_tblType" FromRole="tblProject" ToRole="tblType" />
-          <NavigationProperty Name="tblPriority" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblPriority" FromRole="tblProject" ToRole="tblPriority" />
-        </EntityType>
         <EntityType Name="tblRole">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -771,7 +889,7 @@
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="tblAccessLevels" Relationship="Self.FK_AccessRole" FromRole="tblRole" ToRole="tblAccessLevel" />
-          <NavigationProperty Name="tblUsers" Relationship="Self.FK_tblUser_tblRole" FromRole="tblRole" ToRole="tblUser" />
+          <NavigationProperty Name="tblUsers" Relationship="CrowdfundingnastyaModel.FK_tblUser_tblRole" FromRole="tblRole" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblSetting">
           <Key>
@@ -806,7 +924,7 @@
           <Property Name="EditDate" Type="DateTime" Precision="3" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tblProjects" Relationship="Self.FK_tblProject_tblStatus" FromRole="tblStatus" ToRole="tblProject" />
+          <NavigationProperty Name="tblProjects" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblStatus" FromRole="tblStatu" ToRole="tblProject" />
         </EntityType>
         <EntityType Name="tblSubscriber">
           <Key>
@@ -830,31 +948,7 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="tblBlogs" Relationship="Self.FK_tblBlog_tblType" FromRole="tblType" ToRole="tblBlog" />
           <NavigationProperty Name="tblCareers" Relationship="Self.FK_tblCareer_tblType" FromRole="tblType" ToRole="tblCareer" />
-          <NavigationProperty Name="tblProjects" Relationship="Self.FK_tblProject_tblType" FromRole="tblType" ToRole="tblProject" />
-        </EntityType>
-        <EntityType Name="tblUser">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="RoleId" Type="Int32" />
-          <Property Name="LastLogin" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditBy" Type="Int32" />
-          <Property Name="EditDate" Type="DateTime" Precision="3" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="tblRole" Relationship="Self.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
+          <NavigationProperty Name="tblProjects" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblType" FromRole="tblType" ToRole="tblProject" />
         </EntityType>
         <EntityType Name="tblVerificationCode">
           <Key>
@@ -917,18 +1011,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblBlog_tblCategory">
-          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
-          <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategory">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="tblBlog">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblBlog_tblPriority">
           <End Role="tblPriority" Type="Self.tblPriority" Multiplicity="0..1" />
           <End Role="tblBlog" Type="Self.tblBlog" Multiplicity="*" />
@@ -950,18 +1032,6 @@
             </Principal>
             <Dependent Role="tblBlog">
               <PropertyRef Name="BlogTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblCareer_tblCategory">
-          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
-          <End Role="tblCareer" Type="Self.tblCareer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategory">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="tblCareer">
-              <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -989,72 +1059,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblProject_tblCategory">
-          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
-          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategory">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="tblProject">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProject_tblStatus">
-          <End Role="tblStatus" Type="Self.tblStatu" Multiplicity="0..1" />
-          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblStatus">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="tblProject">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblProject_tblType">
-          <End Role="tblType" Type="Self.tblType" Multiplicity="0..1" />
-          <End Role="tblProject" Type="Self.tblProject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblType">
-              <PropertyRef Name="TypeId" />
-            </Principal>
-            <Dependent Role="tblProject">
-              <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblUser_tblRole">
-          <End Role="tblRole" Type="Self.tblRole" Multiplicity="0..1" />
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblRole">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="tblUser">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CrowdfundingnastyaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblAccessLevels" EntityType="Self.tblAccessLevel" />
           <EntitySet Name="tblBlogs" EntityType="Self.tblBlog" />
           <EntitySet Name="tblBlogAttachedFiles" EntityType="Self.tblBlogAttachedFile" />
           <EntitySet Name="tblCareers" EntityType="Self.tblCareer" />
-          <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
           <EntitySet Name="tblContacts" EntityType="Self.tblContact" />
           <EntitySet Name="tblEditPages" EntityType="Self.tblEditPage" />
           <EntitySet Name="tblLogs" EntityType="Self.tblLog" />
           <EntitySet Name="tblMenus" EntityType="Self.tblMenu" />
           <EntitySet Name="tblPriorities" EntityType="Self.tblPriority" />
-          <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
           <EntitySet Name="tblRoles" EntityType="Self.tblRole" />
           <EntitySet Name="tblSettings" EntityType="Self.tblSetting" />
           <EntitySet Name="tblStatus" EntityType="Self.tblStatu" />
           <EntitySet Name="tblSubscribers" EntityType="Self.tblSubscriber" />
           <EntitySet Name="tblTypes" EntityType="Self.tblType" />
-          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <EntitySet Name="tblVerificationCodes" EntityType="Self.tblVerificationCode" />
           <AssociationSet Name="FK_AccessManu" Association="Self.FK_AccessManu">
             <End Role="tblMenu" EntitySet="tblMenus" />
@@ -1072,10 +1091,6 @@
             <End Role="tblBlogAttachedFiles" EntitySet="tblBlogAttachedFiles" />
             <End Role="tblBlog" EntitySet="tblBlogs" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblBlog_tblCategory" Association="Self.FK_tblBlog_tblCategory">
-            <End Role="tblCategory" EntitySet="tblCategories" />
-            <End Role="tblBlog" EntitySet="tblBlogs" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblBlog_tblPriority" Association="Self.FK_tblBlog_tblPriority">
             <End Role="tblPriority" EntitySet="tblPriorities" />
             <End Role="tblBlog" EntitySet="tblBlogs" />
@@ -1083,10 +1098,6 @@
           <AssociationSet Name="FK_tblBlog_tblType" Association="Self.FK_tblBlog_tblType">
             <End Role="tblType" EntitySet="tblTypes" />
             <End Role="tblBlog" EntitySet="tblBlogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblCareer_tblCategory" Association="Self.FK_tblCareer_tblCategory">
-            <End Role="tblCategory" EntitySet="tblCategories" />
-            <End Role="tblCareer" EntitySet="tblCareers" />
           </AssociationSet>
           <AssociationSet Name="FK_tblCareer_tblPriority" Association="Self.FK_tblCareer_tblPriority">
             <End Role="tblPriority" EntitySet="tblPriorities" />
@@ -1096,27 +1107,224 @@
             <End Role="tblType" EntitySet="tblTypes" />
             <End Role="tblCareer" EntitySet="tblCareers" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblProject_tblCategory" Association="Self.FK_tblProject_tblCategory">
-            <End Role="tblCategory" EntitySet="tblCategories" />
-            <End Role="tblProject" EntitySet="tblProjects" />
+          <EntitySet Name="tblNotifications" EntityType="CrowdfundingnastyaModel.tblNotification" />
+          <EntitySet Name="tblWithdraws" EntityType="CrowdfundingnastyaModel.tblWithdraw" />
+          <EntitySet Name="tblWithdrawStatus" EntityType="CrowdfundingnastyaModel.tblWithdrawStatu" />
+          <AssociationSet Name="FK_tblWithdraw_tblWithdrawStatus" Association="CrowdfundingnastyaModel.FK_tblWithdraw_tblWithdrawStatus">
+            <End Role="tblWithdrawStatu" EntitySet="tblWithdrawStatus" />
+            <End Role="tblWithdraw" EntitySet="tblWithdraws" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblProject_tblStatus" Association="Self.FK_tblProject_tblStatus">
-            <End Role="tblStatus" EntitySet="tblStatus" />
-            <End Role="tblProject" EntitySet="tblProjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblProject_tblType" Association="Self.FK_tblProject_tblType">
-            <End Role="tblType" EntitySet="tblTypes" />
-            <End Role="tblProject" EntitySet="tblProjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblUser_tblRole" Association="Self.FK_tblUser_tblRole">
-            <End Role="tblRole" EntitySet="tblRoles" />
+          <EntitySet Name="tblTransactions" EntityType="CrowdfundingnastyaModel.tblTransaction" />
+          <EntitySet Name="tblProjects" EntityType="CrowdfundingnastyaModel.tblProject" />
+          <EntitySet Name="tblUsers" EntityType="CrowdfundingnastyaModel.tblUser" />
+          <AssociationSet Name="FK_tblNotification_tblUser" Association="CrowdfundingnastyaModel.FK_tblNotification_tblUser">
             <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblNotification" EntitySet="tblNotifications" />
           </AssociationSet>
           <AssociationSet Name="FK_tblProject_tblPriority" Association="CrowdfundingnastyaModel.FK_tblProject_tblPriority">
             <End Role="tblPriority" EntitySet="tblPriorities" />
             <End Role="tblProject" EntitySet="tblProjects" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_tblProject_tblStatus" Association="CrowdfundingnastyaModel.FK_tblProject_tblStatus">
+            <End Role="tblStatu" EntitySet="tblStatus" />
+            <End Role="tblProject" EntitySet="tblProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProject_tblType" Association="CrowdfundingnastyaModel.FK_tblProject_tblType">
+            <End Role="tblType" EntitySet="tblTypes" />
+            <End Role="tblProject" EntitySet="tblProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTransaction_tblProject" Association="CrowdfundingnastyaModel.FK_tblTransaction_tblProject">
+            <End Role="tblProject" EntitySet="tblProjects" />
+            <End Role="tblTransaction" EntitySet="tblTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUser_tblRole" Association="CrowdfundingnastyaModel.FK_tblUser_tblRole">
+            <End Role="tblRole" EntitySet="tblRoles" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTransaction_tblUser" Association="CrowdfundingnastyaModel.FK_tblTransaction_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblTransaction" EntitySet="tblTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdraw_tblUser" Association="CrowdfundingnastyaModel.FK_tblWithdraw_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblWithdraw" EntitySet="tblWithdraws" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblWithdraw_tblUser1" Association="CrowdfundingnastyaModel.FK_tblWithdraw_tblUser1">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblWithdraw" EntitySet="tblWithdraws" />
+          </AssociationSet>
+          <EntitySet Name="tblCategories" EntityType="CrowdfundingnastyaModel.tblCategory" />
+          <AssociationSet Name="FK_tblBlog_tblCategory" Association="CrowdfundingnastyaModel.FK_tblBlog_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblBlog" EntitySet="tblBlogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCareer_tblCategory" Association="CrowdfundingnastyaModel.FK_tblCareer_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblCareer" EntitySet="tblCareers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProject_tblCategory" Association="CrowdfundingnastyaModel.FK_tblProject_tblCategory">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblProject" EntitySet="tblProjects" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="tblNotification">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+          </Key>
+          <Property Name="NotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="tblUser" Relationship="CrowdfundingnastyaModel.FK_tblNotification_tblUser" FromRole="tblNotification" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblWithdraw">
+          <Key>
+            <PropertyRef Name="WithdrawId" />
+          </Key>
+          <Property Name="WithdrawId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AccountTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BankName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDetail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionNo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="EditBy" Type="Int32" />
+          <Property Name="EditDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblWithdrawStatu" Relationship="CrowdfundingnastyaModel.FK_tblWithdraw_tblWithdrawStatus" FromRole="tblWithdraw" ToRole="tblWithdrawStatu" />
+          <NavigationProperty Name="tblUser" Relationship="CrowdfundingnastyaModel.FK_tblWithdraw_tblUser" FromRole="tblWithdraw" ToRole="tblUser" />
+          <NavigationProperty Name="tblUser1" Relationship="CrowdfundingnastyaModel.FK_tblWithdraw_tblUser1" FromRole="tblWithdraw" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblWithdrawStatu">
+          <Key>
+            <PropertyRef Name="WithdrawStatusId" />
+          </Key>
+          <Property Name="WithdrawStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblWithdraws" Relationship="CrowdfundingnastyaModel.FK_tblWithdraw_tblWithdrawStatus" FromRole="tblWithdrawStatu" ToRole="tblWithdraw" />
+        </EntityType>
+        <Association Name="FK_tblWithdraw_tblWithdrawStatus">
+          <End Type="CrowdfundingnastyaModel.tblWithdrawStatu" Role="tblWithdrawStatu" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblWithdraw" Role="tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblWithdrawStatu">
+              <PropertyRef Name="WithdrawStatusId" />
+            </Principal>
+            <Dependent Role="tblWithdraw">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblTransaction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentDateTime" Type="DateTime" Precision="3" />
+          <Property Name="PaypalPaymentId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PayerEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PayerFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PayerLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comission" Type="Double" />
+          <Property Name="ComissionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ComissionAmount" Type="Double" />
+          <Property Name="PaidAmount" Type="Double" />
+          <Property Name="AdditionalCharges" Type="Double" />
+          <Property Name="PaymentDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserFirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UserLastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="UserEmail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblProject" Relationship="CrowdfundingnastyaModel.FK_tblTransaction_tblProject" FromRole="tblTransaction" ToRole="tblProject" />
+          <NavigationProperty Name="tblUser" Relationship="CrowdfundingnastyaModel.FK_tblTransaction_tblUser" FromRole="tblTransaction" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Located" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PostCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FundraisingFor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="story" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="Goal" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Deadline" Type="DateTime" Precision="3" />
+          <Property Name="Value" Type="Double" />
+          <Property Name="RaisedAmount" Type="Double" />
+          <Property Name="Skills" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="VerificationCodeTo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PriorityId" Type="Int32" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="Int32" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblPriority" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblPriority" FromRole="tblProject" ToRole="tblPriority" />
+          <NavigationProperty Name="tblStatu" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblStatus" FromRole="tblProject" ToRole="tblStatu" />
+          <NavigationProperty Name="tblType" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblType" FromRole="tblProject" ToRole="tblType" />
+          <NavigationProperty Name="tblTransactions" Relationship="CrowdfundingnastyaModel.FK_tblTransaction_tblProject" FromRole="tblProject" ToRole="tblTransaction" />
+          <NavigationProperty Name="tblCategory" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblCategory" FromRole="tblProject" ToRole="tblCategory" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Double" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditBy" Type="Int32" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblNotifications" Relationship="CrowdfundingnastyaModel.FK_tblNotification_tblUser" FromRole="tblUser" ToRole="tblNotification" />
+          <NavigationProperty Name="tblRole" Relationship="CrowdfundingnastyaModel.FK_tblUser_tblRole" FromRole="tblUser" ToRole="tblRole" />
+          <NavigationProperty Name="tblTransactions" Relationship="CrowdfundingnastyaModel.FK_tblTransaction_tblUser" FromRole="tblUser" ToRole="tblTransaction" />
+          <NavigationProperty Name="tblWithdraws" Relationship="CrowdfundingnastyaModel.FK_tblWithdraw_tblUser" FromRole="tblUser" ToRole="tblWithdraw" />
+          <NavigationProperty Name="tblWithdraws1" Relationship="CrowdfundingnastyaModel.FK_tblWithdraw_tblUser1" FromRole="tblUser" ToRole="tblWithdraw" />
+        </EntityType>
+        <Association Name="FK_tblNotification_tblUser">
+          <End Type="CrowdfundingnastyaModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblNotification" Role="tblNotification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblNotification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblProject_tblPriority">
           <End Type="CrowdfundingnastyaModel.tblPriority" Role="tblPriority" Multiplicity="0..1" />
           <End Type="CrowdfundingnastyaModel.tblProject" Role="tblProject" Multiplicity="*" />
@@ -1129,7 +1337,143 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_tblProject_tblStatus">
+          <End Type="CrowdfundingnastyaModel.tblStatu" Role="tblStatu" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblProject" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStatu">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProject_tblType">
+          <End Type="CrowdfundingnastyaModel.tblType" Role="tblType" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblProject" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblType">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTransaction_tblProject">
+          <End Type="CrowdfundingnastyaModel.tblProject" Role="tblProject" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblTransaction" Role="tblTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProject">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="tblTransaction">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUser_tblRole">
+          <End Type="CrowdfundingnastyaModel.tblRole" Role="tblRole" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblUser" Role="tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTransaction_tblUser">
+          <End Type="CrowdfundingnastyaModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblTransaction" Role="tblTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblTransaction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWithdraw_tblUser">
+          <End Type="CrowdfundingnastyaModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblWithdraw" Role="tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWithdraw">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblWithdraw_tblUser1">
+          <End Type="CrowdfundingnastyaModel.tblUser" Role="tblUser" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblWithdraw" Role="tblWithdraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="tblWithdraw">
+              <PropertyRef Name="EditBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="7" />
+          <Property Name="EditBy" Type="Int32" />
+          <Property Name="EditDate" Type="DateTime" Precision="7" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblBlogs" Relationship="CrowdfundingnastyaModel.FK_tblBlog_tblCategory" FromRole="tblCategory" ToRole="tblBlog" />
+          <NavigationProperty Name="tblCareers" Relationship="CrowdfundingnastyaModel.FK_tblCareer_tblCategory" FromRole="tblCategory" ToRole="tblCareer" />
+          <NavigationProperty Name="tblProjects" Relationship="CrowdfundingnastyaModel.FK_tblProject_tblCategory" FromRole="tblCategory" ToRole="tblProject" />
+        </EntityType>
+        <Association Name="FK_tblBlog_tblCategory">
+          <End Type="CrowdfundingnastyaModel.tblCategory" Role="tblCategory" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblBlog" Role="tblBlog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="tblBlog">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCareer_tblCategory">
+          <End Type="CrowdfundingnastyaModel.tblCategory" Role="tblCategory" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblCareer" Role="tblCareer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="tblCareer">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProject_tblCategory">
+          <End Type="CrowdfundingnastyaModel.tblCategory" Role="tblCategory" Multiplicity="0..1" />
+          <End Type="CrowdfundingnastyaModel.tblProject" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1205,19 +1549,6 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
                 <ScalarProperty Name="BlogTypeId" ColumnName="BlogTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCategories">
-            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblCategory">
-              <MappingFragment StoreEntitySet="tblCategory">
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1297,36 +1628,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblProjects">
-            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblProject">
-              <MappingFragment StoreEntitySet="tblProject">
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Located" ColumnName="Located" />
-                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
-                <ScalarProperty Name="FundraisingFor" ColumnName="FundraisingFor" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="story" ColumnName="story" />
-                <ScalarProperty Name="Goal" ColumnName="Goal" />
-                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Skills" ColumnName="Skills" />
-                <ScalarProperty Name="VerificationCodeTo" ColumnName="VerificationCodeTo" />
-                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblRoles">
             <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblRole">
               <MappingFragment StoreEntitySet="tblRole">
@@ -1400,30 +1701,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblUsers">
-            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblUser">
-              <MappingFragment StoreEntitySet="tblUser">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblVerificationCodes">
             <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblVerificationCode">
               <MappingFragment StoreEntitySet="tblVerificationCode">
@@ -1435,6 +1712,143 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNotifications">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblNotification">
+              <MappingFragment StoreEntitySet="tblNotification">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWithdraws">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblWithdraw">
+              <MappingFragment StoreEntitySet="tblWithdraw">
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="TransactionNo" ColumnName="TransactionNo" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="AccountDetail" ColumnName="AccountDetail" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="AccountTitle" ColumnName="AccountTitle" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="WithdrawId" ColumnName="WithdrawId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblWithdrawStatus">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblWithdrawStatu">
+              <MappingFragment StoreEntitySet="tblWithdrawStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="WithdrawStatusId" ColumnName="WithdrawStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTransactions">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblTransaction">
+              <MappingFragment StoreEntitySet="tblTransaction">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PaymentDescription" ColumnName="PaymentDescription" />
+                <ScalarProperty Name="AdditionalCharges" ColumnName="AdditionalCharges" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="ComissionAmount" ColumnName="ComissionAmount" />
+                <ScalarProperty Name="ComissionType" ColumnName="ComissionType" />
+                <ScalarProperty Name="Comission" ColumnName="Comission" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="PayerId" ColumnName="PayerId" />
+                <ScalarProperty Name="PayerLastName" ColumnName="PayerLastName" />
+                <ScalarProperty Name="PayerFirstName" ColumnName="PayerFirstName" />
+                <ScalarProperty Name="PayerEmail" ColumnName="PayerEmail" />
+                <ScalarProperty Name="PaypalPaymentId" ColumnName="PaypalPaymentId" />
+                <ScalarProperty Name="PaymentDateTime" ColumnName="PaymentDateTime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjects">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblProject">
+              <MappingFragment StoreEntitySet="tblProject">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="VerificationCodeTo" ColumnName="VerificationCodeTo" />
+                <ScalarProperty Name="Skills" ColumnName="Skills" />
+                <ScalarProperty Name="RaisedAmount" ColumnName="RaisedAmount" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="Goal" ColumnName="Goal" />
+                <ScalarProperty Name="story" ColumnName="story" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FundraisingFor" ColumnName="FundraisingFor" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="Located" ColumnName="Located" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="CrowdfundingnastyaModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="EditBy" ColumnName="EditBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

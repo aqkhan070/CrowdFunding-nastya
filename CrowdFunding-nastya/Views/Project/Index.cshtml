@@ -11,11 +11,11 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Projects</h4>
+            <h4 class="mb-sm-0">Compaigns</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Projects</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Compaigns</a></li>
                     <li class="breadcrumb-item active">List</li>
                 </ol>
             </div>
@@ -34,7 +34,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <p class="fw-semibold text-muted mb-0">Total Project</p>
+                        <p class="fw-semibold text-muted mb-0">Total Compaign</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Count()"></span></h2>
                     </div>
                     <div>
@@ -55,7 +55,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <p class="fw-semibold text-muted mb-0">Active Project</p>
+                        <p class="fw-semibold text-muted mb-0">Active Compaign</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Where(x => x.isActive != false).Count()"></span></h2>
                     </div>
                     <div>
@@ -76,7 +76,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <p class="fw-semibold text-muted mb-0">In-Active Project</p>
+                        <p class="fw-semibold text-muted mb-0">In-Active Compaign</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value" data-target="@Model.Where(x => x.isActive == false).Count()"></span></h2>
                     </div>
                     <div>
@@ -92,28 +92,13 @@
         </div>
     </div>
 </div>
-<div class="alert alert-success alert-dismissible fade show" role="alert" id="SuccessAlert" style="display:none;">
-    <strong> Success! </strong> @Success
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="alert alert-secondary alert-dismissible fade show" role="alert" id="UpdateAlert" style="display:none;">
-    <strong> Success! </strong> @Update
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="alert alert-warning alert-dismissible fade show" role="alert" id="DeleteAlert" style="display:none;">
-    <strong> Success! </strong> @Delete
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="alert alert-danger alert-dismissible fade show" role="alert" id="ErrorAlert" style="display:none;">
-    <strong> Error! </strong> @Error
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card" id="tasksList">
             <div class="card-header border-0">
                 <div class="d-flex align-items-center">
-                    <h5 class="card-title mb-0 flex-grow-1">Project</h5>
+                    <h5 class="card-title mb-0 flex-grow-1">Compaign</h5>
                     <div class="flex-shrink-0">
                         <div class="d-flex flex-wrap gap-2">
                             <a href="@Url.Action("add","Project")">  <button class="btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Create New</button></a>
@@ -122,29 +107,32 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body border border-dashed border-end-0 border-start-0">
+            <div class="">
                 <form>
                     <div class="row g-3">
                         <div class="col-xxl-5 col-sm-12">
-                            <div class="search-box">
-                                <input type="text" class="form-control search bg-light border-light" placeholder="Search for tasks or something...">
-                                <i class="ri-search-line search-icon"></i>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert" id="SuccessAlert" style="display:none;">
+                                <strong> Success! </strong> @Success
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-secondary alert-dismissible fade show" role="alert" id="UpdateAlert" style="display:none;">
+                                <strong> Success! </strong> @Update
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="DeleteAlert" style="display:none;">
+                                <strong> Success! </strong> @Delete
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="ErrorAlert" style="display:none;">
+                                <strong> Error! </strong> @Error
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </div>
                         <!--end col-->
 
 
 
-                        <div class="col-xxl-3 col-sm-4">
-                            <div class="input-light">
-                                <select class="form-control" data-choices data-choices-search-false name="choices-single-default" id="idStatus">
-                                    <option value="">Status</option>
-                                    <option value="all" selected>All</option>
-                                    <option value="New">Active</option>
-                                    <option value="Pending">In-Active</option>
-                                </select>
-                            </div>
-                        </div>
+                       
                         <!--end col-->
                         <!--end col-->
                     </div>
@@ -157,18 +145,19 @@
                     <table class="table align-middle table-nowrap mb-0" id="tasksTable">
                         <thead class="table-light text-muted">
                             <tr>
-                                <th scope="col" style="width: 40px;">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                    </div>
-                                </th>
+                                @*<th scope="col" style="width: 40px;">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+            </div>
+        </th>*@
                                 @*<th class="sort" data-sort="id">ID</th>*@
                                 <th class="sort" data-sort="id" hidden>Project Id</th>
                                 <th class="sort" data-sort="project_name">Name</th>
-                                <th class="sort" data-sort="tasks_name">Value</th>
+                                <th class="sort" data-sort="tasks_name">Value $</th>
+                                <th class="sort" data-sort="tasks_name">Raised value $</th>
                                 <th class="sort" data-sort="due_date">Priority</th>
                                 <th class="sort" data-sort="status">Status</th>
-                                <th class="sort" data-sort="status">Due Date</th>
+                                @*<th class="sort" data-sort="status">Due Date</th>*@
                                 <th class="sort" data-sort="status">Action</th>
                             </tr>
                         </thead>
@@ -176,11 +165,11 @@
                             @foreach (var item in Model)
                             {
                             <tr>
-                                <th scope="row">
+                                @*<th scope="row">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                     </div>
-                                </th>
+                                </th>*@
                                 <td class="id" hidden>@item.ProjectId</td>
                                 <td>
                                     <img src="@item.ImagePath" alt="" class="avatar-xs rounded-circle me-2">
@@ -188,6 +177,9 @@
                                 </td>
                                 <td>
                                     <div class="text-nowrap">@item.Value</div>
+                                </td>
+                                <td>
+                                    <div class="text-nowrap">@item.RaisedAmount</div>
                                 </td>
                                 <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@(item.tblPriority==null? "":@item.tblPriority.Priority)</span></td>
 
@@ -200,7 +192,7 @@
                                 {
                                     <td class="priority"><span class="badge bg-danger text-uppercase">In-Active</span></td>
                                 }
-                            <td class="due_date"> @item.Deadline</td>
+                            @*<td class="due_date"> @item.Deadline</td>*@
                                 <td>
                                     <div class="flex-shrink-0 ms-4">
                                         <ul class="list-inline tasks-list-menu mb-0">

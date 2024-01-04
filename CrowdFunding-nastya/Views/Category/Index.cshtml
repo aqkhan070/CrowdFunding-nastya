@@ -1,9 +1,10 @@
 ﻿@using CrowdFunding_nastya.Models;
-@{
-    List<tblCategory> list = (List<tblCategory>)ViewBag.CategoryList;
+
+   
     @{
         ViewBag.Title = "Index";
         Layout = "~/Views/Shared/_Admin.cshtml";
+        List<tblCategory> list = (List<tblCategory>)ViewBag.CategoryList;
     }
 
     <div class="row">
@@ -29,7 +30,7 @@
                         <h5 class="card-title mb-0 flex-grow-1">Categories</h5>
                         <div class="flex-shrink-0">
                             <div class="d-flex flex-wrap gap-2">
-                                <a href="#editInformation)" class="open-AddBookDialog  btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Create New</a>
+                                <a href="#editInformation" class="open-AddBookDialog  btn btn-primary add-btn" data-bs-toggle="modal"><i class="ri-add-line align-bottom me-1"></i> Create New</a>
                                 <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -82,21 +83,19 @@
                                 </tr>
                             </thead>
                             <tbody class="list form-check-all">
-                                @{
-                                    foreach (var item in list)
+                                    @foreach (var item in list)
                                     {
                                         <tr>
 
-                                            <td>
-                                                
-                                                <a href="#javascript: void(0);" >@item.CategoryName</a>
+                                            <td class="Name">
+                                                @item.CategoryName
                                             </td>
 
                                            
 
                                             <td class="priority">
-                                                @*@{
-                                                    if (item.IsActive == true)
+                                                @{
+                                                    if (item.isActive == true)
                                                     {
                                                         <span class="badge bg-success text-uppercase">Active</span>
                                                     }
@@ -104,21 +103,21 @@
                                                     {
                                                         <span class="badge bg-danger text-uppercase">In-Active</span>
                                                     }
-                                                }*@
+                                                }
                                             </td>
                                           
                                             <td>
                                                 <div class="flex-shrink-0 ms-4">
                                                     <ul class="list-inline tasks-list-menu mb-0">
-                                                        <li class="list-inline-item"><a class="open-AddBookDialog  edit-item-btn" href="#editInformation"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
+                                                        <li class="list-inline-item"><a class="open-AddBookDialog  edit-item-btn" href="#editInformation" data-bs-toggle="modal"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
                                                         <li class="list-inline-item"><a class="remove-item-btn open-AddBookDialog1" data-bs-toggle="modal" href="#delete_modal" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </td>
+                                             <td style="display:none;" class="IsActive">@item.isActive</td>
                                              <td style="display:none;" class="Isdisplay ID ">@item.CategoryId</td>
                                         </tr>
                                     }
-                                }
                             </tbody>
                         </table>
                         <!--end table-->
@@ -151,17 +150,15 @@
 
     <div class="modal fade" id="editInformation" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-md modal-simple modal-edit-user">
-            <div class="modal-content p-3 p-md-5">
+            <div class="modal-content p-3 ">
                 <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <div class="text-center mb-4">
                         <h3>Category</h3>
                     </div>
-                    <form action="@Url.Action("Create", "Setup")" method="post">
+                    <form action="@Url.Action("Create", "Category")" method="post">
                         <div class="mb-3" hidden>
                             <label class="form-label">ID</label>
                             <input type="number" id="ID" name="ID" class="form-control" value="0" />
-                            <input type="text" id="type" name="type" class="form-control" value="Unit" />
                         </div>
                         @*<div class="mb-3">
                                 <label class="form-label"> Code</label>
@@ -234,8 +231,8 @@
               var IsActive = $(this).closest('tr').find('.IsActive').text().trim();
             $("#ID", myModal).val(ID);
             $("#Name", myModal).val(Name);
-            
-            if (IsActive == "Active" || IsActive == "Actif") {
+
+            if (IsActive.toLowerCase() == "true" || IsActive == "Actif") {
 
                 $("#IsActive").attr("checked", true);
             }
