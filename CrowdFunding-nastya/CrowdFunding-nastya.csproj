@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActionController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CareerController.cs" />
@@ -1290,6 +1291,7 @@
     <Content Include="Views\Setting\Contact.cshtml" />
     <Content Include="Views\Admin\Contact.cshtml" />
     <Content Include="Views\Admin\Subscriber.cshtml" />
+    <Content Include="Views\Action\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
