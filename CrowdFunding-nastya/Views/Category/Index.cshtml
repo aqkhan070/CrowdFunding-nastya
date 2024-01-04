@@ -1,6 +1,7 @@
 ﻿@using CrowdFunding_nastya.Models;
 @{
     List<tblCategory> list = (List<tblCategory>)ViewBag.CategoryList;
+}
     @{
         ViewBag.Title = "Index";
         Layout = "~/Views/Shared/_Admin.cshtml";
@@ -29,7 +30,7 @@
                         <h5 class="card-title mb-0 flex-grow-1">Categories</h5>
                         <div class="flex-shrink-0">
                             <div class="d-flex flex-wrap gap-2">
-                                <a href="#editInformation)" class="open-AddBookDialog  btn btn-primary add-btn"><i class="ri-add-line align-bottom me-1"></i> Create New</a>
+                                <a href="#editInformation" data-bs-toggle="modal" class="open-AddBookDialog  btn btn-primary "><i class="ri-add-line align-bottom me-1"></i> Create New</a>
                                 <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                             </div>
                         </div>
@@ -87,9 +88,9 @@
                                     {
                                         <tr>
 
-                                            <td>
+                                            <td class="Name">
                                                 
-                                                <a href="#javascript: void(0);" >@item.CategoryName</a>
+                                                @item.CategoryName
                                             </td>
 
                                            
@@ -110,7 +111,7 @@
                                             <td>
                                                 <div class="flex-shrink-0 ms-4">
                                                     <ul class="list-inline tasks-list-menu mb-0">
-                                                        <li class="list-inline-item"><a class="open-AddBookDialog  edit-item-btn" href="#editInformation"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
+                                                        <li class="list-inline-item"><a class="open-AddBookDialog  edit-item-btn" data-bs-toggle="modal" href="#editInformation"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
                                                         <li class="list-inline-item"><a class="remove-item-btn open-AddBookDialog1" data-bs-toggle="modal" href="#delete_modal" ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></a></li>
                                                     </ul>
                                                 </div>
@@ -151,13 +152,13 @@
 
     <div class="modal fade" id="editInformation" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-md modal-simple modal-edit-user">
-            <div class="modal-content p-3 p-md-5">
+            <div class="modal-content p-2">
                 <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  
                     <div class="text-center mb-4">
                         <h3>Category</h3>
                     </div>
-                    <form action="@Url.Action("Create", "Setup")" method="post">
+                    <form action="@Url.Action("Create", "Category")" method="post">
                         <div class="mb-3" hidden>
                             <label class="form-label">ID</label>
                             <input type="number" id="ID" name="ID" class="form-control" value="0" />
@@ -178,8 +179,8 @@
 
                         </div>
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary me-sm-3 me-1">Save</button>
-                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                            <button type="submit" class="btn btn-info me-sm-3 me-1">Save</button>
+                            <button type="reset" class="btn btn-link btn-ghost-primary fw-medium text-decoration-none" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -204,8 +205,8 @@
                         <input type="number" id="ID" name="ID" class="form-control" hidden />
                         <h4 class="modal-title">Delete</h4>
                         <p class="mb-4">Are you sure want to delete ?</p>
-                        <button type="submit" class="btn btn-primary">Save </button>
-                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Save </button>
+                        <button type="button" class="btn btn-link btn-ghost-primary fw-medium text-decoration-none" data-bs-dismiss="modal">Close</button>
                     }
                     </div>
 
