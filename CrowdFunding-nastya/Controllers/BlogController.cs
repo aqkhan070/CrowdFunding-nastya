@@ -157,7 +157,7 @@ namespace CrowdFunding_nastya.Controllers
 
                 //tblBlog.CreatedDate = DateTime.Now;
                 _dbContext.tblBlogs.Add(tblBlog);
-                _dbContext.SaveChanges();
+                //_dbContext.SaveChanges();
                 return RedirectToAction("Index", "Blog");
             }
 

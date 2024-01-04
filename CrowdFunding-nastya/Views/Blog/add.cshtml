@@ -135,44 +135,66 @@
                 <div class="card-body">
                     <div>
                         <p class="text-muted">Add Attached files here.</p>
-
-                            <input name="BlogAttachedFiles" type="file" multiple="multiple">
-                        <div class="dropzone">
-                            <div class="fallback">
-                            </div>
-                            <div class="dz-message needsclick">
-                                <div class="mb-3">
-                                    <i class="display-4 text-muted ri-upload-cloud-2-fill"></i>
-                                </div>
-
-                                <h5>Drop files here or click to upload.</h5>
-                            </div>
+                        <div class="file-container">
+                            <label for="file-input" class="file-label">Choose Files</label>
+                            <input id="file-input" name="BlogAttachedFiles" type="file" multiple="multiple" class="file-input" onchange="displaySelectedImages(this)">
                         </div>
 
-                        <ul class="list-unstyled mb-0" id="dropzone-preview">
-                            <li class="mt-2" id="dropzone-preview-list">
-                                <!-- This is used as the file preview template -->
-                                <div class="border rounded">
-                                    <div class="d-flex p-2">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar-sm bg-light rounded">
-                                                <img src="#" alt="Project-Image" data-dz-thumbnail class="img-fluid rounded d-block" />
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div class="pt-1">
-                                                <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
-                                                <p class="fs-13 text-muted mb-0" data-dz-size></p>
-                                                <strong class="error text-danger" data-dz-errormessage></strong>
-                                            </div>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-3">
-                                            <button data-dz-remove class="btn btn-sm btn-danger">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <div class="selected-images" id="selected-images"></div>
+                        <style>
+                            .file-container {
+                                position: relative;
+                                margin-bottom: 20px;
+                            }
+
+                            .file-input {
+                                opacity: 0;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100%;
+                                cursor: pointer;
+                            }
+
+                            .file-label {
+                                display: block;
+                                background-color: #3498db;
+                                color: #fff;
+                                padding: 10px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                            }
+
+                            .selected-images {
+                                margin-top: 10px;
+                            }
+
+                            .preview-image {
+                                display: inline-block;
+                                margin-right: 10px;
+                                width: 70px;
+                                height: 50px;
+                                position: relative;
+                            }
+
+                            .remove-button {
+                                position: absolute;
+                                top: 0px;
+                                right: 0px;
+                                background-color: #e74c3c;
+                                color: #fff;
+                                padding: 1px;
+                                border: none;
+                                cursor: pointer;
+                                display: none; /* Hidden by default */
+                            }
+
+                            .preview-image:hover .remove-button {
+                                display: block; /* Show on hover */
+                            }
+                        </style>
+
                         @foreach (var attachment in Model.tblBlogAttachedFiles)
                         {
                             <div class="image-container" data-image-id="@attachment.AttachedFileId">
@@ -286,6 +308,36 @@
 <!-- end row -->
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
+    function displaySelectedImages(input) {
+        var selectedImagesContainer = document.getElementById('selected-images');
+        selectedImagesContainer.innerHTML = '';
+
+        for (var i = 0; i < input.files.length; i++) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var previewImage = document.createElement('div');
+                previewImage.classList.add('preview-image');
+
+                var image = document.createElement('img');
+                image.src = e.target.result;
+                image.classList.add('preview-image');
+                previewImage.appendChild(image);
+
+                var removeButton = document.createElement('button');
+                removeButton.innerText = '⨯';
+                removeButton.classList.add('remove-button');
+                removeButton.onclick = function () {
+                    previewImage.remove();
+                };
+                previewImage.appendChild(removeButton);
+
+                selectedImagesContainer.appendChild(previewImage);
+            }
+
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
 
     $(document).ready(function () {
         $('.image-container').on('click', '.cross-button', function () {

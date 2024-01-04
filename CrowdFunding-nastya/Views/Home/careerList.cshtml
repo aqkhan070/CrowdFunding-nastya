@@ -189,7 +189,7 @@
                                         <td>
                                             <div class="flex-shrink-0 ms-4">
                                                 <ul class="list-inline tasks-list-menu mb-0">
-                                                    <li class="list-inline-item"><a href="@Url.Action("careerList", "Home", new { id = item.CareerId })"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
+                                                    <li class="list-inline-item"><a href="@Url.Action("careerDetail", "Home", new { id = item.CareerId })"><i class="ri-eye-fill align-bottom me-2 text-muted"></i></a></li>
                                                     <li class="list-inline-item"><a class="edit-item-btn" href="@Url.Action("career", "Home", new { id = item.CareerId })"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i></a></li>
                                                     <li class="list-inline-item"><a class="remove-item-btn" data-bs-toggle="modal" href="#deleteOrder" onclick="getBlogId(@item.CareerId)"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i></a></li>
                                                 </ul>
