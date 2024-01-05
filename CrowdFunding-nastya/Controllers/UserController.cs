@@ -54,7 +54,7 @@ namespace CrowdFunding_nastya.Controllers
             {
                 User = new tblUser();
                 User.RoleId = RoleId;
-                User.ImagePath = "/assets/admin/images/users/avatar-1.jpg";
+                User.ImagePath = "/assets/assets/img/logo.png";
             }
             ViewBag.message = message;
             return View(User);

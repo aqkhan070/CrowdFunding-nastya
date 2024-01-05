@@ -6,6 +6,7 @@
     string name = "";
     string email = "";
     string Role = "";
+    string ImagePath = "";
     HttpCookie cookieObj = Request.Cookies["User"];
     if (cookieObj != null)
     {
@@ -16,6 +17,7 @@
         email = cookieObj["Email"];
         name = cookieObj["FirstName"];
         Role = cookieObj["Role"];
+        ImagePath = cookieObj["ImagePath"];
 
 
     }
@@ -104,7 +106,7 @@
                         <div class="dropdown ms-sm-3 header-item topbar-user">
                             <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-flex align-items-center">
-                                    <img class="rounded-circle header-profile-user" src="~/assets/admin/images/users/avatar-1.jpg" alt="Header Avatar">
+                                    <img class="rounded-circle header-profile-user" src="@ImagePath" alt="Header Avatar">
                                     <span class="text-start ms-xl-2">
                                         <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">@name</span>
                                         <span class="d-none d-xl-block ms-1 fs-13 user-name-sub-text">@Role</span>
@@ -117,7 +119,7 @@
                                 <a class="dropdown-item" href="@Url.Action("add","User",new { id=UserId})"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="@Url.Action("changepassword","Account")"><i class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Change Password</span></a>
-                                <a class="dropdown-item" href="@Url.Action("admin","Account")"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                                <a class="dropdown-item" href="@Url.Action("logout","Account")"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
                             </div>
                         </div>
                     </div>
@@ -312,7 +314,7 @@
                             </li>
                         }
                         <!-- end Dashboard Menu -->
-                        @if (RoleID == 2)
+                        @if (RoleID == 3)
                         {
                             <li class="nav-item ">
                                 <a class="nav-link menu-link " href="@Url.Action("Transactions","Withdraw")" aria-expanded="false" id="Transactions">
@@ -320,7 +322,7 @@
                                 </a>
                             </li>
                         }
-                        @if (RoleID == 3)
+                        @if (RoleID == 2)
                         {
                             <li class="nav-item">
                                 <a href="#sidebarproject" class="nav-link" id="projects" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarproject">

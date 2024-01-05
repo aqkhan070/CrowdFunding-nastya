@@ -72,6 +72,7 @@ namespace CrowdFunding_nastya.Controllers
                     cookie["UserId"] = UserIdEnc.ToString();
                     cookie["Email"] = User.Email;
                     cookie["FirstName"] = User.FirstName;
+                    cookie["ImagePath"] = User.ImagePath;
                     cookie.Expires = DateTime.Now.AddHours(3);
                     Response.Cookies.Add(cookie);
 
@@ -87,8 +88,19 @@ namespace CrowdFunding_nastya.Controllers
                     DB.tblLogs.Add(LogData);
                     DB.SaveChanges();
 
+                    if (User.RoleId == 1)
+                    {
+                        return RedirectToAction("Index", "admin");
+                    }
 
-                    return RedirectToAction("Index", "admin");
+                    if (User.RoleId == 3)
+                    {
+                        return RedirectToAction("Withdraw", "Withdraw");
+                    }
+                    if (User.RoleId == 2)
+                    {
+                        return RedirectToAction("Transactions", "Withdraw");
+                    }
                 }
                 else
                 {

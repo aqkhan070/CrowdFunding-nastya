@@ -71,7 +71,7 @@
                             <img class="img-fluid w-100" src="@Model.ImagePath" alt="image">
                             <h4 class="education__card-tag">@(Model.tblCategory != null? @Model.tblCategory.CategoryName: "")</h4>
                         </div>
-                        <div class="">
+                        <div class="education__para education__para-mt">
                             @Html.Raw(@Model.Description)
                         </div>
                     </div>
@@ -151,7 +151,7 @@
         <!-- Form -->
         <div class="row">
             <div class="col-lg-10 col-xl-8">
-                <form class="form border-0" style="float:right" role="form" id="payment-form" method="POST" action="@Url.Action("PaymentWithPaypal","PayPal")">
+                <form class="form border-0" role="form" id="payment-form" method="POST" action="@Url.Action("PaymentWithPaypal","PayPal")">
                     <input type="text" name="UserId" value="@ViewBag.UserId" hidden />
                     <input type="text" name="ProjectID" value="@Model.ProjectId" hidden />
                     <div class="d-flex align-items-center">

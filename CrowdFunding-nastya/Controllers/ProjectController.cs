@@ -225,5 +225,13 @@ namespace CrowdFunding_nastya.Controllers
                 return RedirectToAction("Index", new { Error = Error });
             }
         }
+
+        public ActionResult details(int id)
+        {
+            tblProject Data = new tblProject();
+            Data=DB.tblProjects.Where(x => x.ProjectId == id && x.isActive == true && x.isDeleted != true).FirstOrDefault();
+            ViewBag.TransactionData = DB.tblTransactions.Where(x => x.ProjectId == id).ToList();
+            return View(Data);
+        }
     }
 }

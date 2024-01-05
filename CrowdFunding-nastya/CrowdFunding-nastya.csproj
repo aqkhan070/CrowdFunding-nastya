@@ -1316,6 +1316,7 @@
     <Content Include="Views\Withdraw\Withdraw.cshtml" />
     <Content Include="Views\Withdraw\Withdrawals.cshtml" />
     <Content Include="Views\Withdraw\Transactions.cshtml" />
+    <Content Include="Views\Project\details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -153,9 +153,10 @@
                                 @*<th class="sort" data-sort="id">ID</th>*@
                                 <th class="sort" data-sort="id" hidden>Project Id</th>
                                 <th class="sort" data-sort="project_name">Name</th>
-                                <th class="sort" data-sort="tasks_name">Value $</th>
-                                <th class="sort" data-sort="tasks_name">Raised value $</th>
+                                <th class="sort" data-sort="tasks_name">Value($) </th>
+                                <th class="sort" data-sort="tasks_name">Raised value($) </th>
                                 <th class="sort" data-sort="due_date">Priority</th>
+                                <th class="sort" data-sort="due_date">Details</th>
                                 <th class="sort" data-sort="status">Status</th>
                                 @*<th class="sort" data-sort="status">Due Date</th>*@
                                 <th class="sort" data-sort="status">Action</th>
@@ -166,10 +167,10 @@
                             {
                             <tr>
                                 @*<th scope="row">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                    </div>
-                                </th>*@
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+            </div>
+        </th>*@
                                 <td class="id" hidden>@item.ProjectId</td>
                                 <td>
                                     <img src="@item.ImagePath" alt="" class="avatar-xs rounded-circle me-2">
@@ -182,7 +183,7 @@
                                     <div class="text-nowrap">@item.RaisedAmount</div>
                                 </td>
                                 <td class="client_name"><span class="badge bg-primary-subtle text-primary p-2">@(item.tblPriority==null? "":@item.tblPriority.Priority)</span></td>
-
+                                <td class="priority"><a href="@Url.Action("details","Project",new { id=item.ProjectId})"><span class="badge bg-info text-uppercase">Details</span></a></td>
 
                                 @if (item.isActive == true)
                                 {
@@ -192,7 +193,7 @@
                                 {
                                     <td class="priority"><span class="badge bg-danger text-uppercase">In-Active</span></td>
                                 }
-                            @*<td class="due_date"> @item.Deadline</td>*@
+                                @*<td class="due_date"> @item.Deadline</td>*@
                                 <td>
                                     <div class="flex-shrink-0 ms-4">
                                         <ul class="list-inline tasks-list-menu mb-0">

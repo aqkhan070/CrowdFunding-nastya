@@ -24,6 +24,7 @@ namespace CrowdFunding_nastya.Controllers
             List<tblWithdraw> Data = new List<tblWithdraw>();
             Data = DB.tblWithdraws.Where(x => x.CreatedBy == UserId).ToList();
             UserBalance = DB.tblUsers.Where(x => x.UserId == UserId).Select(s => s.Balance).FirstOrDefault();
+            if (UserBalance == null) { UserBalance = 0; }
             ViewBag.UserBalance = UserBalance;
 
             return View(Data);
