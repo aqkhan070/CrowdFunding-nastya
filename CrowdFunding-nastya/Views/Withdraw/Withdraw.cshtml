@@ -264,6 +264,9 @@
     });
 
     $(document).ready(function () {
+        $(".ul li a").removeClass("active");
+        $('#Withdrawals').addClass('active');
+
          if ("@Success" != "") {
             $('#SuccessAlert').fadeIn();
             $('#SuccessAlert').fadeOut(10000);
@@ -294,10 +297,7 @@
         }
 
 
-        //$(".ul li a").removeClass("active");
-        //$('#projects').addClass('active');
-        //$('#sidebarproject').addClass('show');
-        //$('#project').addClass('active');
+       
 
 
 

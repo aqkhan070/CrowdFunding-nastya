@@ -55,13 +55,17 @@
             </div>
             <div class="card-body p-4">
                 <div class="tab-content">
-                    <span style="color:red;display:none;" id="fademsg">@ViewBag.error</span>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" id="fademsg1" style="display:none;">
+                        <strong> Error! </strong> <span style="color:red;display:none;" id="fademsg">@ViewBag.error</span>
+
+                    </div>
+                    
                     <div class="tab-pane active" id="personalDetails" role="tabpanel">
                         @using (Html.BeginForm("add", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {@Html.AntiForgeryToken()
                         <form action="javascript:void(0);">
                             <div class="row">
-                              
+
                                 <div class="profile-user position-relative d-inline-block mb-4">
                                     <img src="@Model.ImagePath" class="avatar-xl img-thumbnail user-profile-image" alt="user-profile-image" id="user_img">
                                     <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
@@ -145,7 +149,7 @@
                                         <select class="form-select" data-choices data-choices-search-false id="choices-status-input" name="RoleId">
 
                                             @*<option value="Completed">Lender</option>
-                    <option value="Completed">Borrower</option>*@
+                                <option value="Completed">Borrower</option>*@
                                             @foreach (var item in Roles)
                                             {
                                                 if (item.RoleId == Model.RoleId)
@@ -218,10 +222,10 @@
                                     </div>
                                 </div>
                                 @*<div class="col-lg-12">
-                                <div class="mb-3">
-                                    <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
-                                </div>
-                            </div>*@
+                        <div class="mb-3">
+                            <a href="javascript:void(0);" class="link-primary text-decoration-underline">Forgot Password ?</a>
+                        </div>
+                    </div>*@
                                 <!--end col-->
                                 <div class="col-lg-12">
                                     <div class="text-end">
@@ -274,10 +278,12 @@
                 console.log(r);
                 if (r == 1) {
                     $("#SaveChanges").attr("disabled", false);
+                    $("#fademsg1").fadeOut();
                     $("#fademsg").fadeOut();
                 }
                 else {
                     $("#fademsg").text("Old password is not Correct!");
+                    $("#fademsg1").fadeIn();
                     $("#fademsg").fadeIn();
                     $("#SaveChanges").attr("disabled", true);
                 }
@@ -293,11 +299,13 @@
         if (New) {
             if ($("#pass").val() != $("#comfpass").val()) {
                 $("#fademsg").text("New password and confirm password not matched.");
+                $("#fademsg1").fadeIn();
                 $("#fademsg").fadeIn();
 
                 $("#SaveChanges").attr("disabled", true);
             } else {
                 $("#SaveChanges").attr("disabled", false);
+                $("#fademsg1").fadeOut();
                 $("#fademsg").fadeOut();
             }
         }
@@ -310,11 +318,13 @@
         if (New) {
             if ($("#passwordInput").val() != $("#confirmpasswordInput").val()) {
                 $("#fademsg").text("New password and confirm password not matched.");
+                $("#fademsg1").fadeIn();
                 $("#fademsg").fadeIn();
 
                 $("#UserSaveChanges").attr("disabled", true);
             } else {
                 $("#UserSaveChanges").attr("disabled", false);
+                $("#fademsg1").fadeOut();
                 $("#fademsg").fadeOut();
             }
         }

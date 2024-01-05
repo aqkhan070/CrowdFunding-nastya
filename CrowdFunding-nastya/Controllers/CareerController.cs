@@ -76,7 +76,7 @@ namespace CrowdFunding_nastya.Controllers
                     existingCareer.CareerThumbnailImage = tblCareer.CareerThumbnailImage;
                     existingCareer.PriorityId = tblCareer.PriorityId;
                     existingCareer.IsActive = tblCareer.IsActive;
-                    //existingCareer.CategoryId = tblCareer.CategoryId;
+                    existingCareer.CategoryId = tblCareer.CategoryId;
                     //existingCareer.BlogTypeId = tblCareer.BlogTypeId;
                     existingCareer.PublishDate = existingCareer.PublishDate;
 

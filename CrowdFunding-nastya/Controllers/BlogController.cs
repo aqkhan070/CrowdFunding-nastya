@@ -108,7 +108,7 @@ namespace CrowdFunding_nastya.Controllers
                     existingBlog.ThumbnailImage = tblBlog.ThumbnailImage;
                     existingBlog.PriorityId = tblBlog.PriorityId;
                     existingBlog.IsActive = tblBlog.IsActive;
-                    //existingBlog.CategoryId = tblBlog.CategoryId;
+                    existingBlog.CategoryId = tblBlog.CategoryId;
                     //existingBlog.BlogTypeId = tblBlog.BlogTypeId;
 
                     _dbContext.tblBlogs.AddOrUpdate(existingBlog);

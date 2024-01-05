@@ -1,6 +1,8 @@
 ﻿﻿@model List<CrowdFunding_nastya.Models.tblBlog>
 
-
+<head>
+    <script src="~/assets/assets/js/aos.js"></script>
+</head>
 <!--  Banner START -->
 <div class="banner">
     <div class="banner__overlay">
@@ -45,7 +47,7 @@
                     <div class="card-body px-4">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="">
-                                <span class="blog__card-span">Donation</span>
+                                <span class="blog__card-span">@(item.tblCategory != null? item.tblCategory.CategoryName: "")</span>
                             </div>
                             <hr class="blog__card-line">
                             <div class="">
@@ -53,12 +55,12 @@
                             </div>
                         </div>
                         <div class="">
-                            <a href="@Url.Action("blog_detail","Home")" class="blog__title">
+                            <a href="@Url.Action("blog_detail","Home", new {id = item.BlogId})" class="blog__title">
                                 @item.BlogTitle
                             </a>
-                            <p class="global__desc blog__desc">
+                            @*<p class="global__desc blog__desc">
                                 @Html.Raw(item.BlogDescription)
-                            </p>
+                            </p>*@
                         </div>
                     </div>
                 </div>

@@ -20,7 +20,20 @@ namespace CrowdFunding_nastya.Controllers
             ViewBag.Update = Update;
             ViewBag.Delete = Delete;
             ViewBag.Error = Error;
-            List<tblProject> Projects = DB.tblProjects.Where(x => x.isDeleted != true).ToList();
+            HttpCookie cookieObj = Request.Cookies["User"];
+            string Role = cookieObj["Role"];
+            byte[] b = Convert.FromBase64String(cookieObj["UserId"]);
+            string decrypted = System.Text.ASCIIEncoding.ASCII.GetString(b);
+            int UserID = Int32.Parse(decrypted);
+            List<tblProject> Projects = new List<tblProject>();
+            if (Role.ToLower().Contains("admin"))
+            {
+                 Projects = DB.tblProjects.Where(x => x.isDeleted != true).ToList();
+            }
+            else
+            {
+                Projects = DB.tblProjects.Where(x => x.isDeleted != true && x.CreatedBy== UserID).ToList();
+            }
             return View(Projects);
         }
         public ActionResult add(int id = 0)

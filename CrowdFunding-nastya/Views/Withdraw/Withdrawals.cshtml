@@ -260,22 +260,17 @@
 </div>
 <script src="~/assets/admin/js/jquery-3.2.1.min.js"></script>
 <script>
+    $(document).ready(function () {
+        console.log($(".ul li a"))
+        $(".ul li a").removeClass("active");
+        $('#Withdrawals1').addClass('active');
+
+    });
     function LoadId(Id) {
-        console.log(Id);
         $("#CancelWithdrawID").val(Id);
         $("#ApproveWithdrawID").val(Id);
     }
-    //$("body").on("click", "#CancelWithdraw", function () {
-    //    var currentRow = $(this).closest("tr");
-    //    $("#CancelWithdrawID").val(currentRow.find(".WithdrawId").text());
-    //    //alert($("#DeleteCategoryID").val());
-    //});
-
-    //$("body").on("click", "#ApproveWithdraw", function () {
-    //    var currentRow = $(this).closest("tr");
-    //    $("#ApproveWithdrawID").val(currentRow.find(".WithdrawId").text());
-    //    //alert($("#DeleteCategoryID").val());
-    //});
+   
     $(document).ready(function () {
          if ("@Success" != "") {
             $('#SuccessAlert').fadeIn();
@@ -305,12 +300,6 @@
         else {
             $('#ErrorAlert').fadeOut();
         }
-
-
-        //$(".ul li a").removeClass("active");
-        //$('#projects').addClass('active');
-        //$('#sidebarproject').addClass('show');
-        //$('#project').addClass('active');
 
 
 

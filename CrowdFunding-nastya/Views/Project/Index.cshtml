@@ -173,7 +173,7 @@
                                 <td class="id" hidden>@item.ProjectId</td>
                                 <td>
                                     <img src="@item.ImagePath" alt="" class="avatar-xs rounded-circle me-2">
-                                    <a href="#javascript: void(0);" class="text-body fw-medium">@item.Title</a>
+                                    <a href="@Url.Action("preview","Home",new {id=item.ProjectId })" class="text-body fw-medium">@item.Title</a>
                                 </td>
                                 <td>
                                     <div class="text-nowrap">@item.Value</div>
