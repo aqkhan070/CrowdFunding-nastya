@@ -262,9 +262,11 @@
 <script>
     $(document).ready(function () {
         console.log($(".ul li a"))
+      
         $(".ul li a").removeClass("active");
+        $('#payment').addClass('active');
+        $('#sidebarpayment').addClass('show');
         $('#Withdrawals1').addClass('active');
-
     });
     function LoadId(Id) {
         $("#CancelWithdrawID").val(Id);

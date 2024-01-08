@@ -61,8 +61,8 @@
                 <div class="col-md-10">
                     <h2 class="global__heading mb-0">@Model.Title</h2>
                     <p class="education__price global__desc">
-                        <span class="education__price-show">$ @Model.Value</span> of
-                        $@Model.RaisedAmount raised
+                        <span class="education__price-show">£ @Model.Value</span> of
+                        £ @Model.RaisedAmount raised
                     </p>
                 </div>
                 <div class="">
@@ -87,22 +87,22 @@
                             @foreach (tblTransaction item in ViewBag.TransactionData)
                             {
                                 <li>
-                                    <a class="education__cases-list--img" href="single-cases.html">
+                                    <a class="education__cases-list--img" href="#">
                                         @if (item.UserId != null)
                                         {
-                                            <img class="" src="@item.tblUser.ImagePath" alt="image">
+                                            <img class="" src="@item.tblUser.ImagePath" alt="image" >
                                         }
                                         else
                                         {
-                                            <img class="" src="~/assets/assets/img/add-1.png" alt="image">
+                                            <img class="" src="~/assets/assets/img/logo.png" alt="image" style="height:auto !important">
                                         }
 
                                     </a>
                                     <div class="">
-                                        <a href="single-cases.html" class="education__cases-list--link">
+                                        <a href="#" class="education__cases-list--link">
                                             @(item.UserFirstName!=""? "Anonymous" : item.UserFirstName+" "+ item.UserLastName)
                                         </a>
-                                        <p class="education__cases-list--date">$ @item.Amount</p>
+                                        <p class="education__cases-list--date">£ @item.Amount</p>
                                     </div>
                                 </li>
                             }
@@ -164,7 +164,7 @@
                             <li>
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
-                                        $25
+                                        £25
                                         <input type="radio" name="FixAmount" value="25">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
@@ -173,7 +173,7 @@
                             <li>
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
-                                        $50
+                                        £50
                                         <input type="radio" name="FixAmount" value="50">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
@@ -182,7 +182,7 @@
                             <li>
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
-                                        $100
+                                        £100
                                         <input type="radio" name="FixAmount" value="100">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
@@ -191,7 +191,7 @@
                             <li>
                                 <label class="form__ul-label form__ul-label--pointer">
                                     <span class="form__ul-div d-block">
-                                        $250
+                                        £250
                                         <input type="radio" name="FixAmount" value="250">
                                         <span class="form__ul-label--checkmark form__ul-label--checkmark---left"></span>
                                     </span>
@@ -211,7 +211,7 @@
                             </li>
                         </ul>
                         <div class="collapse col-5 col-sm-3 col-lg-2 mt-3" id="collapseExample">
-                            <input class="form-control form__input" type="number" placeholder="$50" name="Amount">
+                            <input class="form-control form__input" type="number" placeholder="£50" name="Amount">
                         </div>
                     </div>
                     @*<div class="form__mb">

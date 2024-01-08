@@ -116,14 +116,16 @@ namespace CrowdFunding_nastya.Controllers
                         Data.ComissionType = FeeType;
                         Data.ComissionAmount = SettingData.FeeAmount;
                         Data.Comission = SettingData.FeeAmount;
-                        Data.PaidAmount = Data.Amount - SettingData.FeeAmount;
+                        Data.AdditionalCharges = SettingData.AdditionalCost;
+                        Data.PaidAmount = Data.Amount - SettingData.FeeAmount- SettingData.AdditionalCost;
                     }
                     else
                     {
                         Data.ComissionType = FeeType;
                         Data.ComissionAmount = SettingData.FeeAmount;
                         Data.Comission = (Data.Amount * SettingData.FeeAmount) / 100;
-                        Data.PaidAmount = Data.Amount - ((Data.Amount * SettingData.FeeAmount) / 100);
+                        Data.AdditionalCharges = SettingData.AdditionalCost;
+                        Data.PaidAmount = Data.Amount - ((Data.Amount * SettingData.FeeAmount) / 100)- SettingData.AdditionalCost;
                     }
                     if(Session["UserFirstName"]!=null)
                     {

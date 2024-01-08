@@ -37,24 +37,24 @@
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
             @if (Model.ProjectId == 0)
             {
-                <h4 class="mb-sm-0">Create Compaign</h4>
+                <h4 class="mb-sm-0">Create Campaign</h4>
             }
             else
             {
-                <h4 class="mb-sm-0">Update Compaign</h4>
+                <h4 class="mb-sm-0">Update Campaign</h4>
             }
 
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Compaign</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Campaign</a></li>
                     @if (Model.ProjectId == 0)
                     {
-                <li class="breadcrumb-item active">Create Compaign</li>
+                <li class="breadcrumb-item active">Create Campaign</li>
                     }
                     else
                     {
-                <li class="breadcrumb-item active">Update Compaign</li>
+                <li class="breadcrumb-item active">Update Campaign</li>
                     }
 
                 </ol>
@@ -84,7 +84,7 @@
                     <input type="text" class="form-control" id="ImagePath" name="ImagePath" value="@Model.ImagePath" hidden />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="project-title-input">Compaign Title</label>
+                    <label class="form-label" for="project-title-input">Campaign Title</label>
                     <input type="text" class="form-control" id="project-title-input" name="ProjectId" placeholder="Enter project title" value="@Model.ProjectId" hidden>
                     <input type="text" class="form-control" id="project-title-input" name="Title" placeholder="Enter project title" value="@Model.Title">
                 </div>
@@ -105,7 +105,7 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label class="form-label">Compaign Description</label>
+                    <label class="form-label">Campaign Description</label>
                     @*<div id="ckeditor-classic">
                 <p>It will be as simple as occidental in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary.</p>
                 <ul>
